@@ -78,6 +78,9 @@ bool finish = false;
 // Símil de temps per a l'oscil·lació de les caixes carregades
 double O = 0; 
 
+// Contador de temps en STOP
+double stoppedTime = 0;
+
 // Sincronització entre threads
 condition_variable cv;
 mutex cv_m;
@@ -504,10 +507,8 @@ void iniciarAccio() {
             break;
         
         case STOP :
-            {unique_lock<std::mutex> lk(cv_m);
-            cv.wait_for(lk, chrono::milliseconds((long int) currentAction.getDestAng()*1000), 
-                        [](){ return false; });}
-            currentAction.setStatus(FINISHED);
+            stoppedTime = 0;
+            currentAction.setStatus(RUNNING);
             break;
         
         case MOVE_FORWARD : // falta informacio de desti
@@ -539,8 +540,12 @@ void exec(const action& act) {
         
         // Comprova que no hagi sortit del camp
         if (R.getX() < -0.5 or R.getZ() < -0.5 or R.getX() >  SIZE -0.5 or R.getZ() >  SIZE-0.5) {
-            currentAction.setStatus(FINISHED);           
-        }
+            currentAction.setStatus(FINISHED);         
+            if (not finish) {
+                finish = true;
+                cout << "FI DE LA EXECUCIÓ          | Fora del mapa" << endl;
+            }
+        }   
         // S'espera a que es faci un resfresc de pantalla per actualitzar les variables de nou
         // Com a molt espera 1 segon.
         unique_lock<std::mutex> lk(cv_m);
@@ -577,6 +582,12 @@ void exec(const action& act) {
                         caixes[i].p = 0;
                         currentAction.setStatus( FINISHED );
                     }
+                }
+            }
+            else if (currentAction.getType() == STOP) {
+                stoppedTime += T;
+                if (stoppedTime >= currentAction.getDestAng()*1000) {
+                    currentAction.setStatus(FINISHED);
                 }
             }
             else {
@@ -671,27 +682,33 @@ int main(int argc, const char * argv[]) {
 
 // Accions: traduccio de robotGL a c++
 
-void moveBackwards(int x) {
-        exec( action(ROTATE, angleActual() + 180) );
-        exec( action(MOVE_FORWARD, x) );
+
+void rgl_moveBackwards(int x) {
+    exec( action(MOVE_FORWARD, x) );
 }
 
-void tomato(int y) {
-        while (true) {
-            exec( action(ROTATE, angleActual() + 1) );
-        }
+void rgl_tomato(int y) {
+    while (true) {
+        exec( action(ROTATE, angleActual() + 1) );
+    }
 }
 
 void actions() {
     int a = 6;
     int z = 3;
+    R = robot(a, z, 45);
     exec( action(MOVE_FORWARD, 3) );
-    exec( action(ROTATE, angleActual() + 90) );
-    exec( action(MOVE_FORWARD, 3) );
-    while (z < a) {
-        z = z + 1;
-        moveBackwards(1);
+    exec( action(BOX, 0, 0) );
+    exec( action(MOVE, 1, 1) );
+    exec( action(STOP, 2) );
+    exec( action(OBSTACLE, 7, 7) );
+        exec( action(ROTATE, angleActual() + 90) );
+        exec( action(MOVE_FORWARD, 3) );
+        while (z < a) {
+            z = z + 1;
+            rgl_moveBackwards(1);
+        }
+        exec( action(MOVE, 6, 6) );
+        rgl_tomato(1);
+        finish = true;
     }
-    tomato(1);
-    finish = true;
-}

@@ -539,8 +539,12 @@ void exec(const action& act) {
         
         // Comprova que no hagi sortit del camp
         if (R.getX() < -0.5 or R.getZ() < -0.5 or R.getX() >  SIZE -0.5 or R.getZ() >  SIZE-0.5) {
-            currentAction.setStatus(FINISHED);           
-        }
+            currentAction.setStatus(FINISHED);         
+            if (not finish) {
+                finish = true;
+                cout << "FI DE LA EXECUCIÓ          | Fora del mapa" << endl;
+            }
+        }   
         // S'espera a que es faci un resfresc de pantalla per actualitzar les variables de nou
         // Com a molt espera 1 segon.
         unique_lock<std::mutex> lk(cv_m);
@@ -668,3 +672,6 @@ int main(int argc, const char * argv[]) {
     glutTimerFunc(T, updateTimer, 0);
     glutMainLoop();
 }
+
+// Accions: traduccio de robotGL a c++
+

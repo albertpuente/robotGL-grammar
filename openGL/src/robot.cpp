@@ -14,7 +14,7 @@ robot::robot() {
 robot::robot(double initX, double initZ, double initAng) {
     posModelX = initX;
     posModelZ = initZ;
-    ang = initAng;
+    ang = fmod(initAng* M_PI/180, 2*M_PI);
     needRotate = true;
     trail = false;
     box = false;
