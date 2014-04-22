@@ -1,0 +1,23 @@
+ACTIONS
+    func moveBackwards x :
+        rotate 180
+        moveForward x
+    endfunc
+
+    func tomato y :
+        while true do rotate 1 wend
+    endfunc
+ENDACTIONS
+
+BEGIN
+
+    a = 6
+    z = 3
+    moveForward 3
+    rotate 90
+    moveForward 3
+    while z < a do z = z+1 call moveBackwards 1 wend
+    
+    call tomato 1
+    
+END

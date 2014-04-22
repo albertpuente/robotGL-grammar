@@ -1,0 +1,24 @@
+/////////////  NEW VERSIONS   /////////////
+
+/////////////  FIRST VERSION  /////////////
+v: 1.0
+date: 21/4/2014
+
+features:
+    - translates actions
+    - translates the following instructions:
+        - assignment
+        - while
+        - if
+        - function calls
+    - translates the following expressions:
+        - all but unary operators (ex: myFunction -20) and the MOD (%) operation
+    - checks for invalid calls and invalid uses of variables
+        - throws exception (which contains id + line number)
+    - indents code
+    
+notes:
+    - the UndefinedVariableException will probably become a more general exception
+      that will only be thrown once, and that will contain all the translation errors and not
+      just the first.
+

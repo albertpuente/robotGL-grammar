@@ -1,0 +1,24 @@
+void moveBackwards(int x) {
+        exec( action(ROTATE, angleActual() + 180) );
+        exec( action(MOVE_FORWARD, x) );
+}
+
+void tomato(int y) {
+        while (true) {
+            exec( action(ROTATE, angleActual() + 1) );
+        }
+}
+
+void actions() {
+    int a = 6;
+    int z = 3;
+    exec( action(MOVE_FORWARD, 3) );
+    exec( action(ROTATE, angleActual() + 90) );
+    exec( action(MOVE_FORWARD, 3) );
+    while (z < a) {
+        z = z + 1;
+        moveBackwards(1);
+    }
+    tomato(1);
+    finish = true;
+}

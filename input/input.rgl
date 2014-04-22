@@ -1,0 +1,36 @@
+ACTIONS
+    func moveBackwards x :
+        rotate 180
+        moveForward x
+    endfunc
+
+ENDACTIONS
+
+BEGIN
+
+    a = 3b = a + 2c = b
+    
+    while not a == c do a = a + 1 wend
+    
+    trail on
+    while not detect 1 or getPosX < 10 do
+        moveForward 1
+    wend
+    
+    if detect 1 then pickObject endif
+    
+    for i in 1..10 do
+        rotate 90
+        moveForward 2
+        pauseRobot 1
+    fend
+    
+    releaseObject
+    
+    moveTo 0, 0
+    
+    call moveBackwards 4, 7
+    
+    trail off
+    
+END

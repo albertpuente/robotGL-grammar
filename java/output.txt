@@ -1,0 +1,5 @@
+/home/albert/Desktop/Projecte/java/src/interp/Interp.java:142: error: : expected
+            case RGLLexer.OB STACLE:
+                            ^
+1 error
+make: *** [compile] Error 1

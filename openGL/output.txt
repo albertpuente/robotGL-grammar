@@ -1,0 +1,1 @@
+g++  -O2 -pthread -std=c++0x -fpermissive /home/albert/Desktop/Projecte/openGL/src/*.cpp /home/albert/Desktop/Projecte/openGL/libs/*.c -o robotGL -I/home/albert/Desktop/Projecte/openGL/libs -lGL -lglut -lGLU -lGLEW -w

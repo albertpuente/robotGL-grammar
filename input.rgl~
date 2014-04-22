@@ -1,0 +1,4 @@
+BEGIN
+    moveForward 2
+    rotate 90
+END

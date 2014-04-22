@@ -1,0 +1,19 @@
+varying vec3 Normal;
+
+void main() {
+    gl_Position    = gl_ModelViewProjectionMatrix * gl_Vertex;
+    gl_FrontColor  = gl_Color;
+    Normal = normalize(gl_NormalMatrix*gl_Normal);
+    V = vec3(gl_ModelViewMatrix * gl_Vertex); 
+}
+
+// Albert
+
+varying vec3 N;
+varying vec3 V;
+
+void main() {
+    N = normalize(gl_NormalMatrix * gl_Normal);
+    V = vec3(gl_ModelViewMatrix * gl_Vertex);   
+    gl_Position    = gl_ModelViewProjectionMatrix * gl_Vertex;
+}

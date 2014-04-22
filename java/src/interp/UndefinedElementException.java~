@@ -1,0 +1,12 @@
+package interp;
+
+public class UndefinedElementException extends Exception {
+    
+    public int linenumber;    
+    public String variable;
+    
+    public UndefinedElementException(String var, int line) {
+        variable = var;
+        linenumber = line;
+    }
+}

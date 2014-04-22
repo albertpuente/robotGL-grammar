@@ -1,0 +1,21 @@
+void moveBackwards(int x) {
+        exec( action(ROTATE, angleActual() + 180) );
+        exec( action(MOVE_FORWARD, x) );
+}
+
+void tomato(int y) {
+        exec( action(MOVE_FORWARD, y) );
+}
+
+void actions() {
+    int a = 3;
+    int z = 3 - 2;
+    while (a - (5 + z * 7 - 5 * (9 - 2)) / 73 > 3 and a < 2 or false) {
+        exec( action(MOVE_FORWARD, 3 + 1) );
+    }
+    if (true and z > 0) {
+        moveBackwards(a);
+    }
+    tomato(2);
+    finish = true;
+}

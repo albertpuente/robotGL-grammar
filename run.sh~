@@ -1,0 +1,24 @@
+cp input.rgl java/bin/input.rgl
+cd java
+
+echo "Compilant el traductor..."
+make all 
+cd bin
+
+echo "Traduint..."
+./RGL input > output.txt
+
+cd ../..
+cp java/bin/translation.txt openGL/src/ops.txt
+cd openGL/src
+cat main_default.txt > main.cpp
+cat ops.txt >> main.cpp
+cd ..
+
+echo "Compilant el codi c++..."
+make all > output.txt
+
+echo "Executant..." 
+./robotGL           
+
+cd ..

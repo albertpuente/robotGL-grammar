@@ -1,0 +1,577 @@
+/*
+ * Projecte de CL 2014
+ * 
+ * Andrés Mingorance López
+ * Albert Puente Encinas
+ * 
+ */
+
+#include "includes.h"
+using namespace std;
+
+double FPS = 30; // fotogrames per segon (maxim)
+
+const static int SIZE = 11;
+double T = 1000/FPS; // timer ms
+
+int oldMousePositionX, oldMousePositionY; 
+double viewportWidth, viewportHeight; 
+int xmax, xmin, ymax, ymin, zmax, zmin;
+
+double scale; // escala del model
+double ra; // relacio d'aspecte
+double zoom = 0.5;
+int cameraMode = 2;
+double distaciaEntreTrails = 0.1;
+double fov = 60;
+Model model;
+robot R;
+
+vector< pair<uint, uint> > caixes;
+vector< pair<uint, uint> > obstacles;
+vector< pair<double, double> > trail;
+
+shader shaderTerra;
+shader shaderLlum;
+shader shaderCaixa;
+shader shaderCaixaCarregada;
+double O = 0;
+shader shaderObstacle;
+
+action currentAction;
+
+// thread sync 
+condition_variable cv;
+mutex cv_m;
+atomic<int> waitMainThread{1};
+//
+
+void pintaModel() { 
+    shaderLlum.on();
+    glPushMatrix();
+    glTranslatef(R.getX(), 0, R.getZ());   
+    glRotatef(R.getAng()*180/M_PI, 0, 1, 0);      
+    glScalef(scale, scale, scale); 
+    glTranslatef(-(xmax-((xmax-xmin)/2)), -ymin, -(zmax-((zmax-zmin)/2)));      
+    plotterModel(model);
+    glPopMatrix();
+    shaderLlum.off();    
+    if (R.hasABox()) {
+        shaderCaixaCarregada.on();
+        double t = time(0)*1000;
+        shaderCaixaCarregada.passUniform("time", O);
+        O += 0.2;
+        glPushMatrix();
+        plotterBox(R.getX(), R.getZ(), 1);
+        glPopMatrix();
+        shaderCaixaCarregada.off();
+    }
+}
+
+void pintaTerra() {
+    shaderTerra.on(); 
+    glPushMatrix();
+    plotterGround(SIZE);  // size x size 
+    glPopMatrix();
+    shaderTerra.off();
+}
+
+void pintaCaixes() {
+    shaderCaixa.on();
+    for (int i = 0; i < caixes.size(); ++i) {
+        int x = caixes[i].first;
+        int z = caixes[i].second;
+        glPushMatrix();
+        plotterBox(x, z, 0); 
+        glPopMatrix();
+    }
+    shaderCaixa.off();
+}
+
+void pintaObstacles() {
+    shaderObstacle.on();
+    for (int i = 0; i < obstacles.size(); ++i) {
+        int x = obstacles[i].first;
+        int z = obstacles[i].second;
+        glPushMatrix();
+        plotterObstacle(x, z); 
+        glPopMatrix();
+    }
+    shaderObstacle.off();       
+}
+
+void pintaRastre() {
+    for (int i = 0; i < trail.size(); ++i) {
+        double x = trail[i].first;
+        double z = trail[i].second;
+        glPushMatrix();
+        plotterTrail(x, z); 
+        glPopMatrix();
+    }    
+}
+
+void computeTrail() {    
+    if (trail.size() > 0) {
+        double d1 = trail.back().first - R.getX();
+        double d2 = trail.back().second - R.getZ();
+        if (sqrt(pow(d1, 2) + pow(d2, 2)) > distaciaEntreTrails) trail.push_back(make_pair(R.getX(), R.getZ()));
+    }
+    else trail.push_back(make_pair(R.getX(), R.getZ()));
+}
+    
+void refresh() {    
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
+	pintaTerra();
+    pintaRastre();
+    pintaCaixes();
+    pintaObstacles();
+    pintaModel();
+    glutSwapBuffers();    
+}
+
+void changeCameraOrtho() {
+    glMatrixMode(GL_PROJECTION);    
+    glLoadIdentity();
+    if (ra >= 1) glOrtho(-ra*10*zoom, ra*10*zoom, -10*zoom, 10*zoom, -SIZE, SIZE*2);
+    else glOrtho(-10*zoom , 10*zoom, -(10/ra)*zoom, (10/ra)*zoom, -SIZE, SIZE*2);    
+    glMatrixMode(GL_MODELVIEW);
+}
+
+void changeCameraPerspective() {
+    glMatrixMode(GL_PROJECTION); 
+    glLoadIdentity();             
+    gluPerspective(fov, ra, 0.01, 2*SIZE);
+    glMatrixMode(GL_MODELVIEW); 
+}
+
+void moveCamera() {
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();   
+    if (cameraMode == 0) { // Perspectiva
+        gluLookAt(R.getX()-sin(R.getAng()), 1, R.getZ()-cos(R.getAng()),
+                    R.getX(), 0.5, R.getZ(),
+                    0, 1, 0);
+        changeCameraPerspective();
+    }
+    else {
+        double offset = ((double) SIZE)/2;
+        if (cameraMode == 1) { // Fixa al centre    
+            gluLookAt(offset+5, 5, offset+5,
+                        offset, 0, offset,
+                        0, 1, 0);
+        }
+        else if (cameraMode == 2) { // Segueix al robot
+            gluLookAt(R.getX()+5, 5, R.getZ()+5,
+                        R.getX(), 0, R.getZ(),
+                        0, 1, 0);
+        } else if (cameraMode == 3) { // Planta
+            gluLookAt(R.getX(), 5, R.getZ(),
+                        R.getX(), 0, R.getZ(),
+                        0, 0, -1);
+        } else if (cameraMode == 4) { // Perfil
+            gluLookAt(SIZE+1, 0.5, R.getZ(),
+                        0, 0.5, R.getZ(),
+                        0, 1, 0);
+        }
+        
+        changeCameraOrtho();
+    }
+}
+
+void resize(int ample, int alt) {  
+    glViewport(0, 0, ample, alt);
+    ra = (double)ample/(double)alt;
+    moveCamera();
+}
+
+void click(int pressedButton, int mode, int pX, int pY) {
+    oldMousePositionX = pX;
+    oldMousePositionY = pY;   
+}
+
+void drag(int posX, int posY) {    
+    if (cameraMode == 0) {
+        fov -= 0.1*(oldMousePositionY-posY);
+        if (fov < 10) fov = 10;
+        else if (fov > 120) fov = 120;
+    }
+    else {
+        zoom -= 0.001*(oldMousePositionY-posY);
+        if (zoom < 0.1) zoom = 0.1;
+        else if (zoom > 0.8) zoom = 0.8;
+    }
+    oldMousePositionX = posX;
+    oldMousePositionY = posY;  
+    moveCamera();
+}
+
+void keyPressed(unsigned char character, int posX, int posY) {
+    if (character == 27) exit(0); // Press escape to exit    
+    else if (character == 'c' or character == 'C') {
+        if (++cameraMode > 4) cameraMode = 0;
+    }
+    moveCamera();
+}
+
+void initGLUT() {     
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE);
+    viewportHeight = viewportWidth = 800;
+    ra = viewportHeight/viewportWidth;
+    glutInitWindowSize(viewportHeight, viewportWidth);
+    glutCreateWindow("Projecte CL : robotGL");
+    glutReshapeFunc(resize);
+    glutDisplayFunc(refresh);
+    glutMouseFunc(click);
+    glutMotionFunc(drag);    
+    glutKeyboardFunc(keyPressed);
+}
+
+void initCamera() {    
+    changeCameraOrtho();
+    moveCamera();    
+}
+
+void initGL() {
+    glEnable(GL_DEPTH_TEST);
+    glClearColor(0.7, 0.7, 0.7, 0);     
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);    
+    glEnable(GL_NORMALIZE);    
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_MULTISAMPLE_ARB); // Antialiasing
+    glDisable(GL_LIGHTING); // Iluminacio per shaders propis
+    glDisable(GL_BLEND);
+}
+
+void calcularLimits() {
+    vector<double> V = model.vertices();  
+    xmax = ymax = zmax = INT_MIN;
+    xmin = ymin = zmin = INT_MAX;
+    for (int i = 0; i < V.size(); i += 3) {
+        if (V[i] > xmax) xmax = V[i];
+        if (V[i] < xmin) xmin = V[i];
+        if (V[i+1] > ymax) ymax = V[i+1];
+        if (V[i+1] < ymin) ymin = V[i+1];
+        if (V[i+2] > zmax) zmax = V[i+2];
+        if (V[i+2] < zmin) zmin = V[i+2];
+    }
+    scale = 0.8/((double)max((zmax-zmin), (xmax-xmin))); // Mesura 0.325 de radi MAX
+}
+
+double diff(double x, double y) {
+    return (x > y ? x - y : y - x);
+}
+
+// PROVISIONAL
+double distanciaQuadrat(double x1, double z1, double x2, double z2, double radiQ) {
+    double angleQ = fabs(fmod(atan2(x2-x1,z2-z1), M_PI/2));
+    double dQ;
+    if (angleQ < M_PI/4) dQ = radiQ/cos(angleQ);
+    else dQ = radiQ/cos(M_PI/2-angleQ);
+    double dist = sqrt(pow(diff(x1,x2),2)+pow(diff(z1,z2),2));
+    return sqrt(pow(diff(x1,x2),2)+pow(diff(z1,z2),2))-dQ;
+}
+
+bool detect(double dist, double& minDist) {
+    minDist = 2*SIZE;
+    double x = R.getX();
+    double z = R.getZ();
+    for (int i = 0; i < obstacles.size(); ++i) {
+        double dQ = distanciaQuadrat(x, z, obstacles[i].first, obstacles[i].second, 0.5);
+        minDist = min(minDist, dQ);
+    }    
+    for (int i = 0; i < caixes.size(); ++i) {
+        double dQ = distanciaQuadrat(x, z, caixes[i].first, caixes[i].second, 0.25);
+        minDist = min(minDist, dQ);
+    }
+    return (dist >= minDist);
+}
+
+bool detect(double dist) {
+    double x = R.getX();
+    double z = R.getZ();
+    for (int i = 0; i < obstacles.size(); ++i) {
+        double dQ = distanciaQuadrat(x, z, obstacles[i].first, obstacles[i].second, 0.5);
+        if (dist >= dQ) return true;
+    }
+    for (int i = 0; i < caixes.size(); ++i) {
+        double dQ = distanciaQuadrat(x, z, caixes[i].first, caixes[i].second, 0.25);
+        if (dist >= dQ) return true;
+    }
+    return false;
+}
+
+void loadBox() {
+    double x1 = R.getX();
+    double z1 = R.getZ();
+    bool found = false;
+    for (int i = 0; i < caixes.size() and not found; ++i) {
+        double x2 = caixes[i].first;
+        double z2 = caixes[i].second;
+        double distancia = sqrt(pow(diff(x1,x2),2)+pow(diff(z1,z2),2));
+        if (distancia <= 1) {
+            found = true;
+            caixes.erase(caixes.begin() + i);
+            R.setBox(true);
+        }
+    }
+}
+
+bool ocupat(int x, int z) {    
+    for (int i = 0; i < obstacles.size(); ++i) {
+        if (x == obstacles[i].first and z == obstacles[i].second) return true;
+    }
+    for (int i = 0; i < caixes.size(); ++i) {
+        if (x == caixes[i].first and z == caixes[i].second) return true;
+    }
+    return false;
+    
+}
+
+bool detectDirection(double direccio) {
+    int x1 = (int) (R.getX()+0.5);
+    int z1 = (int) (R.getZ()+0.5);
+    double ang = fmod(R.getAng()+direccio, 2*M_PI);        
+    int x2 = (int) (x1+sin(ang)+0.5);
+    int z2 = (int) (z1+cos(ang)+0.5);
+    return ocupat(x2, z2);
+}
+
+void leaveBox() {
+    double x1 = R.getX();
+    double z1 = R.getZ();
+    double ang = R.getAng();
+    for (double inc = 0; inc < 2*M_PI and R.hasABox(); inc += M_PI/4) {        
+        int x2 = (int) x1+sin(ang+inc);
+        int z2 = (int) z1+cos(ang+inc);    
+        double distancia = distanciaQuadrat(x1, z1, x2, z2, 0.25);
+        if (not ocupat(x2, z2) and distancia > 0.49) {
+            caixes.push_back(make_pair(x2,z2));
+            R.setBox(false);
+        }
+    }
+}
+
+void iniciarAccio() {
+    if (currentAction.getType() == BOX) {
+        caixes.push_back( make_pair( currentAction.getDestX(), currentAction.getDestZ()));
+        currentAction.setStatus(FINISHED);
+
+    }
+    else if (currentAction.getType() == OBSTACLE) {
+        obstacles.push_back( make_pair( currentAction.getDestX(), currentAction.getDestZ()));        
+        currentAction.setStatus(FINISHED);
+    }
+    else if (currentAction.getType() == TRAIL) {
+        currentAction.getDestAng() > 0 ? R.setTrail(true) : R.setTrail(false);
+        currentAction.setStatus(FINISHED);
+    }
+    else if (currentAction.getType() == PICK_OBJECT) {
+        if (not R.hasABox()) loadBox();
+        currentAction.setStatus(FINISHED);
+    }
+    else if (currentAction.getType() == RELEASE_OBJECT) {
+        if (R.hasABox()) leaveBox();
+        currentAction.setStatus(FINISHED);
+    }
+    else if (currentAction.getType() == STOP) {
+        double time = currentAction.getDestAng();
+        unique_lock<std::mutex> lk(cv_m);
+        cv.wait_for(lk, chrono::milliseconds((long int) time*1000), [](){ return false; });
+        currentAction.setStatus(FINISHED);
+    }
+    else { // Moviments
+        if (currentAction.getType() == MOVE_FORWARD) { // falta informacio de desti
+            int mult = currentAction.getDestAng(); // distancia
+            double x = R.getX();
+            double z = R.getZ();
+            currentAction.setDest(x+mult*sin(R.getAng()), z+mult*cos(R.getAng()));                       
+        }
+        else if (currentAction.getType() == ROTATE) {
+            double ang = currentAction.getDestAng() * M_PI/180;
+            if (ang < 0) ang += 2*M_PI;
+            currentAction.setDestAng(ang);
+        }
+        currentAction.setStatus(RUNNING);
+        R.newAction(&currentAction);       
+    }
+}
+
+
+void exec(const action& act) {
+    currentAction = act;
+    currentAction.setStatus(START);
+    while (currentAction.getStatus() != FINISHED) {    
+        
+        // S'espera a que es faci un resfresc de pantalla per actualitzar les variables de nou
+        // Com a molt espera 1 segon.
+        unique_lock<std::mutex> lk(cv_m);
+        cv.wait_for(lk, chrono::milliseconds(1000), [](){ return waitMainThread == 0; });             
+        double d1,d2;
+        double px = R.getX();
+        double pz = R.getZ();
+        detect(0.4, d1);        
+        if (currentAction.getStatus() == START) iniciarAccio();
+        if (currentAction.getStatus() == RUNNING) R.update(); // pot ser accio instantania
+        if (R.trailOn()) computeTrail();
+        actionName type = currentAction.getType();
+        if (detect(0.4, d2)) {  // <- PROVISIONAL, no permet empitjorar la col·lisio            
+            if (d1 >= d2 and (type == MOVE or type == MOVE_FORWARD)) {
+                currentAction.setStatus(FINISHED); 
+                cout << "Col·lisió amb un obstacle!" << endl;
+                R.setX(px);
+                R.setZ(pz);
+            }
+        }
+        if (currentAction.getStatus() != FINISHED or type == MOVE or type == MOVE_FORWARD or type == ROTATE) {
+            waitMainThread = 1; 
+            cv.notify_all();
+        }
+    }       
+}
+
+double angleActual() {
+    return R.getAng()*180/M_PI;
+}
+
+void updateTimer(int v) {
+    unique_lock<std::mutex> lk(cv_m);
+    cv.wait_for(lk, chrono::milliseconds(1000), [](){ return waitMainThread == 1; });    
+    long double t1 = time(0)*1000;
+    moveCamera();
+    glutPostRedisplay();        
+    long double t2 = time(0)*1000;
+    long double wait = ((T-(t2-t1)) < 0) ? 0 : (T-(t2-t1));
+    glutTimerFunc(wait, updateTimer, 0);
+    waitMainThread = 0;
+    cv.notify_all();
+}
+
+void actions();
+    
+int main(int argc, const char * argv[]) {
+    glutInit(&argc, (char **) argv);
+    initGLUT();    
+    initGL();    
+    model.load("res/petit.obj");
+    calcularLimits();   
+    initCamera();  
+    
+    /////////////  SHADERS ////////////////
+
+    shaderTerra = shader("BT.vert", "BT.frag");
+    shaderTerra.loadImg("mine.png");
+
+    shaderCaixa= shader("BT.vert", "BT.frag");
+    shaderCaixa.loadImg("box.jpg");
+    
+    shaderCaixaCarregada= shader("BTflotant.vert", "BTflotant.frag");
+    shaderCaixaCarregada.loadImg("box.jpg");
+    
+    shaderObstacle= shader("BT.vert", "BT.frag");
+    shaderObstacle.loadImg("obs.png");
+    
+    shaderLlum = shader("L.vert", "L.frag");
+    
+    R = robot(9, 9, M_PI); // x, z, angle (rad)     
+     
+    thread t(actions);
+	glutTimerFunc(T, updateTimer, 0);
+    glutMainLoop();
+}
+
+// Accions: traduccio de robotGL a c++
+void actions() {
+    
+
+    
+    exec( action(OBSTACLE, 0, 0));
+    exec( action(OBSTACLE, 0, 1));
+    exec( action(OBSTACLE, 0, 2));
+    exec( action(OBSTACLE, 0, 3));
+    exec( action(OBSTACLE, 0, 4));
+    exec( action(OBSTACLE, 0, 5));
+    exec( action(OBSTACLE, 0, 6));
+    exec( action(OBSTACLE, 0, 7));
+    exec( action(OBSTACLE, 0, 8));
+    exec( action(OBSTACLE, 0, 9));
+    exec( action(OBSTACLE, 0, 10));
+    exec( action(OBSTACLE, 1, 0));
+    exec( action(OBSTACLE, 1, 7));
+    exec( action(OBSTACLE, 1, 9));
+    exec( action(OBSTACLE, 1, 10));
+    exec( action(OBSTACLE, 2, 0));
+    exec( action(OBSTACLE, 2, 2));
+    exec( action(OBSTACLE, 2, 3));
+    exec( action(OBSTACLE, 2, 4));
+    exec( action(OBSTACLE, 2, 5));
+    exec( action(OBSTACLE, 2, 7));
+    exec( action(OBSTACLE, 3, 0));
+    exec( action(OBSTACLE, 3, 2));
+    exec( action(OBSTACLE, 3, 5));
+    exec( action(OBSTACLE, 3, 7));
+    exec( action(OBSTACLE, 3, 9));
+    exec( action(OBSTACLE, 3, 10));
+    exec( action(OBSTACLE, 4, 0));
+    exec( action(OBSTACLE, 4, 2));
+    exec( action(OBSTACLE, 4, 4));
+    exec( action(OBSTACLE, 4, 9));
+    exec( action(OBSTACLE, 4, 10));
+    exec( action(OBSTACLE, 5, 0));
+    exec( action(OBSTACLE, 5, 4));
+    exec( action(OBSTACLE, 5, 5));
+    exec( action(OBSTACLE, 5, 6));
+    exec( action(OBSTACLE, 5, 10));
+    exec( action(OBSTACLE, 6, 0));
+    exec( action(OBSTACLE, 6, 1));
+    exec( action(OBSTACLE, 6, 2));
+    exec( action(OBSTACLE, 6, 6));
+    exec( action(OBSTACLE, 6, 7));
+    exec( action(OBSTACLE, 6, 9));
+    exec( action(OBSTACLE, 6, 10));
+    exec( action(OBSTACLE, 7, 0));
+    exec( action(OBSTACLE, 7, 2));
+    exec( action(OBSTACLE, 7, 3));
+    exec( action(OBSTACLE, 7, 4));
+    exec( action(OBSTACLE, 7, 7));
+    exec( action(OBSTACLE, 7, 10));
+    exec( action(OBSTACLE, 8, 0));
+    exec( action(OBSTACLE, 8, 4));
+    exec( action(OBSTACLE, 8, 5));
+    exec( action(OBSTACLE, 8, 7));
+    exec( action(OBSTACLE, 8, 8));
+    exec( action(OBSTACLE, 8, 9));
+    exec( action(OBSTACLE, 8, 10));
+    exec( action(OBSTACLE, 9, 0));
+    exec( action(OBSTACLE, 9, 2));
+    exec( action(OBSTACLE, 9, 10));
+    exec( action(OBSTACLE, 10, 0));
+    exec( action(OBSTACLE, 10, 1));
+    exec( action(OBSTACLE, 10, 2));
+    exec( action(OBSTACLE, 10, 3));
+    exec( action(OBSTACLE, 10, 4));
+    exec( action(OBSTACLE, 10, 5));
+    exec( action(OBSTACLE, 10, 6));
+    exec( action(OBSTACLE, 10, 7));
+    exec( action(OBSTACLE, 10, 8));
+    exec( action(OBSTACLE, 10, 9));
+    exec( action(OBSTACLE, 10, 10));
+        
+    while (true) {
+        if (not detectDirection(-M_PI/2)) {
+            exec( action(ROTATE, angleActual() - 90));
+            exec( action(MOVE_FORWARD, 1));
+        }
+        else if (not detectDirection(0)) {
+            exec( action(MOVE_FORWARD, 1));
+        }
+        else if (not detectDirection(M_PI/2)) {
+            exec( action(ROTATE, angleActual() + 90));
+            exec( action(MOVE_FORWARD, 1));
+        }
+        else {
+            exec( action(ROTATE, angleActual() + 180));
+            exec( action(MOVE_FORWARD, 1));
+        }
+    }   
+}
