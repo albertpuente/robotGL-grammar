@@ -210,16 +210,18 @@ public class Interp {
                         translateExpression(tree.getChild(0))   + ") );");
                 break;
             case RGLLexer.PICKOBJECT:
-                
+                addLine("exec( action(PICK_OBJECT) );");
                 break;
             case RGLLexer.RELEASEOBJECT:
-                
+                addLine("exec( action(RELEAS_EOBJECT) );");
                 break;
             case RGLLexer.OBSTACLE:
-                
+                addLine("exec( action(OBSTACLE, " + translateExpression(tree.getChild(0)) +
+                                             ", " + translateExpression(tree.getChild(1)) + ") );");
                 return; 
             case RGLLexer.BOX:
-                
+                addLine("exec( action(BOX, " + translateExpression(tree.getChild(0)) +
+                                        ", " + translateExpression(tree.getChild(1)) + ") );");
                 break;  
             case RGLLexer.TRAIL:
                 

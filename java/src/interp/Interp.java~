@@ -210,16 +210,18 @@ public class Interp {
                         translateExpression(tree.getChild(0))   + ") );");
                 break;
             case RGLLexer.PICKOBJECT:
-                
+                addLine("exec( action(PICK_OBJECT) );");
                 break;
             case RGLLexer.RELEASEOBJECT:
-                
+                addLine("exec( action(RELEAS_EOBJECT) );");
                 break;
             case RGLLexer.OBSTACLE:
-                
+                addLine("exec( action(OBSTACLE, " + translateExpression(tree.getChild(0)) +
+                                         ", " + translateExpression(tree.getChild(1)) + ") );");
                 return; 
             case RGLLexer.BOX:
-                
+                addLine("exec( action(BOX, " + translateExpression(tree.getChild(0)) +
+                                         ", " + translateExpression(tree.getChild(1)) + ") );");
                 break;  
             case RGLLexer.TRAIL:
                 
@@ -229,7 +231,7 @@ public class Interp {
                 String actionId = tree.getText();
                 if (!actionSet.contains(actionId))
                     throw new UndefinedElementException(actionId, tree.getLine());
-                String call = "rglFunc_" + actionId + "(";
+                String call = "rgl_" + actionId + "(";
                 int paramNumber = 0;
                 RGLTree param = tree.getChild(paramNumber);
                 if (param != null) call += translateExpression(param);
