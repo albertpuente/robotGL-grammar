@@ -78,6 +78,9 @@ bool finish = false;
 // Símil de temps per a l'oscil·lació de les caixes carregades
 double O = 0; 
 
+// Contador de temps en STOP
+double stoppedTime = 0;
+
 // Sincronització entre threads
 condition_variable cv;
 mutex cv_m;
@@ -504,10 +507,8 @@ void iniciarAccio() {
             break;
         
         case STOP :
-            {unique_lock<std::mutex> lk(cv_m);
-            cv.wait_for(lk, chrono::milliseconds((long int) currentAction.getDestAng()*1000), 
-                        [](){ return false; });}
-            currentAction.setStatus(FINISHED);
+            stoppedTime = 0;
+            currentAction.setStatus(RUNNING);
             break;
         
         case MOVE_FORWARD : // falta informacio de desti
@@ -581,6 +582,12 @@ void exec(const action& act) {
                         caixes[i].p = 0;
                         currentAction.setStatus( FINISHED );
                     }
+                }
+            }
+            else if (currentAction.getType() == STOP) {
+                stoppedTime += T;
+                if (stoppedTime >= currentAction.getDestAng()*1000) {
+                    currentAction.setStatus(FINISHED);
                 }
             }
             else {
@@ -691,17 +698,24 @@ void actions() {
     int z = 3;
     R = robot(a, z, 45);
     exec( action(MOVE_FORWARD, 3) );
-    exec( action(BOX, 0, 0) );
-    exec( action(MOVE, 1, 1) );
-    exec( action(STOP, 2) );
-    exec( action(OBSTACLE, 7, 7) );
-        exec( action(ROTATE, angleActual() + 90) );
-        exec( action(MOVE_FORWARD, 3) );
-        while (z < a) {
-            z = z + 1;
-            rgl_moveBackwards(1);
-        }
-        exec( action(MOVE, 6, 6) );
-        rgl_tomato(1);
-        finish = true;
+    int i = 0;
+    while (i < 10) {
+        exec( action(MARK, 1, i) );
+        i = i + 1;
     }
+    exec( action(BOX, 0, 0) );
+    exec( action(MOVE, 1, 0) );
+    exec( action(PICK_OBJECT) );
+    exec( action(STOP, 1) );
+    exec( action(ROTATE, angleActual() + 180) );
+    exec( action(OBSTACLE, 7, 7) );
+    exec( action(MOVE, 7, 5) );
+    exec( action(RELEASE_OBJECT) );
+    while (z < a) {
+        z = z + 1;
+        rgl_moveBackwards(1);
+    }
+    exec( action(MOVE, 6, 6) );
+    rgl_tomato(1);
+    finish = true;
+}

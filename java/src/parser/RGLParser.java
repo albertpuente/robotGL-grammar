@@ -1,4 +1,4 @@
-// $ANTLR !Unknown version! /home/albert/Desktop/Projecte/java/src/parser/RGL.g 2014-04-22 21:25:27
+// $ANTLR !Unknown version! /home/albert/Desktop/Projecte/java/src/parser/RGL.g 2014-04-22 21:36:51
 
     package parser;
     import interp.RGLTree;
@@ -175,7 +175,7 @@ public class RGLParser extends Parser {
 
 
             // AST REWRITE
-            // elements: actions, main
+            // elements: main, actions
             // token labels: 
             // rule labels: retval
             // token list labels: 

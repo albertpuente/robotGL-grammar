@@ -439,10 +439,11 @@ void leaveBox() {
     double z1 = R.getZ();
     double ang = R.getAng();
     for (double inc = 0; inc < 2*M_PI and R.hasABox(); inc += M_PI/4) {        
-        int x2 = (int) x1+sin(ang+inc);
-        int z2 = (int) z1+cos(ang+inc);    
+        int x2 = (int) x1+0.5+sin(ang+inc);
+        int z2 = (int) z1+0.5+cos(ang+inc);    
+        cout << "Trying " << x2 << " "<< z2 << endl;
         double distancia = distanciaQuadrat(x1, z1, x2, z2, 0.25);
-        if (not ocupat(x2, z2) and distancia > 0.49 and x2 >= 0 and z2 >= 0 and x2 < SIZE and z2 < SIZE) {
+        if (not ocupat(x2, z2) and distancia > 0.4 and x2 >= 0 and z2 >= 0 and x2 < SIZE and z2 < SIZE) {
             box n;
             n.x = x2;
             n.z = z2;
@@ -605,9 +606,9 @@ void exec(const action& act) {
                 else {
                     cout << "ACCIÓ IGNORADA: MOVE       | Col·lisió" << endl;
                 }                
-                R.setX(px);
-                R.setZ(pz);
             }
+            R.setX(px);
+            R.setZ(pz);
         }
         
         if (currentAction.getStatus() != FINISHED or type == MOVE or type == MOVE_FORWARD or type == ROTATE) {
@@ -674,7 +675,7 @@ int main(int argc, const char * argv[]) {
     
     // Crida del thread d'actualització de variables, i inicialització del timer de glut
     
-    cout << endl << "INICI DE LA SIMULACIÓ" << endl << endl;
+    cout << "Inici de la simulació..." << endl;
     thread t(actions);
     glutTimerFunc(T, updateTimer, 0);
     glutMainLoop();
