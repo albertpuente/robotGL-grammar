@@ -671,7 +671,6 @@ int main(int argc, const char * argv[]) {
 
 // Accions: traduccio de robotGL a c++
 
-
 void moveBackwards(int x) {
         exec( action(ROTATE, angleActual() + 180) );
         exec( action(MOVE_FORWARD, x) );
@@ -686,9 +685,6 @@ void tomato(int y) {
 void actions() {
     int a = 6;
     int z = 3;
-    exec( action(MARK, 2, 2));
-    exec( action(TRAIL, 1));
-    exec( action(MOVE, 2, 2));
     exec( action(MOVE_FORWARD, 3) );
     exec( action(ROTATE, angleActual() + 90) );
     exec( action(MOVE_FORWARD, 3) );
