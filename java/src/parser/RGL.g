@@ -49,10 +49,9 @@ instr   :
         | ID '='^ numExpr                           //assignation
         
         //robot commands
-        | INITROBOT^ numExpr ','! numExpr
+        | INITROBOT^ numExpr ','! numExpr ','! numExpr  //initRobot x, y, angle
         | MOVEFORWARD^ numExpr
-        | PAUSEROBOT^ numExpr
-        | STOPROBOT
+        | STOPROBOT^ numExpr
         | MOVETO^ numExpr ','! numExpr
         | ROTATE^ numExpr
         | PICKOBJECT
@@ -115,7 +114,6 @@ INITROBOT	: 'initRobot';
 MOVEFORWARD	: 'moveForward';
 MOVETO		: 'moveTo';
 ROTATE		: 'rotate';
-PAUSEROBOT  : 'pauseRobot';
 STOPROBOT   : 'stopRobot';
 PICKOBJECT	: 'pickObject';
 RELEASEOBJECT	: 'releaseObject';

@@ -45,11 +45,11 @@ instr   :
         //typical instructions
         whileExpr | forExpr                         //loops
         | ifExpr                                    //conditionals
-        | CALL! ID^ argList?                        //func call
+        | CALL! ID^ (numExpr (','! numExpr)*)?      //func call
         | ID '='^ numExpr                           //assignation
         
         //robot commands
-        | INITROBOT^ numExpr ','! numExpr
+        | INITROBOT^ numExpr ','! numExpr ','! numExpr  //initRobot x, y, angle
         | MOVEFORWARD^ numExpr
         | PAUSEROBOT^ numExpr
         | STOPROBOT

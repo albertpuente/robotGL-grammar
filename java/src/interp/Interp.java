@@ -13,22 +13,24 @@ import java.util.logging.Logger;
 
 public class Interp {
     /** AST root */
-    private RGLTree tree;    
+    private RGLTree tree;        
+    
+    /** c++ code resulting of the translation */
+    private String translation;
     
     /** Set of RGL actions, used to check for potentially invalid calls */
-    private HashSet<String> actionSet;
-    
+    private HashSet<String> actionSet;    
     /** Set of variables, used to check they have an assigned value at the current translation state */
     private HashSet<String> variableSet;
     
     /** Stores the line number of the current statement. */
     //private int linenumber = -1;
     
-    /** number of spaces to be written before a statement at the current translation state */
-    private int tabulation = 0;    
+    /** Set to true if the robot has been initialized. Used to check for multiple initializations */
+    private boolean robotInitialized = false;
     
-    /** c++ code resulting of the translation */
-    private String translation;
+    /** number of spaces to be written before a statement at the current translation state */
+    private int tabulation = 0;
     
     /** Constructor of the interpreter */
     public Interp(RGLTree T) {
@@ -99,12 +101,8 @@ public class Interp {
                 arg = arglist.getChild(++argNumber);
             }
             header += ") {";
-            addLine(header);
-                        
-            //body
-            tabulation += 4;
-            translate(action.getChild(1));
-            tabulation -= 4;
+            addLine(header);            
+            translate(action.getChild(1));      //body
             addLine("}");
             
             variableSet.clear();
@@ -185,17 +183,24 @@ public class Interp {
             
             ////////// RGL EXPRESSIONS /////////////
             case RGLLexer.INITROBOT:
+                if (robotInitialized) { //error. throw exception }
+                robotInitialized = true;
                 
+                addLine("R = robot(double " + translateExpression(tree.getChild(0)) +
+                                ", double " + translateExpression(tree.getChild(1)) +
+                                ", double " + translateExpression(tree.getChild(2)) +
+                                ");");
                 break;
             case RGLLexer.MOVEFORWARD:
                 addLine("exec( action(MOVE_FORWARD, "          +
                         translateExpression(tree.getChild(0)) + ") );");
                 break;
             case RGLLexer.PAUSEROBOT:
-            
+                addLine("exec( action(STOP, " + translateExpression(tree.getChild(0)) +") );");
                 break;
             case RGLLexer.MOVETO:
-            
+                addLine("exec( action(MOVE, " + translateExpression(tree.getChild(0)) +
+                                         ", " + translateExpression(tree.getChild(1)) + ") );");
                 break;
             case RGLLexer.ROTATE:
                 addLine("exec( action(ROTATE, angleActual() + " +
@@ -231,7 +236,7 @@ public class Interp {
                     param = tree.getChild(++paramNumber);
                 }
                 call += ");";
-                addLine(call);             
+                addLine(call);
         }
         tabulation -= 4;
     }

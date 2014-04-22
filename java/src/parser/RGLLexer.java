@@ -1,4 +1,4 @@
-// $ANTLR !Unknown version! /home/albert/Desktop/Projecte/java/src/parser/RGL.g 2014-04-22 19:04:21
+// $ANTLR 3.4 /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g 2014-04-22 19:32:43
 
     package parser;
 
@@ -8,161 +8,103 @@ import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
+@SuppressWarnings({"all", "warnings", "unchecked"})
 public class RGLLexer extends Lexer {
-    public static final int PICKOBJECT=24;
-    public static final int WEND=35;
-    public static final int LT=57;
-    public static final int WHILE=33;
-    public static final int STOPROBOT=21;
-    public static final int MOD=65;
-    public static final int MOVEFORWARD=19;
-    public static final int FOR=36;
-    public static final int DO=34;
-    public static final int ARGLIST=6;
-    public static final int EQUALS=55;
-    public static final int NOT=44;
-    public static final int RGL=9;
-    public static final int ID=13;
-    public static final int AND=45;
     public static final int EOF=-1;
-    public static final int IF=39;
-    public static final int ACTIONS=10;
-    public static final int BOX=27;
-    public static final int ESC_SEQ=66;
-    public static final int THEN=40;
-    public static final int IN=37;
-    public static final int INITROBOT=18;
-    public static final int NOT_EQUAL=56;
-    public static final int OFF=30;
-    public static final int EQUAL=54;
-    public static final int BEGIN=15;
-    public static final int RETURN=51;
-    public static final int ENDIF=42;
-    public static final int PLUS=61;
-    public static final int ENDFUNC=14;
-    public static final int COMMENT=68;
-    public static final int PAUSEROBOT=20;
-    public static final int TRAIL=28;
-    public static final int GE=60;
-    public static final int ENDACTIONS=11;
-    public static final int ACTIONLIST=8;
-    public static final int MARK=31;
-    public static final int RELEASEOBJECT=25;
-    public static final int FEND=38;
-    public static final int ELSE=41;
-    public static final int ON=29;
-    public static final int INT=32;
-    public static final int GETPOSY=50;
-    public static final int ROTATE=23;
-    public static final int GETPOSX=49;
-    public static final int MINUS=62;
-    public static final int OBSTACLE=26;
-    public static final int TRUE=46;
-    public static final int MUL=63;
-    public static final int WRITE=53;
-    public static final int INSTRLIST=5;
-    public static final int T__71=71;
-    public static final int WS=69;
-    public static final int T__72=72;
     public static final int T__70=70;
-    public static final int DETECT=48;
-    public static final int READ=52;
-    public static final int MOVETO=22;
-    public static final int FUNC=12;
-    public static final int OR=43;
-    public static final int ASSIGN=4;
-    public static final int GT=59;
-    public static final int PROGRAM=7;
-    public static final int CALL=17;
-    public static final int DIV=64;
-    public static final int END=16;
-    public static final int FALSE=47;
-    public static final int T__74=74;
+    public static final int T__71=71;
+    public static final int T__72=72;
     public static final int T__73=73;
-    public static final int LE=58;
-    public static final int STRING=67;
+    public static final int T__74=74;
+    public static final int ACTIONLIST=4;
+    public static final int ACTIONS=5;
+    public static final int AND=6;
+    public static final int ARGLIST=7;
+    public static final int ASSIGN=8;
+    public static final int BEGIN=9;
+    public static final int BOX=10;
+    public static final int CALL=11;
+    public static final int COMMENT=12;
+    public static final int DETECT=13;
+    public static final int DIV=14;
+    public static final int DO=15;
+    public static final int ELSE=16;
+    public static final int END=17;
+    public static final int ENDACTIONS=18;
+    public static final int ENDFUNC=19;
+    public static final int ENDIF=20;
+    public static final int EQUAL=21;
+    public static final int EQUALS=22;
+    public static final int ESC_SEQ=23;
+    public static final int FALSE=24;
+    public static final int FEND=25;
+    public static final int FOR=26;
+    public static final int FUNC=27;
+    public static final int GE=28;
+    public static final int GETPOSX=29;
+    public static final int GETPOSY=30;
+    public static final int GT=31;
+    public static final int ID=32;
+    public static final int IF=33;
+    public static final int IN=34;
+    public static final int INITROBOT=35;
+    public static final int INSTRLIST=36;
+    public static final int INT=37;
+    public static final int LE=38;
+    public static final int LT=39;
+    public static final int MARK=40;
+    public static final int MINUS=41;
+    public static final int MOD=42;
+    public static final int MOVEFORWARD=43;
+    public static final int MOVETO=44;
+    public static final int MUL=45;
+    public static final int NOT=46;
+    public static final int NOT_EQUAL=47;
+    public static final int OBSTACLE=48;
+    public static final int OFF=49;
+    public static final int ON=50;
+    public static final int OR=51;
+    public static final int PAUSEROBOT=52;
+    public static final int PICKOBJECT=53;
+    public static final int PLUS=54;
+    public static final int PROGRAM=55;
+    public static final int READ=56;
+    public static final int RELEASEOBJECT=57;
+    public static final int RETURN=58;
+    public static final int RGL=59;
+    public static final int ROTATE=60;
+    public static final int STOPROBOT=61;
+    public static final int STRING=62;
+    public static final int THEN=63;
+    public static final int TRAIL=64;
+    public static final int TRUE=65;
+    public static final int WEND=66;
+    public static final int WHILE=67;
+    public static final int WRITE=68;
+    public static final int WS=69;
 
     // delegates
     // delegators
+    public Lexer[] getDelegates() {
+        return new Lexer[] {};
+    }
 
-    public RGLLexer() {;} 
+    public RGLLexer() {} 
     public RGLLexer(CharStream input) {
         this(input, new RecognizerSharedState());
     }
     public RGLLexer(CharStream input, RecognizerSharedState state) {
         super(input,state);
-
     }
-    public String getGrammarFileName() { return "/home/albert/Desktop/Projecte/java/src/parser/RGL.g"; }
+    public String getGrammarFileName() { return "/home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g"; }
 
     // $ANTLR start "T__70"
     public final void mT__70() throws RecognitionException {
         try {
             int _type = T__70;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:7:7: ( ':' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:7:9: ':'
-            {
-            match(':'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__70"
-
-    // $ANTLR start "T__71"
-    public final void mT__71() throws RecognitionException {
-        try {
-            int _type = T__71;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:8:7: ( ',' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:8:9: ','
-            {
-            match(','); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__71"
-
-    // $ANTLR start "T__72"
-    public final void mT__72() throws RecognitionException {
-        try {
-            int _type = T__72;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:9:7: ( '..' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:9:9: '..'
-            {
-            match(".."); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__72"
-
-    // $ANTLR start "T__73"
-    public final void mT__73() throws RecognitionException {
-        try {
-            int _type = T__73;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:10:7: ( '(' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:10:9: '('
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:6:7: ( '(' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:6:9: '('
             {
             match('('); 
 
@@ -172,17 +114,18 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__73"
+    // $ANTLR end "T__70"
 
-    // $ANTLR start "T__74"
-    public final void mT__74() throws RecognitionException {
+    // $ANTLR start "T__71"
+    public final void mT__71() throws RecognitionException {
         try {
-            int _type = T__74;
+            int _type = T__71;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:11:7: ( ')' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:11:9: ')'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:7:7: ( ')' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:7:9: ')'
             {
             match(')'); 
 
@@ -192,6 +135,72 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__71"
+
+    // $ANTLR start "T__72"
+    public final void mT__72() throws RecognitionException {
+        try {
+            int _type = T__72;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:8:7: ( ',' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:8:9: ','
+            {
+            match(','); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__72"
+
+    // $ANTLR start "T__73"
+    public final void mT__73() throws RecognitionException {
+        try {
+            int _type = T__73;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:9:7: ( '..' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:9:9: '..'
+            {
+            match(".."); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__73"
+
+    // $ANTLR start "T__74"
+    public final void mT__74() throws RecognitionException {
+        try {
+            int _type = T__74;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:10:7: ( ':' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:10:9: ':'
+            {
+            match(':'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "T__74"
@@ -201,10 +210,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = INITROBOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:114:11: ( 'initRobot' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:114:13: 'initRobot'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:114:11: ( 'initRobot' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:114:13: 'initRobot'
             {
             match("initRobot"); 
+
 
 
             }
@@ -213,6 +223,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "INITROBOT"
@@ -222,10 +233,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = MOVEFORWARD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:115:13: ( 'moveForward' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:115:15: 'moveForward'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:115:13: ( 'moveForward' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:115:15: 'moveForward'
             {
             match("moveForward"); 
+
 
 
             }
@@ -234,6 +246,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "MOVEFORWARD"
@@ -243,10 +256,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = MOVETO;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:116:9: ( 'moveTo' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:116:11: 'moveTo'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:116:9: ( 'moveTo' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:116:11: 'moveTo'
             {
             match("moveTo"); 
+
 
 
             }
@@ -255,6 +269,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "MOVETO"
@@ -264,10 +279,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = ROTATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:117:9: ( 'rotate' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:117:11: 'rotate'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:117:9: ( 'rotate' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:117:11: 'rotate'
             {
             match("rotate"); 
+
 
 
             }
@@ -276,6 +292,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "ROTATE"
@@ -285,10 +302,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = PAUSEROBOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:118:13: ( 'pauseRobot' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:118:15: 'pauseRobot'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:118:13: ( 'pauseRobot' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:118:15: 'pauseRobot'
             {
             match("pauseRobot"); 
+
 
 
             }
@@ -297,6 +315,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "PAUSEROBOT"
@@ -306,10 +325,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = STOPROBOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:119:13: ( 'stopRobot' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:119:15: 'stopRobot'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:119:13: ( 'stopRobot' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:119:15: 'stopRobot'
             {
             match("stopRobot"); 
+
 
 
             }
@@ -318,6 +338,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "STOPROBOT"
@@ -327,10 +348,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = PICKOBJECT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:120:12: ( 'pickObject' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:120:14: 'pickObject'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:120:12: ( 'pickObject' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:120:14: 'pickObject'
             {
             match("pickObject"); 
+
 
 
             }
@@ -339,6 +361,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "PICKOBJECT"
@@ -348,10 +371,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = RELEASEOBJECT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:121:15: ( 'releaseObject' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:121:17: 'releaseObject'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:121:15: ( 'releaseObject' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:121:17: 'releaseObject'
             {
             match("releaseObject"); 
+
 
 
             }
@@ -360,6 +384,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "RELEASEOBJECT"
@@ -369,10 +394,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = DETECT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:122:9: ( 'detect' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:122:11: 'detect'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:122:9: ( 'detect' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:122:11: 'detect'
             {
             match("detect"); 
+
 
 
             }
@@ -381,6 +407,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "DETECT"
@@ -390,10 +417,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = OBSTACLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:123:10: ( 'obstacle' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:123:12: 'obstacle'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:123:10: ( 'obstacle' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:123:12: 'obstacle'
             {
             match("obstacle"); 
+
 
 
             }
@@ -402,6 +430,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "OBSTACLE"
@@ -411,10 +440,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = BOX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:124:6: ( 'box' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:124:8: 'box'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:124:6: ( 'box' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:124:8: 'box'
             {
             match("box"); 
+
 
 
             }
@@ -423,6 +453,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "BOX"
@@ -432,10 +463,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = TRAIL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:125:7: ( 'trail' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:125:9: 'trail'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:125:7: ( 'trail' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:125:9: 'trail'
             {
             match("trail"); 
+
 
 
             }
@@ -444,6 +476,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "TRAIL"
@@ -453,10 +486,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = MARK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:126:9: ( 'mark' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:126:11: 'mark'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:126:9: ( 'mark' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:126:11: 'mark'
             {
             match("mark"); 
+
 
 
             }
@@ -465,6 +499,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "MARK"
@@ -474,10 +509,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = GETPOSX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:127:9: ( 'getPosX' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:127:11: 'getPosX'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:127:9: ( 'getPosX' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:127:11: 'getPosX'
             {
             match("getPosX"); 
+
 
 
             }
@@ -486,6 +522,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "GETPOSX"
@@ -495,10 +532,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = GETPOSY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:128:9: ( 'getPosY' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:128:11: 'getPosY'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:128:9: ( 'getPosY' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:128:11: 'getPosY'
             {
             match("getPosY"); 
+
 
 
             }
@@ -507,6 +545,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "GETPOSY"
@@ -516,10 +555,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = ON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:129:9: ( 'on' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:129:11: 'on'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:129:9: ( 'on' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:129:11: 'on'
             {
             match("on"); 
+
 
 
             }
@@ -528,6 +568,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "ON"
@@ -537,10 +578,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = OFF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:130:9: ( 'off' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:130:11: 'off'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:130:9: ( 'off' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:130:11: 'off'
             {
             match("off"); 
+
 
 
             }
@@ -549,6 +591,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "OFF"
@@ -558,10 +601,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = CALL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:132:6: ( 'call' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:132:8: 'call'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:132:6: ( 'call' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:132:8: 'call'
             {
             match("call"); 
+
 
 
             }
@@ -570,6 +614,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "CALL"
@@ -579,10 +624,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:133:9: ( 'and' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:133:11: 'and'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:133:9: ( 'and' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:133:11: 'and'
             {
             match("and"); 
+
 
 
             }
@@ -591,6 +637,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "AND"
@@ -600,10 +647,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:134:9: ( 'or' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:134:11: 'or'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:134:9: ( 'or' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:134:11: 'or'
             {
             match("or"); 
+
 
 
             }
@@ -612,6 +660,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "OR"
@@ -621,10 +670,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = NOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:135:9: ( 'not' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:135:11: 'not'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:135:9: ( 'not' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:135:11: 'not'
             {
             match("not"); 
+
 
 
             }
@@ -633,6 +683,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "NOT"
@@ -642,10 +693,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = IF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:136:9: ( 'if' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:136:11: 'if'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:136:9: ( 'if' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:136:11: 'if'
             {
             match("if"); 
+
 
 
             }
@@ -654,6 +706,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "IF"
@@ -663,10 +716,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = ELSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:137:7: ( 'else' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:137:9: 'else'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:137:7: ( 'else' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:137:9: 'else'
             {
             match("else"); 
+
 
 
             }
@@ -675,6 +729,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "ELSE"
@@ -684,10 +739,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = THEN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:138:6: ( 'then' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:138:8: 'then'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:138:6: ( 'then' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:138:8: 'then'
             {
             match("then"); 
+
 
 
             }
@@ -696,6 +752,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "THEN"
@@ -705,10 +762,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = ENDIF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:139:7: ( 'endif' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:139:9: 'endif'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:139:7: ( 'endif' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:139:9: 'endif'
             {
             match("endif"); 
+
 
 
             }
@@ -717,6 +775,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "ENDIF"
@@ -726,10 +785,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = WHILE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:140:7: ( 'while' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:140:9: 'while'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:140:7: ( 'while' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:140:9: 'while'
             {
             match("while"); 
+
 
 
             }
@@ -738,6 +798,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "WHILE"
@@ -747,10 +808,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = DO;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:141:6: ( 'do' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:141:8: 'do'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:141:6: ( 'do' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:141:8: 'do'
             {
             match("do"); 
+
 
 
             }
@@ -759,6 +821,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "DO"
@@ -768,10 +831,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = WEND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:142:6: ( 'wend' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:142:8: 'wend'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:142:6: ( 'wend' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:142:8: 'wend'
             {
             match("wend"); 
+
 
 
             }
@@ -780,6 +844,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "WEND"
@@ -789,10 +854,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = FOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:143:9: ( 'for' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:143:11: 'for'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:143:9: ( 'for' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:143:11: 'for'
             {
             match("for"); 
+
 
 
             }
@@ -801,6 +867,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "FOR"
@@ -810,10 +877,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = IN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:144:8: ( 'in' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:144:10: 'in'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:144:8: ( 'in' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:144:10: 'in'
             {
             match("in"); 
+
 
 
             }
@@ -822,6 +890,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "IN"
@@ -831,10 +900,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = FEND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:145:6: ( 'fend' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:145:8: 'fend'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:145:6: ( 'fend' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:145:8: 'fend'
             {
             match("fend"); 
+
 
 
             }
@@ -843,6 +913,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "FEND"
@@ -852,10 +923,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = FUNC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:146:6: ( 'func' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:146:8: 'func'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:146:6: ( 'func' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:146:8: 'func'
             {
             match("func"); 
+
 
 
             }
@@ -864,6 +936,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "FUNC"
@@ -873,10 +946,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = ENDFUNC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:147:9: ( 'endfunc' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:147:11: 'endfunc'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:147:9: ( 'endfunc' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:147:11: 'endfunc'
             {
             match("endfunc"); 
+
 
 
             }
@@ -885,6 +959,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "ENDFUNC"
@@ -894,10 +969,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = BEGIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:148:7: ( 'BEGIN' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:148:9: 'BEGIN'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:148:7: ( 'BEGIN' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:148:9: 'BEGIN'
             {
             match("BEGIN"); 
+
 
 
             }
@@ -906,6 +982,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "BEGIN"
@@ -915,10 +992,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = END;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:149:9: ( 'END' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:149:11: 'END'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:149:9: ( 'END' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:149:11: 'END'
             {
             match("END"); 
+
 
 
             }
@@ -927,6 +1005,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "END"
@@ -936,10 +1015,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = ACTIONS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:150:9: ( 'ACTIONS' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:150:11: 'ACTIONS'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:150:9: ( 'ACTIONS' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:150:11: 'ACTIONS'
             {
             match("ACTIONS"); 
+
 
 
             }
@@ -948,6 +1028,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "ACTIONS"
@@ -957,10 +1038,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = ENDACTIONS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:151:13: ( 'ENDACTIONS' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:151:15: 'ENDACTIONS'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:151:13: ( 'ENDACTIONS' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:151:15: 'ENDACTIONS'
             {
             match("ENDACTIONS"); 
+
 
 
             }
@@ -969,6 +1051,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "ENDACTIONS"
@@ -978,10 +1061,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = TRUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:152:9: ( 'true' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:152:11: 'true'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:152:9: ( 'true' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:152:11: 'true'
             {
             match("true"); 
+
 
 
             }
@@ -990,6 +1074,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "TRUE"
@@ -999,10 +1084,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = FALSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:153:8: ( 'false' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:153:10: 'false'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:153:8: ( 'false' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:153:10: 'false'
             {
             match("false"); 
+
 
 
             }
@@ -1011,6 +1097,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "FALSE"
@@ -1020,10 +1107,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = RETURN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:154:8: ( 'return' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:154:10: 'return'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:154:8: ( 'return' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:154:10: 'return'
             {
             match("return"); 
+
 
 
             }
@@ -1032,6 +1120,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "RETURN"
@@ -1041,10 +1130,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = READ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:155:6: ( 'read' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:155:8: 'read'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:155:6: ( 'read' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:155:8: 'read'
             {
             match("read"); 
+
 
 
             }
@@ -1053,6 +1143,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "READ"
@@ -1062,10 +1153,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = WRITE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:156:7: ( 'write' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:156:9: 'write'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:156:7: ( 'write' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:156:9: 'write'
             {
             match("write"); 
+
 
 
             }
@@ -1074,6 +1166,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "WRITE"
@@ -1083,41 +1176,42 @@ public class RGLLexer extends Lexer {
         try {
             int _type = ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:157:9: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:157:13: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:157:9: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:157:13: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
-            if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
+            if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
-
             }
             else {
                 MismatchedSetException mse = new MismatchedSetException(null,input);
                 recover(mse);
-                throw mse;}
+                throw mse;
+            }
 
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:157:37: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:157:37: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop1:
             do {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( ((LA1_0>='0' && LA1_0<='9')||(LA1_0>='A' && LA1_0<='Z')||LA1_0=='_'||(LA1_0>='a' && LA1_0<='z')) ) {
+                if ( ((LA1_0 >= '0' && LA1_0 <= '9')||(LA1_0 >= 'A' && LA1_0 <= 'Z')||LA1_0=='_'||(LA1_0 >= 'a' && LA1_0 <= 'z')) ) {
                     alt1=1;
                 }
 
 
                 switch (alt1) {
             	case 1 :
-            	    // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:
+            	    // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:
             	    {
-            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
+            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
             	        input.consume();
-
             	    }
             	    else {
             	        MismatchedSetException mse = new MismatchedSetException(null,input);
             	        recover(mse);
-            	        throw mse;}
+            	        throw mse;
+            	    }
 
 
             	    }
@@ -1135,6 +1229,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "ID"
@@ -1144,26 +1239,34 @@ public class RGLLexer extends Lexer {
         try {
             int _type = INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:158:9: ( ( '0' .. '9' )+ )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:158:13: ( '0' .. '9' )+
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:158:9: ( ( '0' .. '9' )+ )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:158:13: ( '0' .. '9' )+
             {
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:158:13: ( '0' .. '9' )+
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:158:13: ( '0' .. '9' )+
             int cnt2=0;
             loop2:
             do {
                 int alt2=2;
                 int LA2_0 = input.LA(1);
 
-                if ( ((LA2_0>='0' && LA2_0<='9')) ) {
+                if ( ((LA2_0 >= '0' && LA2_0 <= '9')) ) {
                     alt2=1;
                 }
 
 
                 switch (alt2) {
             	case 1 :
-            	    // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:158:13: '0' .. '9'
+            	    // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:
             	    {
-            	    matchRange('0','9'); 
+            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
 
             	    }
             	    break;
@@ -1184,6 +1287,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "INT"
@@ -1193,8 +1297,8 @@ public class RGLLexer extends Lexer {
         try {
             int _type = EQUAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:160:7: ( '=' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:160:9: '='
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:160:7: ( '=' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:160:9: '='
             {
             match('='); 
 
@@ -1204,6 +1308,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "EQUAL"
@@ -1213,10 +1318,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = EQUALS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:162:9: ( '==' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:162:11: '=='
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:162:9: ( '==' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:162:11: '=='
             {
             match("=="); 
+
 
 
             }
@@ -1225,6 +1331,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "EQUALS"
@@ -1234,10 +1341,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = NOT_EQUAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:163:10: ( '!=' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:163:12: '!='
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:163:10: ( '!=' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:163:12: '!='
             {
             match("!="); 
+
 
 
             }
@@ -1246,6 +1354,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "NOT_EQUAL"
@@ -1255,8 +1364,8 @@ public class RGLLexer extends Lexer {
         try {
             int _type = LT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:164:8: ( '<' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:164:10: '<'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:164:8: ( '<' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:164:10: '<'
             {
             match('<'); 
 
@@ -1266,6 +1375,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "LT"
@@ -1275,10 +1385,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = LE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:165:8: ( '<=' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:165:10: '<='
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:165:8: ( '<=' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:165:10: '<='
             {
             match("<="); 
+
 
 
             }
@@ -1287,6 +1398,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "LE"
@@ -1296,8 +1408,8 @@ public class RGLLexer extends Lexer {
         try {
             int _type = GT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:166:8: ( '>' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:166:10: '>'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:166:8: ( '>' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:166:10: '>'
             {
             match('>'); 
 
@@ -1307,6 +1419,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "GT"
@@ -1316,10 +1429,11 @@ public class RGLLexer extends Lexer {
         try {
             int _type = GE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:167:8: ( '>=' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:167:10: '>='
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:167:8: ( '>=' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:167:10: '>='
             {
             match(">="); 
+
 
 
             }
@@ -1328,6 +1442,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "GE"
@@ -1337,8 +1452,8 @@ public class RGLLexer extends Lexer {
         try {
             int _type = PLUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:168:6: ( '+' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:168:8: '+'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:168:6: ( '+' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:168:8: '+'
             {
             match('+'); 
 
@@ -1348,6 +1463,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "PLUS"
@@ -1357,8 +1473,8 @@ public class RGLLexer extends Lexer {
         try {
             int _type = MINUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:169:7: ( '-' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:169:9: '-'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:169:7: ( '-' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:169:9: '-'
             {
             match('-'); 
 
@@ -1368,6 +1484,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "MINUS"
@@ -1377,8 +1494,8 @@ public class RGLLexer extends Lexer {
         try {
             int _type = MUL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:170:9: ( '*' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:170:11: '*'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:170:9: ( '*' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:170:11: '*'
             {
             match('*'); 
 
@@ -1388,6 +1505,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "MUL"
@@ -1397,8 +1515,8 @@ public class RGLLexer extends Lexer {
         try {
             int _type = DIV;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:171:9: ( '/' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:171:11: '/'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:171:9: ( '/' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:171:11: '/'
             {
             match('/'); 
 
@@ -1408,6 +1526,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "DIV"
@@ -1417,8 +1536,8 @@ public class RGLLexer extends Lexer {
         try {
             int _type = MOD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:172:9: ( '%' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:172:11: '%'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:172:9: ( '%' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:172:11: '%'
             {
             match('%'); 
 
@@ -1428,6 +1547,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "MOD"
@@ -1437,11 +1557,12 @@ public class RGLLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:173:9: ( '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"' )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:173:12: '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"'
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:173:9: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:173:12: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"'
             {
             match('\"'); 
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:173:16: ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )*
+
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:173:16: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )*
             loop3:
             do {
                 int alt3=3;
@@ -1450,30 +1571,31 @@ public class RGLLexer extends Lexer {
                 if ( (LA3_0=='\\') ) {
                     alt3=1;
                 }
-                else if ( ((LA3_0>='\u0000' && LA3_0<='!')||(LA3_0>='#' && LA3_0<='[')||(LA3_0>=']' && LA3_0<='\uFFFF')) ) {
+                else if ( ((LA3_0 >= '\u0000' && LA3_0 <= '!')||(LA3_0 >= '#' && LA3_0 <= '[')||(LA3_0 >= ']' && LA3_0 <= '\uFFFF')) ) {
                     alt3=2;
                 }
 
 
                 switch (alt3) {
             	case 1 :
-            	    // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:173:18: ESC_SEQ
+            	    // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:173:18: ESC_SEQ
             	    {
             	    mESC_SEQ(); 
+
 
             	    }
             	    break;
             	case 2 :
-            	    // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:173:28: ~ ( '\\\\' | '\"' )
+            	    // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:173:28: ~ ( '\\\\' | '\"' )
             	    {
-            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
+            	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
-
             	    }
             	    else {
             	        MismatchedSetException mse = new MismatchedSetException(null,input);
             	        recover(mse);
-            	        throw mse;}
+            	        throw mse;
+            	    }
 
 
             	    }
@@ -1484,6 +1606,7 @@ public class RGLLexer extends Lexer {
                 }
             } while (true);
 
+
             match('\"'); 
 
             }
@@ -1492,6 +1615,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "STRING"
@@ -1501,18 +1625,19 @@ public class RGLLexer extends Lexer {
         try {
             int _type = ESC_SEQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:175:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:175:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:175:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:175:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
             {
             match('\\'); 
+
             if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||input.LA(1)=='t' ) {
                 input.consume();
-
             }
             else {
                 MismatchedSetException mse = new MismatchedSetException(null,input);
                 recover(mse);
-                throw mse;}
+                throw mse;
+            }
 
 
             }
@@ -1521,6 +1646,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "ESC_SEQ"
@@ -1530,7 +1656,7 @@ public class RGLLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:179:9: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' | '/*' ( options {greedy=false; } : . )* '*/' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:179:9: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' | '/*' ( options {greedy=false; } : . )* '*/' )
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -1548,6 +1674,7 @@ public class RGLLexer extends Lexer {
                         new NoViableAltException("", 7, 1, input);
 
                     throw nvae;
+
                 }
             }
             else {
@@ -1555,36 +1682,39 @@ public class RGLLexer extends Lexer {
                     new NoViableAltException("", 7, 0, input);
 
                 throw nvae;
+
             }
             switch (alt7) {
                 case 1 :
-                    // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:179:11: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+                    // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:179:11: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
                     {
                     match("//"); 
 
-                    // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:179:16: (~ ( '\\n' | '\\r' ) )*
+
+
+                    // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:179:16: (~ ( '\\n' | '\\r' ) )*
                     loop4:
                     do {
                         int alt4=2;
                         int LA4_0 = input.LA(1);
 
-                        if ( ((LA4_0>='\u0000' && LA4_0<='\t')||(LA4_0>='\u000B' && LA4_0<='\f')||(LA4_0>='\u000E' && LA4_0<='\uFFFF')) ) {
+                        if ( ((LA4_0 >= '\u0000' && LA4_0 <= '\t')||(LA4_0 >= '\u000B' && LA4_0 <= '\f')||(LA4_0 >= '\u000E' && LA4_0 <= '\uFFFF')) ) {
                             alt4=1;
                         }
 
 
                         switch (alt4) {
                     	case 1 :
-                    	    // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:179:16: ~ ( '\\n' | '\\r' )
+                    	    // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:
                     	    {
-                    	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
+                    	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t')||(input.LA(1) >= '\u000B' && input.LA(1) <= '\f')||(input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF') ) {
                     	        input.consume();
-
                     	    }
                     	    else {
                     	        MismatchedSetException mse = new MismatchedSetException(null,input);
                     	        recover(mse);
-                    	        throw mse;}
+                    	        throw mse;
+                    	    }
 
 
                     	    }
@@ -1595,7 +1725,8 @@ public class RGLLexer extends Lexer {
                         }
                     } while (true);
 
-                    // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:179:30: ( '\\r' )?
+
+                    // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:179:30: ( '\\r' )?
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
@@ -1604,7 +1735,7 @@ public class RGLLexer extends Lexer {
                     }
                     switch (alt5) {
                         case 1 :
-                            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:179:30: '\\r'
+                            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:179:30: '\\r'
                             {
                             match('\r'); 
 
@@ -1613,17 +1744,21 @@ public class RGLLexer extends Lexer {
 
                     }
 
+
                     match('\n'); 
+
                     _channel=HIDDEN;
 
                     }
                     break;
                 case 2 :
-                    // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:180:11: '/*' ( options {greedy=false; } : . )* '*/'
+                    // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:180:11: '/*' ( options {greedy=false; } : . )* '*/'
                     {
                     match("/*"); 
 
-                    // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:180:16: ( options {greedy=false; } : . )*
+
+
+                    // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:180:16: ( options {greedy=false; } : . )*
                     loop6:
                     do {
                         int alt6=2;
@@ -1635,20 +1770,20 @@ public class RGLLexer extends Lexer {
                             if ( (LA6_1=='/') ) {
                                 alt6=2;
                             }
-                            else if ( ((LA6_1>='\u0000' && LA6_1<='.')||(LA6_1>='0' && LA6_1<='\uFFFF')) ) {
+                            else if ( ((LA6_1 >= '\u0000' && LA6_1 <= '.')||(LA6_1 >= '0' && LA6_1 <= '\uFFFF')) ) {
                                 alt6=1;
                             }
 
 
                         }
-                        else if ( ((LA6_0>='\u0000' && LA6_0<=')')||(LA6_0>='+' && LA6_0<='\uFFFF')) ) {
+                        else if ( ((LA6_0 >= '\u0000' && LA6_0 <= ')')||(LA6_0 >= '+' && LA6_0 <= '\uFFFF')) ) {
                             alt6=1;
                         }
 
 
                         switch (alt6) {
                     	case 1 :
-                    	    // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:180:44: .
+                    	    // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:180:44: .
                     	    {
                     	    matchAny(); 
 
@@ -1660,7 +1795,10 @@ public class RGLLexer extends Lexer {
                         }
                     } while (true);
 
+
                     match("*/"); 
+
+
 
                     _channel=HIDDEN;
 
@@ -1672,6 +1810,7 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "COMMENT"
@@ -1681,17 +1820,18 @@ public class RGLLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:183:9: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
-            // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:183:11: ( ' ' | '\\t' | '\\r' | '\\n' )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:183:9: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
+            // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:183:11: ( ' ' | '\\t' | '\\r' | '\\n' )
             {
-            if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
+            if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
-
             }
             else {
                 MismatchedSetException mse = new MismatchedSetException(null,input);
                 recover(mse);
-                throw mse;}
+                throw mse;
+            }
+
 
             _channel=HIDDEN;
 
@@ -1701,467 +1841,533 @@ public class RGLLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
+        	// do for sure before leaving
         }
     }
     // $ANTLR end "WS"
 
     public void mTokens() throws RecognitionException {
-        // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:8: ( T__70 | T__71 | T__72 | T__73 | T__74 | INITROBOT | MOVEFORWARD | MOVETO | ROTATE | PAUSEROBOT | STOPROBOT | PICKOBJECT | RELEASEOBJECT | DETECT | OBSTACLE | BOX | TRAIL | MARK | GETPOSX | GETPOSY | ON | OFF | CALL | AND | OR | NOT | IF | ELSE | THEN | ENDIF | WHILE | DO | WEND | FOR | IN | FEND | FUNC | ENDFUNC | BEGIN | END | ACTIONS | ENDACTIONS | TRUE | FALSE | RETURN | READ | WRITE | ID | INT | EQUAL | EQUALS | NOT_EQUAL | LT | LE | GT | GE | PLUS | MINUS | MUL | DIV | MOD | STRING | ESC_SEQ | COMMENT | WS )
+        // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:8: ( T__70 | T__71 | T__72 | T__73 | T__74 | INITROBOT | MOVEFORWARD | MOVETO | ROTATE | PAUSEROBOT | STOPROBOT | PICKOBJECT | RELEASEOBJECT | DETECT | OBSTACLE | BOX | TRAIL | MARK | GETPOSX | GETPOSY | ON | OFF | CALL | AND | OR | NOT | IF | ELSE | THEN | ENDIF | WHILE | DO | WEND | FOR | IN | FEND | FUNC | ENDFUNC | BEGIN | END | ACTIONS | ENDACTIONS | TRUE | FALSE | RETURN | READ | WRITE | ID | INT | EQUAL | EQUALS | NOT_EQUAL | LT | LE | GT | GE | PLUS | MINUS | MUL | DIV | MOD | STRING | ESC_SEQ | COMMENT | WS )
         int alt8=65;
         alt8 = dfa8.predict(input);
         switch (alt8) {
             case 1 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:10: T__70
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:10: T__70
                 {
                 mT__70(); 
+
 
                 }
                 break;
             case 2 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:16: T__71
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:16: T__71
                 {
                 mT__71(); 
+
 
                 }
                 break;
             case 3 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:22: T__72
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:22: T__72
                 {
                 mT__72(); 
+
 
                 }
                 break;
             case 4 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:28: T__73
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:28: T__73
                 {
                 mT__73(); 
+
 
                 }
                 break;
             case 5 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:34: T__74
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:34: T__74
                 {
                 mT__74(); 
+
 
                 }
                 break;
             case 6 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:40: INITROBOT
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:40: INITROBOT
                 {
                 mINITROBOT(); 
+
 
                 }
                 break;
             case 7 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:50: MOVEFORWARD
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:50: MOVEFORWARD
                 {
                 mMOVEFORWARD(); 
+
 
                 }
                 break;
             case 8 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:62: MOVETO
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:62: MOVETO
                 {
                 mMOVETO(); 
+
 
                 }
                 break;
             case 9 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:69: ROTATE
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:69: ROTATE
                 {
                 mROTATE(); 
+
 
                 }
                 break;
             case 10 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:76: PAUSEROBOT
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:76: PAUSEROBOT
                 {
                 mPAUSEROBOT(); 
+
 
                 }
                 break;
             case 11 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:87: STOPROBOT
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:87: STOPROBOT
                 {
                 mSTOPROBOT(); 
+
 
                 }
                 break;
             case 12 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:97: PICKOBJECT
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:97: PICKOBJECT
                 {
                 mPICKOBJECT(); 
+
 
                 }
                 break;
             case 13 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:108: RELEASEOBJECT
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:108: RELEASEOBJECT
                 {
                 mRELEASEOBJECT(); 
+
 
                 }
                 break;
             case 14 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:122: DETECT
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:122: DETECT
                 {
                 mDETECT(); 
+
 
                 }
                 break;
             case 15 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:129: OBSTACLE
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:129: OBSTACLE
                 {
                 mOBSTACLE(); 
+
 
                 }
                 break;
             case 16 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:138: BOX
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:138: BOX
                 {
                 mBOX(); 
+
 
                 }
                 break;
             case 17 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:142: TRAIL
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:142: TRAIL
                 {
                 mTRAIL(); 
+
 
                 }
                 break;
             case 18 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:148: MARK
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:148: MARK
                 {
                 mMARK(); 
+
 
                 }
                 break;
             case 19 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:153: GETPOSX
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:153: GETPOSX
                 {
                 mGETPOSX(); 
+
 
                 }
                 break;
             case 20 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:161: GETPOSY
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:161: GETPOSY
                 {
                 mGETPOSY(); 
+
 
                 }
                 break;
             case 21 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:169: ON
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:169: ON
                 {
                 mON(); 
+
 
                 }
                 break;
             case 22 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:172: OFF
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:172: OFF
                 {
                 mOFF(); 
+
 
                 }
                 break;
             case 23 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:176: CALL
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:176: CALL
                 {
                 mCALL(); 
+
 
                 }
                 break;
             case 24 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:181: AND
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:181: AND
                 {
                 mAND(); 
+
 
                 }
                 break;
             case 25 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:185: OR
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:185: OR
                 {
                 mOR(); 
+
 
                 }
                 break;
             case 26 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:188: NOT
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:188: NOT
                 {
                 mNOT(); 
+
 
                 }
                 break;
             case 27 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:192: IF
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:192: IF
                 {
                 mIF(); 
+
 
                 }
                 break;
             case 28 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:195: ELSE
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:195: ELSE
                 {
                 mELSE(); 
+
 
                 }
                 break;
             case 29 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:200: THEN
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:200: THEN
                 {
                 mTHEN(); 
+
 
                 }
                 break;
             case 30 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:205: ENDIF
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:205: ENDIF
                 {
                 mENDIF(); 
+
 
                 }
                 break;
             case 31 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:211: WHILE
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:211: WHILE
                 {
                 mWHILE(); 
+
 
                 }
                 break;
             case 32 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:217: DO
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:217: DO
                 {
                 mDO(); 
+
 
                 }
                 break;
             case 33 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:220: WEND
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:220: WEND
                 {
                 mWEND(); 
+
 
                 }
                 break;
             case 34 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:225: FOR
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:225: FOR
                 {
                 mFOR(); 
+
 
                 }
                 break;
             case 35 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:229: IN
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:229: IN
                 {
                 mIN(); 
+
 
                 }
                 break;
             case 36 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:232: FEND
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:232: FEND
                 {
                 mFEND(); 
+
 
                 }
                 break;
             case 37 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:237: FUNC
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:237: FUNC
                 {
                 mFUNC(); 
+
 
                 }
                 break;
             case 38 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:242: ENDFUNC
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:242: ENDFUNC
                 {
                 mENDFUNC(); 
+
 
                 }
                 break;
             case 39 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:250: BEGIN
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:250: BEGIN
                 {
                 mBEGIN(); 
+
 
                 }
                 break;
             case 40 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:256: END
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:256: END
                 {
                 mEND(); 
+
 
                 }
                 break;
             case 41 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:260: ACTIONS
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:260: ACTIONS
                 {
                 mACTIONS(); 
+
 
                 }
                 break;
             case 42 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:268: ENDACTIONS
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:268: ENDACTIONS
                 {
                 mENDACTIONS(); 
+
 
                 }
                 break;
             case 43 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:279: TRUE
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:279: TRUE
                 {
                 mTRUE(); 
+
 
                 }
                 break;
             case 44 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:284: FALSE
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:284: FALSE
                 {
                 mFALSE(); 
+
 
                 }
                 break;
             case 45 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:290: RETURN
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:290: RETURN
                 {
                 mRETURN(); 
+
 
                 }
                 break;
             case 46 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:297: READ
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:297: READ
                 {
                 mREAD(); 
+
 
                 }
                 break;
             case 47 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:302: WRITE
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:302: WRITE
                 {
                 mWRITE(); 
+
 
                 }
                 break;
             case 48 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:308: ID
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:308: ID
                 {
                 mID(); 
+
 
                 }
                 break;
             case 49 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:311: INT
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:311: INT
                 {
                 mINT(); 
+
 
                 }
                 break;
             case 50 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:315: EQUAL
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:315: EQUAL
                 {
                 mEQUAL(); 
+
 
                 }
                 break;
             case 51 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:321: EQUALS
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:321: EQUALS
                 {
                 mEQUALS(); 
+
 
                 }
                 break;
             case 52 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:328: NOT_EQUAL
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:328: NOT_EQUAL
                 {
                 mNOT_EQUAL(); 
+
 
                 }
                 break;
             case 53 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:338: LT
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:338: LT
                 {
                 mLT(); 
+
 
                 }
                 break;
             case 54 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:341: LE
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:341: LE
                 {
                 mLE(); 
+
 
                 }
                 break;
             case 55 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:344: GT
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:344: GT
                 {
                 mGT(); 
+
 
                 }
                 break;
             case 56 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:347: GE
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:347: GE
                 {
                 mGE(); 
+
 
                 }
                 break;
             case 57 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:350: PLUS
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:350: PLUS
                 {
                 mPLUS(); 
+
 
                 }
                 break;
             case 58 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:355: MINUS
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:355: MINUS
                 {
                 mMINUS(); 
+
 
                 }
                 break;
             case 59 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:361: MUL
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:361: MUL
                 {
                 mMUL(); 
+
 
                 }
                 break;
             case 60 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:365: DIV
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:365: DIV
                 {
                 mDIV(); 
+
 
                 }
                 break;
             case 61 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:369: MOD
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:369: MOD
                 {
                 mMOD(); 
+
 
                 }
                 break;
             case 62 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:373: STRING
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:373: STRING
                 {
                 mSTRING(); 
+
 
                 }
                 break;
             case 63 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:380: ESC_SEQ
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:380: ESC_SEQ
                 {
                 mESC_SEQ(); 
+
 
                 }
                 break;
             case 64 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:388: COMMENT
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:388: COMMENT
                 {
                 mCOMMENT(); 
+
 
                 }
                 break;
             case 65 :
-                // /home/albert/Desktop/Projecte/java/src/parser/RGL.g:1:396: WS
+                // /home/andres/cl/Translator/RGLTranslator/robotgl/java/src/parser/RGL.g:1:396: WS
                 {
                 mWS(); 
+
 
                 }
                 break;
@@ -2247,7 +2453,7 @@ public class RGLLexer extends Lexer {
         "\u0101\uffff}>";
     static final String[] DFA8_transitionS = {
             "\2\46\2\uffff\1\46\22\uffff\1\46\1\34\1\44\2\uffff\1\43\2\uffff"+
-            "\1\4\1\5\1\41\1\37\1\2\1\40\1\3\1\42\12\32\1\1\1\uffff\1\35"+
+            "\1\1\1\2\1\41\1\37\1\3\1\40\1\4\1\42\12\32\1\5\1\uffff\1\35"+
             "\1\33\1\36\2\uffff\1\30\1\26\2\31\1\27\25\31\1\uffff\1\45\2"+
             "\uffff\1\31\1\uffff\1\21\1\15\1\20\1\13\1\23\1\25\1\17\1\31"+
             "\1\6\3\31\1\7\1\22\1\14\1\11\1\31\1\10\1\12\1\16\2\31\1\24\3"+
