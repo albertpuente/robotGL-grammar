@@ -441,7 +441,6 @@ void leaveBox() {
     for (double inc = 0; inc < 2*M_PI and R.hasABox(); inc += M_PI/4) {        
         int x2 = (int) x1+0.5+sin(ang+inc);
         int z2 = (int) z1+0.5+cos(ang+inc);    
-        cout << "Trying " << x2 << " "<< z2 << endl;
         double distancia = distanciaQuadrat(x1, z1, x2, z2, 0.25);
         if (not ocupat(x2, z2) and distancia > 0.4 and x2 >= 0 and z2 >= 0 and x2 < SIZE and z2 < SIZE) {
             box n;
