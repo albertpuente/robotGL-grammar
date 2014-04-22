@@ -15,6 +15,11 @@ BEGIN
     z = 3
     initRobot a, z, 45
     moveForward 3
+    i = 0
+    while i < 10 do 
+        mark 1, i 
+        i = i + 1
+    wend
     box 0, 0
     moveTo 1, 1
     stopRobot 2

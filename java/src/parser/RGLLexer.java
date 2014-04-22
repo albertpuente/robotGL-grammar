@@ -1,4 +1,4 @@
-// $ANTLR !Unknown version! /home/albert/Desktop/Projecte/java/src/parser/RGL.g 2014-04-22 20:55:33
+// $ANTLR !Unknown version! /home/albert/Desktop/Projecte/java/src/parser/RGL.g 2014-04-22 21:20:05
 
     package parser;
 

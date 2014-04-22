@@ -698,17 +698,21 @@ void actions() {
     int z = 3;
     R = robot(a, z, 45);
     exec( action(MOVE_FORWARD, 3) );
+    int i = 0;
+    while (i < 10) {
+        exec( action(MARK, 1, i) );
+        i = i + 1;
+    }
     exec( action(BOX, 0, 0) );
     exec( action(MOVE, 1, 1) );
     exec( action(STOP, 2) );
     exec( action(OBSTACLE, 7, 7) );
-        exec( action(ROTATE, angleActual() + 90) );
-        exec( action(MOVE_FORWARD, 3) );
-        while (z < a) {
-            z = z + 1;
-            rgl_moveBackwards(1);
-        }
-        exec( action(MOVE, 6, 6) );
-        rgl_tomato(1);
-        finish = true;
+    exec( action(MOVE_FORWARD, 3) );
+    while (z < a) {
+        z = z + 1;
+        rgl_moveBackwards(1);
     }
+    exec( action(MOVE, 6, 6) );
+    rgl_tomato(1);
+    finish = true;
+}

@@ -218,7 +218,11 @@ public class Interp {
             case RGLLexer.OBSTACLE:
                 addLine("exec( action(OBSTACLE, " + translateExpression(tree.getChild(0)) +
                                              ", " + translateExpression(tree.getChild(1)) + ") );");
-                return; 
+                break; 
+            case RGLLexer.MARK:
+                addLine("exec( action(MARK, " + translateExpression(tree.getChild(0)) +
+                                         ", " + translateExpression(tree.getChild(1)) + ") );");
+                break; 
             case RGLLexer.BOX:
                 addLine("exec( action(BOX, " + translateExpression(tree.getChild(0)) +
                                         ", " + translateExpression(tree.getChild(1)) + ") );");
