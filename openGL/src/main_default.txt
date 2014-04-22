@@ -58,6 +58,7 @@ struct box {
 // Objectes a dibuixar
 vector< box > caixes;
 vector< pair<uint, uint> > obstacles;
+vector <pair<uint, uint> > marques;
 vector< pair<double, double> > trail;
 Model model;
 
@@ -120,6 +121,20 @@ void pintaTerra() {
     shaderTerra.off();
 }
 
+void pintaMarques() {    
+    glColor4f(0.0, 1.0, 0.0, 0.25);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    for (int i = 0; i < marques.size(); ++i) {
+        int x = marques[i].first;
+        int z = marques[i].second;
+        glPushMatrix();
+        plotterMark(x, z); 
+        glPopMatrix();
+    }
+    glDisable(GL_BLEND);     
+}
+
 void pintaCaixes() {
     shaderCaixa.on();
     for (int i = 0; i < caixes.size(); ++i) {
@@ -173,16 +188,20 @@ void pintaObstacles() {
 }
 
 void pintaRastre() {
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glColor4f(0.2, 0.2, 1, 0.5);
     for (int i = 0; i < trail.size(); ++i) {
         double x = trail[i].first;
         double z = trail[i].second;
         glPushMatrix();
         plotterTrail(x, z); 
         glPopMatrix();
-    }    
+    } 
+    glDisable(GL_BLEND);
 }
 
-void computeTrail() {    
+void computeTrail() {        
     if (trail.size() > 0) {
         double d1 = trail.back().first - R.getX();
         double d2 = trail.back().second - R.getZ();
@@ -194,6 +213,7 @@ void computeTrail() {
 void refresh() {    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
     pintaTerra();
+    pintaMarques();
     pintaRastre();
     pintaCaixes();
     pintaObstacles();
@@ -462,6 +482,11 @@ void iniciarAccio() {
             currentAction.setStatus(FINISHED);
             break;
             
+        case MARK : 
+            marques.push_back( make_pair( currentAction.getDestX(), currentAction.getDestZ()));        
+            currentAction.setStatus(FINISHED);
+            break;
+            
         case PICK_OBJECT :
             if (not R.hasABox()) loadBox();
             else {
@@ -621,7 +646,7 @@ int main(int argc, const char * argv[]) {
 
     shaderCaixa= shader("BT.vert", "BT.frag");
     shaderCaixa.loadImg("box.jpg");
-    
+       
     shaderCaixaCarregada = shader("BTflotant.vert", "BTflotant.frag");
     shaderCaixaCarregada.loadImg("box.jpg");
     
@@ -645,5 +670,4 @@ int main(int argc, const char * argv[]) {
 }
 
 // Accions: traduccio de robotGL a c++
-
 
