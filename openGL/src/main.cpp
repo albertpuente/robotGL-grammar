@@ -704,10 +704,13 @@ void actions() {
         i = i + 1;
     }
     exec( action(BOX, 0, 0) );
-    exec( action(MOVE, 1, 1) );
-    exec( action(STOP, 2) );
+    exec( action(MOVE, 1, 0) );
+    exec( action(PICK_OBJECT) );
+    exec( action(STOP, 1) );
+    exec( action(ROTATE, angleActual() + 180) );
     exec( action(OBSTACLE, 7, 7) );
-    exec( action(MOVE_FORWARD, 3) );
+    exec( action(MOVE, 7, 5) );
+    exec( action(RELEASE_OBJECT) );
     while (z < a) {
         z = z + 1;
         rgl_moveBackwards(1);

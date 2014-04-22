@@ -21,11 +21,13 @@ BEGIN
         i = i + 1
     wend
     box 0, 0
-    moveTo 1, 1
-    stopRobot 2
+    moveTo 1, 0
+    pickObject
+    stopRobot 1
+    rotate 180
     obstacle 7, 7
-    rotate 90
-    moveForward 3
+    moveTo 7, 5
+    releaseObject
     while z < a do z = z+1 call moveBackwards 1 wend
     moveTo 6,6
     call tomato 1

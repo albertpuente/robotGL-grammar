@@ -213,7 +213,7 @@ public class Interp {
                 addLine("exec( action(PICK_OBJECT) );");
                 break;
             case RGLLexer.RELEASEOBJECT:
-                addLine("exec( action(RELEAS_EOBJECT) );");
+                addLine("exec( action(RELEASE_OBJECT) );");
                 break;
             case RGLLexer.OBSTACLE:
                 addLine("exec( action(OBSTACLE, " + translateExpression(tree.getChild(0)) +
