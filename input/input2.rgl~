@@ -1,22 +1,25 @@
 ACTIONS
     func moveBackwards x :
-        rotate 180
+        call tomato 180
         moveForward x
     endfunc
 
     func tomato y :
-        moveForward y
+        while true do rotate 1 wend
     endfunc
 ENDACTIONS
 
 BEGIN
 
-    a = 3
-    z = 3 - 2
-    while a - (5 + z * 7 - 5 * (9 - 2)) / 73 > 3 and a < 2 or false do moveForward 3 + 1 wend
-    
-    if true and z > 0 then call moveBackwards a endif
-    
-    call tomato 2
+    a = 6
+    z = 3
+    initRobot a, z, 45
+    moveForward 3
+    rotate 90
+    moveForward 3
+    while z < a do z = z+1 call moveBackwards 1 wend
+    moveTo 6,6
+    stopRobot 3
+    call tomato 1
     
 END

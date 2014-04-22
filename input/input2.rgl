@@ -1,6 +1,6 @@
 ACTIONS
     func moveBackwards x :
-        rotate 180
+        //call tomato 180
         moveForward x
     endfunc
 
@@ -13,11 +13,13 @@ BEGIN
 
     a = 6
     z = 3
+    initRobot a, z, 45
     moveForward 3
     rotate 90
     moveForward 3
     while z < a do z = z+1 call moveBackwards 1 wend
-    
+    moveTo 6,6
+    stopRobot 3
     call tomato 1
     
 END

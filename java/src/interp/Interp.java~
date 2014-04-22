@@ -69,6 +69,10 @@ public class Interp {
     
     /** Runs the program by calling the main function without parameters. */
     public void Run() throws UndefinedElementException {
+        addLine("");
+        //CAL recorrer (i guardar info de) tots els ids abans de traduir els bodies.
+        //alhora s'han d'escriure les declaracions per poder fer servir funcions dins de
+        //funcions i no tenir problemes de visibilitat a C++
         translateActions(tree.getChild(0));
         addLine("void actions() {");        
         translate(tree.getChild(1));
@@ -84,7 +88,7 @@ public class Interp {
             String actionId = action.getText();
             actionSet.add(actionId);
             
-            String header = "void " + actionId + "(";            
+            String header = "void rgl_" + actionId + "(";            
             //parameters
             RGLTree arglist = action.getChild(0);
             int argNumber = 0;
@@ -183,19 +187,18 @@ public class Interp {
             
             ////////// RGL EXPRESSIONS /////////////
             case RGLLexer.INITROBOT:
-                if (robotInitialized) { //error. throw exception }
+                if (robotInitialized) { /*error. throw exception*/ }
                 robotInitialized = true;
                 
-                addLine("R = robot(double " + translateExpression(tree.getChild(0)) +
-                                ", double " + translateExpression(tree.getChild(1)) +
-                                ", double " + translateExpression(tree.getChild(2)) +
-                                ");");
+                addLine("R = robot(" + translateExpression(tree.getChild(0)) +
+                                ", " + translateExpression(tree.getChild(1)) +
+                                ", " + translateExpression(tree.getChild(2)) + ");");
                 break;
             case RGLLexer.MOVEFORWARD:
                 addLine("exec( action(MOVE_FORWARD, "          +
                         translateExpression(tree.getChild(0)) + ") );");
                 break;
-            case RGLLexer.PAUSEROBOT:
+            case RGLLexer.STOPROBOT:
                 addLine("exec( action(STOP, " + translateExpression(tree.getChild(0)) +") );");
                 break;
             case RGLLexer.MOVETO:
@@ -226,7 +229,7 @@ public class Interp {
                 String actionId = tree.getText();
                 if (!actionSet.contains(actionId))
                     throw new UndefinedElementException(actionId, tree.getLine());
-                String call = actionId + "(";
+                String call = "rglFunc_" + actionId + "(";
                 int paramNumber = 0;
                 RGLTree param = tree.getChild(paramNumber);
                 if (param != null) call += translateExpression(param);
@@ -236,7 +239,7 @@ public class Interp {
                     param = tree.getChild(++paramNumber);
                 }
                 call += ");";
-                addLine(call);             
+                addLine(call);
         }
         tabulation -= 4;
     }
