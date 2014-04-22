@@ -17,6 +17,7 @@ void actions() {
     int i = 0;
     while (i < 10) {
         exec( action(MARK, 1, i) );
+        exec( action(BOX, 9, i) );
         i = i + 1;
     }
     exec( action(BOX, 0, 0) );

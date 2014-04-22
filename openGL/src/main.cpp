@@ -441,7 +441,6 @@ void leaveBox() {
     for (double inc = 0; inc < 2*M_PI and R.hasABox(); inc += M_PI/4) {        
         int x2 = (int) x1+0.5+sin(ang+inc);
         int z2 = (int) z1+0.5+cos(ang+inc);    
-        cout << "Trying " << x2 << " "<< z2 << endl;
         double distancia = distanciaQuadrat(x1, z1, x2, z2, 0.25);
         if (not ocupat(x2, z2) and distancia > 0.4 and x2 >= 0 and z2 >= 0 and x2 < SIZE and z2 < SIZE) {
             box n;
@@ -577,9 +576,11 @@ void exec(const action& act) {
                 }
             }
             else if (currentAction.getType() == RELEASE_OBJECT) {
+                cout << "dicreasing" << endl;
                 for (int i = 0; i < caixes.size(); ++i) {
                     if (caixes[i].p > 0 and caixes[i].p < 1) caixes[i].p -= LOAD_SPEED;
-                    if (caixes[i].p <= 0) {
+                    if (caixes[i].p < 0) {
+                        cout << "sss" << endl;
                         caixes[i].p = 0;
                         currentAction.setStatus( FINISHED );
                     }
@@ -702,6 +703,7 @@ void actions() {
     int i = 0;
     while (i < 10) {
         exec( action(MARK, 1, i) );
+        exec( action(BOX, 9, i) );
         i = i + 1;
     }
     exec( action(BOX, 0, 0) );

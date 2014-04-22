@@ -578,7 +578,7 @@ void exec(const action& act) {
             else if (currentAction.getType() == RELEASE_OBJECT) {
                 for (int i = 0; i < caixes.size(); ++i) {
                     if (caixes[i].p > 0 and caixes[i].p < 1) caixes[i].p -= LOAD_SPEED;
-                    if (caixes[i].p <= 0) {
+                    if (caixes[i].p < 0) {
                         caixes[i].p = 0;
                         currentAction.setStatus( FINISHED );
                     }
