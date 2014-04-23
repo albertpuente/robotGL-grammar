@@ -5,7 +5,11 @@ ACTIONS
     endfunc
 
     func tomato y :
-        while true do rotate 1 wend
+        if y < 5 then 
+            call tomato y+1
+            rotate 90
+            moveForward 1
+        endif
     endfunc
 ENDACTIONS
 
@@ -13,8 +17,9 @@ BEGIN
 
     a = 6
     z = 3
-    initRobot a, z, 45
-    moveForward 3
+    initRobot a, z, 0
+    moveTo 6, 3
+    call tomato 1
     i = 0
     while i < 10 do 
         mark 1, i 
@@ -31,6 +36,5 @@ BEGIN
     releaseObject
     while z < a do z = z+1 call moveBackwards 1 wend
     moveTo 6,6
-    call tomato 1
     
 END

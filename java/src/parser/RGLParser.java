@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // $ANTLR 3.4 /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g 2014-04-23 10:21:27
+=======
+// $ANTLR 3.4 /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g 2014-04-23 09:41:05
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
 
     package parser;
     import interp.RGLTree;
@@ -119,7 +123,7 @@ public TreeAdaptor getTreeAdaptor() {
     return adaptor;
 }
     public String[] getTokenNames() { return RGLParser.tokenNames; }
-    public String getGrammarFileName() { return "/home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g"; }
+    public String getGrammarFileName() { return "/dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g"; }
 
 
     public static class prog_return extends ParserRuleReturnScope {
@@ -129,7 +133,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "prog"
-    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:31:1: prog : ( actions )? main EOF -> ^( RGL ^( ACTIONLIST ( actions )? ) ^( INSTRLIST main ) ) ;
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:31:1: prog : ( actions )? main EOF -> ^( RGL ^( ACTIONLIST ( actions )? ) ^( INSTRLIST main ) ) ;
     public final RGLParser.prog_return prog() throws RecognitionException {
         RGLParser.prog_return retval = new RGLParser.prog_return();
         retval.start = input.LT(1);
@@ -148,10 +152,10 @@ public TreeAdaptor getTreeAdaptor() {
         RewriteRuleSubtreeStream stream_actions=new RewriteRuleSubtreeStream(adaptor,"rule actions");
         RewriteRuleSubtreeStream stream_main=new RewriteRuleSubtreeStream(adaptor,"rule main");
         try {
-            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:31:9: ( ( actions )? main EOF -> ^( RGL ^( ACTIONLIST ( actions )? ) ^( INSTRLIST main ) ) )
-            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:31:11: ( actions )? main EOF
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:31:9: ( ( actions )? main EOF -> ^( RGL ^( ACTIONLIST ( actions )? ) ^( INSTRLIST main ) ) )
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:31:11: ( actions )? main EOF
             {
-            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:31:11: ( actions )?
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:31:11: ( actions )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -160,7 +164,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt1) {
                 case 1 :
-                    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:31:11: actions
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:31:11: actions
                     {
                     pushFollow(FOLLOW_actions_in_prog158);
                     actions1=actions();
@@ -199,21 +203,21 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (RGLTree)adaptor.nil();
             // 32:10: -> ^( RGL ^( ACTIONLIST ( actions )? ) ^( INSTRLIST main ) )
             {
-                // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:32:13: ^( RGL ^( ACTIONLIST ( actions )? ) ^( INSTRLIST main ) )
+                // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:32:13: ^( RGL ^( ACTIONLIST ( actions )? ) ^( INSTRLIST main ) )
                 {
                 RGLTree root_1 = (RGLTree)adaptor.nil();
                 root_1 = (RGLTree)adaptor.becomeRoot(
                 (RGLTree)adaptor.create(RGL, "RGL")
                 , root_1);
 
-                // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:32:19: ^( ACTIONLIST ( actions )? )
+                // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:32:19: ^( ACTIONLIST ( actions )? )
                 {
                 RGLTree root_2 = (RGLTree)adaptor.nil();
                 root_2 = (RGLTree)adaptor.becomeRoot(
                 (RGLTree)adaptor.create(ACTIONLIST, "ACTIONLIST")
                 , root_2);
 
-                // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:32:32: ( actions )?
+                // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:32:32: ( actions )?
                 if ( stream_actions.hasNext() ) {
                     adaptor.addChild(root_2, stream_actions.nextTree());
 
@@ -223,7 +227,7 @@ public TreeAdaptor getTreeAdaptor() {
                 adaptor.addChild(root_1, root_2);
                 }
 
-                // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:32:42: ^( INSTRLIST main )
+                // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:32:42: ^( INSTRLIST main )
                 {
                 RGLTree root_2 = (RGLTree)adaptor.nil();
                 root_2 = (RGLTree)adaptor.becomeRoot(
@@ -274,7 +278,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "actions"
-    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:35:1: actions : ACTIONS ! ( declaration )* ENDACTIONS !;
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:35:1: actions : ACTIONS ! ( declaration )* ENDACTIONS !;
     public final RGLParser.actions_return actions() throws RecognitionException {
         RGLParser.actions_return retval = new RGLParser.actions_return();
         retval.start = input.LT(1);
@@ -291,15 +295,15 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree ENDACTIONS6_tree=null;
 
         try {
-            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:35:9: ( ACTIONS ! ( declaration )* ENDACTIONS !)
-            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:35:11: ACTIONS ! ( declaration )* ENDACTIONS !
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:35:9: ( ACTIONS ! ( declaration )* ENDACTIONS !)
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:35:11: ACTIONS ! ( declaration )* ENDACTIONS !
             {
             root_0 = (RGLTree)adaptor.nil();
 
 
             ACTIONS4=(Token)match(input,ACTIONS,FOLLOW_ACTIONS_in_actions208); 
 
-            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:35:20: ( declaration )*
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:35:20: ( declaration )*
             loop2:
             do {
                 int alt2=2;
@@ -312,7 +316,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt2) {
             	case 1 :
-            	    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:35:20: declaration
+            	    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:35:20: declaration
             	    {
             	    pushFollow(FOLLOW_declaration_in_actions211);
             	    declaration5=declaration();
@@ -363,7 +367,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "declaration"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:38:1: declaration : FUNC ! ID ^ argList ':' ! instrList ENDFUNC !;
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:38:1: declaration : FUNC ! ID ^ ( argList )? ':' ! instrList ENDFUNC !;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.declaration_return declaration() throws RecognitionException {
         RGLParser.declaration_return retval = new RGLParser.declaration_return();
         retval.start = input.LT(1);
@@ -386,8 +394,13 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree ENDFUNC12_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:38:13: ( FUNC ! ID ^ argList ':' ! instrList ENDFUNC !)
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:38:15: FUNC ! ID ^ argList ':' ! instrList ENDFUNC !
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:38:13: ( FUNC ! ID ^ ( argList )? ':' ! instrList ENDFUNC !)
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:38:15: FUNC ! ID ^ ( argList )? ':' ! instrList ENDFUNC !
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             {
             root_0 = (RGLTree)adaptor.nil();
 
@@ -401,10 +414,35 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (RGLTree)adaptor.becomeRoot(ID8_tree, root_0);
 
 
+<<<<<<< HEAD
             pushFollow(FOLLOW_argList_in_declaration238);
             argList9=argList();
 
             state._fsp--;
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:38:25: ( argList )?
+            int alt3=2;
+            int LA3_0 = input.LA(1);
+
+            if ( (LA3_0==ID||LA3_0==INT) ) {
+                alt3=1;
+            }
+            switch (alt3) {
+                case 1 :
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:38:25: argList
+                    {
+                    pushFollow(FOLLOW_argList_in_declaration238);
+                    argList9=argList();
+
+                    state._fsp--;
+
+                    adaptor.addChild(root_0, argList9.getTree());
+
+                    }
+                    break;
+
+            }
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
 
             adaptor.addChild(root_0, argList9.getTree());
 
@@ -450,7 +488,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "main"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:41:1: main : BEGIN ! ( instr )+ END !;
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:41:1: main : BEGIN ! ( instr )* END !;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.main_return main() throws RecognitionException {
         RGLParser.main_return retval = new RGLParser.main_return();
         retval.start = input.LT(1);
@@ -467,17 +509,27 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree END15_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:41:9: ( BEGIN ! ( instr )+ END !)
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:41:11: BEGIN ! ( instr )+ END !
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:41:9: ( BEGIN ! ( instr )* END !)
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:41:11: BEGIN ! ( instr )* END !
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             {
             root_0 = (RGLTree)adaptor.nil();
 
 
             BEGIN13=(Token)match(input,BEGIN,FOLLOW_BEGIN_in_main276); 
 
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:41:18: ( instr )+
             int cnt3=0;
             loop3:
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:41:18: ( instr )*
+            loop4:
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             do {
                 int alt3=2;
                 int LA3_0 = input.LA(1);
@@ -489,7 +541,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt3) {
             	case 1 :
-            	    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:41:18: instr
+            	    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:41:18: instr
             	    {
             	    pushFollow(FOLLOW_instr_in_main279);
             	    instr14=instr();
@@ -544,7 +596,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "instr"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:44:1: instr : ( whileExpr | forExpr | ifExpr | CALL ! ID ^ ( numExpr ( ',' ! numExpr )* )? | ID '=' ^ numExpr | INITROBOT ^ numExpr ',' ! numExpr ',' ! numExpr | MOVEFORWARD ^ numExpr | STOPROBOT ^ numExpr | MOVETO ^ numExpr ',' ! numExpr | ROTATE ^ numExpr | FACE ^ direction | PICKOBJECT | RELEASEOBJECT | OBSTACLE ^ numExpr ',' ! numExpr | BOX ^ numExpr ',' ! numExpr | TRAIL ^ ( boolExpr | ON | OFF ) | MARK ^ numExpr ',' ! numExpr );
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:44:1: instr : ( whileExpr | forExpr | ifExpr | CALL ! ID ^ ( numExpr ( ',' ! numExpr )* )? | ID '=' ^ numExpr | INITROBOT ^ numExpr ',' ! numExpr ',' ! numExpr | MOVEFORWARD ^ numExpr | STOPROBOT ^ numExpr | MOVETO ^ numExpr ',' ! numExpr | ROTATE ^ numExpr | PICKOBJECT | RELEASEOBJECT | OBSTACLE ^ numExpr ',' ! numExpr | BOX ^ numExpr ',' ! numExpr | TRAIL ^ ( boolExpr | ON | OFF ) | MARK ^ numExpr ',' ! numExpr );
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.instr_return instr() throws RecognitionException {
         RGLParser.instr_return retval = new RGLParser.instr_return();
         retval.start = input.LT(1);
@@ -649,8 +705,13 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree char_literal61_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:44:9: ( whileExpr | forExpr | ifExpr | CALL ! ID ^ ( numExpr ( ',' ! numExpr )* )? | ID '=' ^ numExpr | INITROBOT ^ numExpr ',' ! numExpr ',' ! numExpr | MOVEFORWARD ^ numExpr | STOPROBOT ^ numExpr | MOVETO ^ numExpr ',' ! numExpr | ROTATE ^ numExpr | FACE ^ direction | PICKOBJECT | RELEASEOBJECT | OBSTACLE ^ numExpr ',' ! numExpr | BOX ^ numExpr ',' ! numExpr | TRAIL ^ ( boolExpr | ON | OFF ) | MARK ^ numExpr ',' ! numExpr )
             int alt7=17;
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:44:9: ( whileExpr | forExpr | ifExpr | CALL ! ID ^ ( numExpr ( ',' ! numExpr )* )? | ID '=' ^ numExpr | INITROBOT ^ numExpr ',' ! numExpr ',' ! numExpr | MOVEFORWARD ^ numExpr | STOPROBOT ^ numExpr | MOVETO ^ numExpr ',' ! numExpr | ROTATE ^ numExpr | PICKOBJECT | RELEASEOBJECT | OBSTACLE ^ numExpr ',' ! numExpr | BOX ^ numExpr ',' ! numExpr | TRAIL ^ ( boolExpr | ON | OFF ) | MARK ^ numExpr ',' ! numExpr )
+            int alt8=16;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             switch ( input.LA(1) ) {
             case WHILE:
                 {
@@ -747,7 +808,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt7) {
                 case 1 :
-                    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:46:9: whileExpr
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:46:9: whileExpr
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -762,7 +823,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:46:21: forExpr
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:46:21: forExpr
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -777,7 +838,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-                    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:47:11: ifExpr
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:47:11: ifExpr
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -792,7 +853,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 4 :
-                    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:48:11: CALL ! ID ^ ( numExpr ( ',' ! numExpr )* )?
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:48:11: CALL ! ID ^ ( numExpr ( ',' ! numExpr )* )?
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -806,9 +867,15 @@ public TreeAdaptor getTreeAdaptor() {
                     root_0 = (RGLTree)adaptor.becomeRoot(ID20_tree, root_0);
 
 
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:48:21: ( numExpr ( ',' ! numExpr )* )?
                     int alt5=2;
                     int LA5_0 = input.LA(1);
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:48:21: ( numExpr ( ',' ! numExpr )* )?
+                    int alt6=2;
+                    int LA6_0 = input.LA(1);
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
 
                     if ( ((LA5_0 >= GETPOSX && LA5_0 <= GETPOSY)||LA5_0==INT||LA5_0==MINUS||LA5_0==PLUS||LA5_0==74) ) {
                         alt5=1;
@@ -822,7 +889,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     switch (alt5) {
                         case 1 :
-                            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:48:22: numExpr ( ',' ! numExpr )*
+                            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:48:22: numExpr ( ',' ! numExpr )*
                             {
                             pushFollow(FOLLOW_numExpr_in_instr412);
                             numExpr21=numExpr();
@@ -831,8 +898,13 @@ public TreeAdaptor getTreeAdaptor() {
 
                             adaptor.addChild(root_0, numExpr21.getTree());
 
+<<<<<<< HEAD
                             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:48:30: ( ',' ! numExpr )*
                             loop4:
+=======
+                            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:48:30: ( ',' ! numExpr )*
+                            loop5:
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                             do {
                                 int alt4=2;
                                 int LA4_0 = input.LA(1);
@@ -844,7 +916,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                                 switch (alt4) {
                             	case 1 :
-                            	    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:48:31: ',' ! numExpr
+                            	    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:48:31: ',' ! numExpr
                             	    {
                             	    char_literal22=(Token)match(input,76,FOLLOW_76_in_instr415); 
 
@@ -873,7 +945,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 5 :
-                    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:49:11: ID '=' ^ numExpr
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:49:11: ID '=' ^ numExpr
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -902,7 +974,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 6 :
-                    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:52:11: INITROBOT ^ numExpr ',' ! numExpr ',' ! numExpr
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:52:11: INITROBOT ^ numExpr ',' ! numExpr ',' ! numExpr
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -942,7 +1014,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 7 :
-                    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:53:11: MOVEFORWARD ^ numExpr
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:53:11: MOVEFORWARD ^ numExpr
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -964,7 +1036,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 8 :
-                    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:54:11: STOPROBOT ^ numExpr
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:54:11: STOPROBOT ^ numExpr
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -986,7 +1058,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 9 :
-                    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:55:11: MOVETO ^ numExpr ',' ! numExpr
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:55:11: MOVETO ^ numExpr ',' ! numExpr
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -1017,7 +1089,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 10 :
-                    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:56:11: ROTATE ^ numExpr
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:56:11: ROTATE ^ numExpr
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -1039,7 +1111,11 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 11 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:57:11: FACE ^ direction
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:57:11: PICKOBJECT
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -1061,7 +1137,11 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 12 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:58:11: PICKOBJECT
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:58:11: RELEASEOBJECT
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -1076,7 +1156,11 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 13 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:59:11: RELEASEOBJECT
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:59:11: OBSTACLE ^ numExpr ',' ! numExpr
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -1121,8 +1205,13 @@ public TreeAdaptor getTreeAdaptor() {
 
                     }
                     break;
+<<<<<<< HEAD
                 case 15 :
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:61:11: BOX ^ numExpr ',' ! numExpr
+=======
+                case 14 :
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:60:11: BOX ^ numExpr ',' ! numExpr
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -1152,8 +1241,13 @@ public TreeAdaptor getTreeAdaptor() {
 
                     }
                     break;
+<<<<<<< HEAD
                 case 16 :
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:62:11: TRAIL ^ ( boolExpr | ON | OFF )
+=======
+                case 15 :
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:61:11: TRAIL ^ ( boolExpr | ON | OFF )
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -1165,8 +1259,13 @@ public TreeAdaptor getTreeAdaptor() {
                     root_0 = (RGLTree)adaptor.becomeRoot(TRAIL55_tree, root_0);
 
 
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:62:18: ( boolExpr | ON | OFF )
                     int alt6=3;
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:61:18: ( boolExpr | ON | OFF )
+                    int alt7=3;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     switch ( input.LA(1) ) {
                     case DETECT:
                     case FALSE:
@@ -1203,7 +1302,11 @@ public TreeAdaptor getTreeAdaptor() {
 
                     switch (alt6) {
                         case 1 :
+<<<<<<< HEAD
                             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:62:19: boolExpr
+=======
+                            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:61:19: boolExpr
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                             {
                             pushFollow(FOLLOW_boolExpr_in_instr677);
                             boolExpr56=boolExpr();
@@ -1215,7 +1318,11 @@ public TreeAdaptor getTreeAdaptor() {
                             }
                             break;
                         case 2 :
+<<<<<<< HEAD
                             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:62:30: ON
+=======
+                            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:61:30: ON
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                             {
                             ON57=(Token)match(input,ON,FOLLOW_ON_in_instr681); 
                             ON57_tree = 
@@ -1227,7 +1334,11 @@ public TreeAdaptor getTreeAdaptor() {
                             }
                             break;
                         case 3 :
+<<<<<<< HEAD
                             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:62:35: OFF
+=======
+                            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:61:35: OFF
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                             {
                             OFF58=(Token)match(input,OFF,FOLLOW_OFF_in_instr685); 
                             OFF58_tree = 
@@ -1244,8 +1355,13 @@ public TreeAdaptor getTreeAdaptor() {
 
                     }
                     break;
+<<<<<<< HEAD
                 case 17 :
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:63:11: MARK ^ numExpr ',' ! numExpr
+=======
+                case 16 :
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:62:11: MARK ^ numExpr ',' ! numExpr
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -1306,7 +1422,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "argList"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:66:1: argList : ( args )? -> ^( ARGLIST ( args )? ) ;
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:65:1: argList : args -> ^( ARGLIST args ) ;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.argList_return argList() throws RecognitionException {
         RGLParser.argList_return retval = new RGLParser.argList_return();
         retval.start = input.LT(1);
@@ -1319,8 +1439,13 @@ public TreeAdaptor getTreeAdaptor() {
 
         RewriteRuleSubtreeStream stream_args=new RewriteRuleSubtreeStream(adaptor,"rule args");
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:66:9: ( ( args )? -> ^( ARGLIST ( args )? ) )
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:66:11: ( args )?
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:65:9: ( args -> ^( ARGLIST args ) )
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:65:11: args
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             {
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:66:11: ( args )?
             int alt8=2;
@@ -1359,7 +1484,11 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (RGLTree)adaptor.nil();
             // 66:17: -> ^( ARGLIST ( args )? )
             {
+<<<<<<< HEAD
                 // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:66:20: ^( ARGLIST ( args )? )
+=======
+                // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:65:19: ^( ARGLIST args )
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                 {
                 RGLTree root_1 = (RGLTree)adaptor.nil();
                 root_1 = (RGLTree)adaptor.becomeRoot(
@@ -1412,7 +1541,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "args"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:68:1: args : arg ( ',' ! arg )* ;
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:67:1: args : arg ( ',' ! arg )* ;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.args_return args() throws RecognitionException {
         RGLParser.args_return retval = new RGLParser.args_return();
         retval.start = input.LT(1);
@@ -1429,8 +1562,13 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree char_literal65_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:68:9: ( arg ( ',' ! arg )* )
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:68:11: arg ( ',' ! arg )*
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:67:9: ( arg ( ',' ! arg )* )
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:67:11: arg ( ',' ! arg )*
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             {
             root_0 = (RGLTree)adaptor.nil();
 
@@ -1442,7 +1580,11 @@ public TreeAdaptor getTreeAdaptor() {
 
             adaptor.addChild(root_0, arg64.getTree());
 
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:68:15: ( ',' ! arg )*
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:67:15: ( ',' ! arg )*
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             loop9:
             do {
                 int alt9=2;
@@ -1455,7 +1597,11 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt9) {
             	case 1 :
+<<<<<<< HEAD
             	    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:68:16: ',' ! arg
+=======
+            	    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:67:16: ',' ! arg
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             	    {
             	    char_literal65=(Token)match(input,76,FOLLOW_76_in_args755); 
 
@@ -1506,7 +1652,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "arg"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:71:1: arg : ( ID | INT );
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:70:1: arg : ( ID | INT );
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.arg_return arg() throws RecognitionException {
         RGLParser.arg_return retval = new RGLParser.arg_return();
         retval.start = input.LT(1);
@@ -1519,8 +1669,13 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree set67_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:71:9: ( ID | INT )
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:70:9: ( ID | INT )
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             {
             root_0 = (RGLTree)adaptor.nil();
 
@@ -1571,7 +1726,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "instrList"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:74:1: instrList : ( instr )* -> ^( INSTRLIST ( instr )* ) ;
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:73:1: instrList : ( instr )* -> ^( INSTRLIST ( instr )* ) ;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.instrList_return instrList() throws RecognitionException {
         RGLParser.instrList_return retval = new RGLParser.instrList_return();
         retval.start = input.LT(1);
@@ -1584,10 +1743,17 @@ public TreeAdaptor getTreeAdaptor() {
 
         RewriteRuleSubtreeStream stream_instr=new RewriteRuleSubtreeStream(adaptor,"rule instr");
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:74:13: ( ( instr )* -> ^( INSTRLIST ( instr )* ) )
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:74:15: ( instr )*
             {
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:74:15: ( instr )*
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:73:13: ( ( instr )* -> ^( INSTRLIST ( instr )* ) )
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:73:15: ( instr )*
+            {
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:73:15: ( instr )*
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             loop10:
             do {
                 int alt10=2;
@@ -1600,7 +1766,11 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt10) {
             	case 1 :
+<<<<<<< HEAD
             	    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:74:15: instr
+=======
+            	    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:73:15: instr
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             	    {
             	    pushFollow(FOLLOW_instr_in_instrList804);
             	    instr68=instr();
@@ -1631,14 +1801,22 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (RGLTree)adaptor.nil();
             // 74:23: -> ^( INSTRLIST ( instr )* )
             {
+<<<<<<< HEAD
                 // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:74:26: ^( INSTRLIST ( instr )* )
+=======
+                // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:73:26: ^( INSTRLIST ( instr )* )
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                 {
                 RGLTree root_1 = (RGLTree)adaptor.nil();
                 root_1 = (RGLTree)adaptor.becomeRoot(
                 (RGLTree)adaptor.create(INSTRLIST, "INSTRLIST")
                 , root_1);
 
+<<<<<<< HEAD
                 // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:74:38: ( instr )*
+=======
+                // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:73:38: ( instr )*
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                 while ( stream_instr.hasNext() ) {
                     adaptor.addChild(root_1, stream_instr.nextTree());
 
@@ -1684,7 +1862,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "whileExpr"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:77:1: whileExpr : WHILE ^ boolExpr DO ! instrList WEND !;
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:76:1: whileExpr : WHILE ^ boolExpr DO ! instrList WEND !;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.whileExpr_return whileExpr() throws RecognitionException {
         RGLParser.whileExpr_return retval = new RGLParser.whileExpr_return();
         retval.start = input.LT(1);
@@ -1705,8 +1887,13 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree WEND73_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:77:13: ( WHILE ^ boolExpr DO ! instrList WEND !)
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:77:15: WHILE ^ boolExpr DO ! instrList WEND !
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:76:13: ( WHILE ^ boolExpr DO ! instrList WEND !)
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:76:15: WHILE ^ boolExpr DO ! instrList WEND !
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             {
             root_0 = (RGLTree)adaptor.nil();
 
@@ -1767,7 +1954,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "forExpr"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:80:1: forExpr : FOR ^ ID IN ! INT '..' ! INT DO ! instrList FEND !;
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:79:1: forExpr : FOR ^ ID IN ! INT '..' ! INT DO ! instrList FEND !;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.forExpr_return forExpr() throws RecognitionException {
         RGLParser.forExpr_return retval = new RGLParser.forExpr_return();
         retval.start = input.LT(1);
@@ -1796,8 +1987,13 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree FEND82_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:80:13: ( FOR ^ ID IN ! INT '..' ! INT DO ! instrList FEND !)
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:80:15: FOR ^ ID IN ! INT '..' ! INT DO ! instrList FEND !
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:79:13: ( FOR ^ ID IN ! INT '..' ! INT DO ! instrList FEND !)
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:79:15: FOR ^ ID IN ! INT '..' ! INT DO ! instrList FEND !
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             {
             root_0 = (RGLTree)adaptor.nil();
 
@@ -1876,7 +2072,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "ifExpr"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:83:1: ifExpr : IF ^ boolExpr THEN ! instrList ( ELSE ! instrList )? ENDIF !;
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:82:1: ifExpr : IF ^ boolExpr THEN ! instrList ( ELSE ! instrList )? ENDIF !;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.ifExpr_return ifExpr() throws RecognitionException {
         RGLParser.ifExpr_return retval = new RGLParser.ifExpr_return();
         retval.start = input.LT(1);
@@ -1901,8 +2101,13 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree ENDIF89_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:83:13: ( IF ^ boolExpr THEN ! instrList ( ELSE ! instrList )? ENDIF !)
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:83:15: IF ^ boolExpr THEN ! instrList ( ELSE ! instrList )? ENDIF !
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:82:13: ( IF ^ boolExpr THEN ! instrList ( ELSE ! instrList )? ENDIF !)
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:82:15: IF ^ boolExpr THEN ! instrList ( ELSE ! instrList )? ENDIF !
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             {
             root_0 = (RGLTree)adaptor.nil();
 
@@ -1930,7 +2135,11 @@ public TreeAdaptor getTreeAdaptor() {
 
             adaptor.addChild(root_0, instrList86.getTree());
 
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:83:44: ( ELSE ! instrList )?
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:82:44: ( ELSE ! instrList )?
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1939,7 +2148,11 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt11) {
                 case 1 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:83:45: ELSE ! instrList
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:82:45: ELSE ! instrList
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     ELSE87=(Token)match(input,ELSE,FOLLOW_ELSE_in_ifExpr978); 
 
@@ -1989,7 +2202,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "boolExpr"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:86:1: boolExpr : boolterm ( OR ^ boolterm )* ;
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:85:1: boolExpr : boolterm ( OR ^ boolterm )* ;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.boolExpr_return boolExpr() throws RecognitionException {
         RGLParser.boolExpr_return retval = new RGLParser.boolExpr_return();
         retval.start = input.LT(1);
@@ -2006,8 +2223,13 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree OR91_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:86:13: ( boolterm ( OR ^ boolterm )* )
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:86:15: boolterm ( OR ^ boolterm )*
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:85:13: ( boolterm ( OR ^ boolterm )* )
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:85:15: boolterm ( OR ^ boolterm )*
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             {
             root_0 = (RGLTree)adaptor.nil();
 
@@ -2019,7 +2241,11 @@ public TreeAdaptor getTreeAdaptor() {
 
             adaptor.addChild(root_0, boolterm90.getTree());
 
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:86:24: ( OR ^ boolterm )*
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:85:24: ( OR ^ boolterm )*
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             loop12:
             do {
                 int alt12=2;
@@ -2032,7 +2258,11 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt12) {
             	case 1 :
+<<<<<<< HEAD
             	    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:86:25: OR ^ boolterm
+=======
+            	    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:85:25: OR ^ boolterm
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             	    {
             	    OR91=(Token)match(input,OR,FOLLOW_OR_in_boolExpr1013); 
             	    OR91_tree = 
@@ -2088,7 +2318,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "boolterm"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:89:1: boolterm : ( NOT ^)? boolfact ( AND ^ boolfact )* ;
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:88:1: boolterm : ( NOT ^)? boolfact ( AND ^ boolfact )* ;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.boolterm_return boolterm() throws RecognitionException {
         RGLParser.boolterm_return retval = new RGLParser.boolterm_return();
         retval.start = input.LT(1);
@@ -2107,13 +2341,22 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree AND95_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:89:13: ( ( NOT ^)? boolfact ( AND ^ boolfact )* )
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:89:15: ( NOT ^)? boolfact ( AND ^ boolfact )*
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:88:13: ( ( NOT ^)? boolfact ( AND ^ boolfact )* )
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:88:15: ( NOT ^)? boolfact ( AND ^ boolfact )*
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             {
             root_0 = (RGLTree)adaptor.nil();
 
 
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:89:15: ( NOT ^)?
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:88:15: ( NOT ^)?
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -2122,7 +2365,11 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt13) {
                 case 1 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:89:16: NOT ^
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:88:16: NOT ^
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     NOT93=(Token)match(input,NOT,FOLLOW_NOT_in_boolterm1055); 
                     NOT93_tree = 
@@ -2144,7 +2391,11 @@ public TreeAdaptor getTreeAdaptor() {
 
             adaptor.addChild(root_0, boolfact94.getTree());
 
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:89:32: ( AND ^ boolfact )*
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:88:32: ( AND ^ boolfact )*
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             loop14:
             do {
                 int alt14=2;
@@ -2157,7 +2408,11 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt14) {
             	case 1 :
+<<<<<<< HEAD
             	    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:89:33: AND ^ boolfact
+=======
+            	    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:88:33: AND ^ boolfact
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             	    {
             	    AND95=(Token)match(input,AND,FOLLOW_AND_in_boolterm1063); 
             	    AND95_tree = 
@@ -2213,7 +2468,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "boolfact"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:92:1: boolfact : ( numExpr ( '==' ^| '!=' ^| '<' ^| '<=' ^| '>' ^| '>=' ^) numExpr | TRUE | FALSE | DETECT ^ numExpr );
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:91:1: boolfact : ( numExpr ( '==' ^| '!=' ^| '<' ^| '<=' ^| '>' ^| '>=' ^) numExpr | TRUE | FALSE | DETECT ^ numExpr );
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.boolfact_return boolfact() throws RecognitionException {
         RGLParser.boolfact_return retval = new RGLParser.boolfact_return();
         retval.start = input.LT(1);
@@ -2248,7 +2507,11 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree DETECT107_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:92:13: ( numExpr ( '==' ^| '!=' ^| '<' ^| '<=' ^| '>' ^| '>=' ^) numExpr | TRUE | FALSE | DETECT ^ numExpr )
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:91:13: ( numExpr ( '==' ^| '!=' ^| '<' ^| '<=' ^| '>' ^| '>=' ^) numExpr | TRUE | FALSE | DETECT ^ numExpr )
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             int alt16=4;
             switch ( input.LA(1) ) {
             case GETPOSX:
@@ -2287,7 +2550,11 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt16) {
                 case 1 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:92:15: numExpr ( '==' ^| '!=' ^| '<' ^| '<=' ^| '>' ^| '>=' ^) numExpr
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:91:15: numExpr ( '==' ^| '!=' ^| '<' ^| '<=' ^| '>' ^| '>=' ^) numExpr
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -2299,7 +2566,11 @@ public TreeAdaptor getTreeAdaptor() {
 
                     adaptor.addChild(root_0, numExpr97.getTree());
 
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:92:23: ( '==' ^| '!=' ^| '<' ^| '<=' ^| '>' ^| '>=' ^)
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:91:23: ( '==' ^| '!=' ^| '<' ^| '<=' ^| '>' ^| '>=' ^)
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     int alt15=6;
                     switch ( input.LA(1) ) {
                     case EQUALS:
@@ -2342,7 +2613,11 @@ public TreeAdaptor getTreeAdaptor() {
 
                     switch (alt15) {
                         case 1 :
+<<<<<<< HEAD
                             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:92:24: '==' ^
+=======
+                            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:91:24: '==' ^
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                             {
                             string_literal98=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_boolfact1107); 
                             string_literal98_tree = 
@@ -2354,7 +2629,11 @@ public TreeAdaptor getTreeAdaptor() {
                             }
                             break;
                         case 2 :
+<<<<<<< HEAD
                             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:92:32: '!=' ^
+=======
+                            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:91:32: '!=' ^
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                             {
                             string_literal99=(Token)match(input,NOT_EQUAL,FOLLOW_NOT_EQUAL_in_boolfact1112); 
                             string_literal99_tree = 
@@ -2366,7 +2645,11 @@ public TreeAdaptor getTreeAdaptor() {
                             }
                             break;
                         case 3 :
+<<<<<<< HEAD
                             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:92:40: '<' ^
+=======
+                            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:91:40: '<' ^
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                             {
                             char_literal100=(Token)match(input,LT,FOLLOW_LT_in_boolfact1117); 
                             char_literal100_tree = 
@@ -2378,7 +2661,11 @@ public TreeAdaptor getTreeAdaptor() {
                             }
                             break;
                         case 4 :
+<<<<<<< HEAD
                             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:92:47: '<=' ^
+=======
+                            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:91:47: '<=' ^
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                             {
                             string_literal101=(Token)match(input,LE,FOLLOW_LE_in_boolfact1122); 
                             string_literal101_tree = 
@@ -2390,7 +2677,11 @@ public TreeAdaptor getTreeAdaptor() {
                             }
                             break;
                         case 5 :
+<<<<<<< HEAD
                             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:92:55: '>' ^
+=======
+                            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:91:55: '>' ^
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                             {
                             char_literal102=(Token)match(input,GT,FOLLOW_GT_in_boolfact1127); 
                             char_literal102_tree = 
@@ -2402,7 +2693,11 @@ public TreeAdaptor getTreeAdaptor() {
                             }
                             break;
                         case 6 :
+<<<<<<< HEAD
                             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:92:62: '>=' ^
+=======
+                            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:91:62: '>=' ^
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                             {
                             string_literal103=(Token)match(input,GE,FOLLOW_GE_in_boolfact1132); 
                             string_literal103_tree = 
@@ -2427,7 +2722,11 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:93:15: TRUE
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:92:15: TRUE
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -2442,7 +2741,11 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:93:22: FALSE
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:92:22: FALSE
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -2457,7 +2760,11 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 4 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:94:15: DETECT ^ numExpr
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:93:15: DETECT ^ numExpr
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -2509,7 +2816,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "numExpr"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:97:1: numExpr : term ( ( '+' ^| '-' ^) term )* ;
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:96:1: numExpr : term ( ( '+' ^| '-' ^) term )* ;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.numExpr_return numExpr() throws RecognitionException {
         RGLParser.numExpr_return retval = new RGLParser.numExpr_return();
         retval.start = input.LT(1);
@@ -2528,8 +2839,13 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree char_literal111_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:97:9: ( term ( ( '+' ^| '-' ^) term )* )
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:97:11: term ( ( '+' ^| '-' ^) term )*
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:96:9: ( term ( ( '+' ^| '-' ^) term )* )
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:96:11: term ( ( '+' ^| '-' ^) term )*
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             {
             root_0 = (RGLTree)adaptor.nil();
 
@@ -2541,7 +2857,11 @@ public TreeAdaptor getTreeAdaptor() {
 
             adaptor.addChild(root_0, term109.getTree());
 
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:97:16: ( ( '+' ^| '-' ^) term )*
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:96:16: ( ( '+' ^| '-' ^) term )*
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             loop18:
             do {
                 int alt18=2;
@@ -2554,9 +2874,15 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt18) {
             	case 1 :
+<<<<<<< HEAD
             	    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:97:18: ( '+' ^| '-' ^) term
             	    {
             	    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:97:18: ( '+' ^| '-' ^)
+=======
+            	    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:96:18: ( '+' ^| '-' ^) term
+            	    {
+            	    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:96:18: ( '+' ^| '-' ^)
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             	    int alt17=2;
             	    int LA17_0 = input.LA(1);
 
@@ -2575,7 +2901,11 @@ public TreeAdaptor getTreeAdaptor() {
             	    }
             	    switch (alt17) {
             	        case 1 :
+<<<<<<< HEAD
             	            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:97:19: '+' ^
+=======
+            	            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:96:19: '+' ^
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             	            {
             	            char_literal110=(Token)match(input,PLUS,FOLLOW_PLUS_in_numExpr1201); 
             	            char_literal110_tree = 
@@ -2587,7 +2917,11 @@ public TreeAdaptor getTreeAdaptor() {
             	            }
             	            break;
             	        case 2 :
+<<<<<<< HEAD
             	            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:97:26: '-' ^
+=======
+            	            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:96:26: '-' ^
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             	            {
             	            char_literal111=(Token)match(input,MINUS,FOLLOW_MINUS_in_numExpr1206); 
             	            char_literal111_tree = 
@@ -2649,7 +2983,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "term"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:100:1: term : factor ( ( '*' ^| '/' ^| '%' ^) factor )* ;
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:99:1: term : factor ( ( '*' ^| '/' ^| '%' ^) factor )* ;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.term_return term() throws RecognitionException {
         RGLParser.term_return retval = new RGLParser.term_return();
         retval.start = input.LT(1);
@@ -2670,8 +3008,13 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree char_literal116_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:100:9: ( factor ( ( '*' ^| '/' ^| '%' ^) factor )* )
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:100:11: factor ( ( '*' ^| '/' ^| '%' ^) factor )*
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:99:9: ( factor ( ( '*' ^| '/' ^| '%' ^) factor )* )
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:99:11: factor ( ( '*' ^| '/' ^| '%' ^) factor )*
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             {
             root_0 = (RGLTree)adaptor.nil();
 
@@ -2683,7 +3026,11 @@ public TreeAdaptor getTreeAdaptor() {
 
             adaptor.addChild(root_0, factor113.getTree());
 
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:100:18: ( ( '*' ^| '/' ^| '%' ^) factor )*
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:99:18: ( ( '*' ^| '/' ^| '%' ^) factor )*
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             loop20:
             do {
                 int alt20=2;
@@ -2696,9 +3043,15 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt20) {
             	case 1 :
+<<<<<<< HEAD
             	    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:100:20: ( '*' ^| '/' ^| '%' ^) factor
             	    {
             	    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:100:20: ( '*' ^| '/' ^| '%' ^)
+=======
+            	    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:99:20: ( '*' ^| '/' ^| '%' ^) factor
+            	    {
+            	    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:99:20: ( '*' ^| '/' ^| '%' ^)
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             	    int alt19=3;
             	    switch ( input.LA(1) ) {
             	    case MUL:
@@ -2726,7 +3079,11 @@ public TreeAdaptor getTreeAdaptor() {
 
             	    switch (alt19) {
             	        case 1 :
+<<<<<<< HEAD
             	            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:100:21: '*' ^
+=======
+            	            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:99:21: '*' ^
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             	            {
             	            char_literal114=(Token)match(input,MUL,FOLLOW_MUL_in_term1237); 
             	            char_literal114_tree = 
@@ -2738,7 +3095,11 @@ public TreeAdaptor getTreeAdaptor() {
             	            }
             	            break;
             	        case 2 :
+<<<<<<< HEAD
             	            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:100:28: '/' ^
+=======
+            	            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:99:28: '/' ^
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             	            {
             	            char_literal115=(Token)match(input,DIV,FOLLOW_DIV_in_term1242); 
             	            char_literal115_tree = 
@@ -2750,7 +3111,11 @@ public TreeAdaptor getTreeAdaptor() {
             	            }
             	            break;
             	        case 3 :
+<<<<<<< HEAD
             	            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:100:35: '%' ^
+=======
+            	            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:99:35: '%' ^
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             	            {
             	            char_literal116=(Token)match(input,MOD,FOLLOW_MOD_in_term1247); 
             	            char_literal116_tree = 
@@ -2812,7 +3177,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "factor"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:103:1: factor : ( '+' ^| '-' ^)? atom ;
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:102:1: factor : ( '+' ^| '-' ^)? atom ;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.factor_return factor() throws RecognitionException {
         RGLParser.factor_return retval = new RGLParser.factor_return();
         retval.start = input.LT(1);
@@ -2829,13 +3198,22 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree char_literal119_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:103:9: ( ( '+' ^| '-' ^)? atom )
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:103:11: ( '+' ^| '-' ^)? atom
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:102:9: ( ( '+' ^| '-' ^)? atom )
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:102:11: ( '+' ^| '-' ^)? atom
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             {
             root_0 = (RGLTree)adaptor.nil();
 
 
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:103:11: ( '+' ^| '-' ^)?
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:102:11: ( '+' ^| '-' ^)?
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             int alt21=3;
             int LA21_0 = input.LA(1);
 
@@ -2847,7 +3225,11 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt21) {
                 case 1 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:103:12: '+' ^
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:102:12: '+' ^
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     char_literal118=(Token)match(input,PLUS,FOLLOW_PLUS_in_factor1272); 
                     char_literal118_tree = 
@@ -2859,7 +3241,11 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:103:19: '-' ^
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:102:19: '-' ^
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     char_literal119=(Token)match(input,MINUS,FOLLOW_MINUS_in_factor1277); 
                     char_literal119_tree = 
@@ -2912,7 +3298,11 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "atom"
+<<<<<<< HEAD
     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:106:1: atom : ( INT | ID | GETPOSX | GETPOSY | '(' ! numExpr ')' !);
+=======
+    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:105:1: atom : ( INT | ID | GETPOSX | GETPOSY | '(' ! numExpr ')' !);
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     public final RGLParser.atom_return atom() throws RecognitionException {
         RGLParser.atom_return retval = new RGLParser.atom_return();
         retval.start = input.LT(1);
@@ -2937,7 +3327,11 @@ public TreeAdaptor getTreeAdaptor() {
         RGLTree char_literal127_tree=null;
 
         try {
+<<<<<<< HEAD
             // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:106:9: ( INT | ID | GETPOSX | GETPOSY | '(' ! numExpr ')' !)
+=======
+            // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:105:9: ( INT | ID | GETPOSX | GETPOSY | '(' ! numExpr ')' !)
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
             int alt22=5;
             switch ( input.LA(1) ) {
             case INT:
@@ -2975,7 +3369,11 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt22) {
                 case 1 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:106:11: INT
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:105:11: INT
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -2990,7 +3388,11 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:107:11: ID
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:106:11: ID
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -3005,7 +3407,11 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:108:11: GETPOSX
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:107:11: GETPOSX
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -3020,7 +3426,11 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 4 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:109:11: GETPOSY
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:108:11: GETPOSY
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 
@@ -3035,7 +3445,11 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 5 :
+<<<<<<< HEAD
                     // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:110:11: '(' ! numExpr ')' !
+=======
+                    // /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g:109:11: '(' ! numExpr ')' !
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
                     {
                     root_0 = (RGLTree)adaptor.nil();
 

@@ -35,17 +35,38 @@ void rgl_buildMap() {
     exec( action(OBSTACLE, 10, 5) );
 }
 
+<<<<<<< HEAD
 void rgl_moveIndefinitely() {
     while (not detectDirection(0)) {
+=======
+void rgl_tomato(int y) {
+    if (y < 5) {
+        rgl_tomato(y + 1);
+        exec( action(ROTATE, angleActual() + 90) );
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
         exec( action(MOVE_FORWARD, 1) );
     }
 }
 
+<<<<<<< HEAD
 void rgl_spyral(int x, int y, int angle) {
     if (R.getX() != x or R.getZ() != y) {
         exec( action(ROTATE, angleActual() + angle) );
         rgl_moveIndefinitely();
         rgl_spyral(x, y, angle);
+=======
+void actions() {
+    int a = 6;
+    int z = 3;
+    R = robot(a, z, 0);
+    exec( action(MOVE, 6, 3) );
+    rgl_tomato(1);
+    int i = 0;
+    while (i < 10) {
+        exec( action(MARK, 1, i) );
+        exec( action(BOX, 9, i) );
+        i = i + 1;
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     }
 }
 
@@ -65,5 +86,13 @@ void actions() {
     rgl_spyral(6, 4, 270);
     exec( action(ROTATE, 90) );
     exec( action(RELEASE_OBJECT) );
+<<<<<<< HEAD
+=======
+    while (z < a) {
+        z = z + 1;
+        rgl_moveBackwards(1);
+    }
+    exec( action(MOVE, 6, 6) );
+>>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
     finish = true;
 }
