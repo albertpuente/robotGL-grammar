@@ -14,31 +14,12 @@ ACTIONS
 ENDACTIONS
 
 BEGIN
-
-    a = 6
-    z = 3
-    box 2, 2
-    obstacle 3, 3
-    obstacle 2, 2
-    box 3, 3
-    initRobot a, z, 0
-    moveTo 6, 3
-    call tomato 1
-    i = 0
-    while i < 10 do 
-        mark 1, i 
-        box 9, i
-        i = i + 1
-    wend
-    box 0, 0
-    moveTo 1, 0
+    initRobot 0, 0, 90
+    moveTo 0, 1
+    mark 0, 2
+    box 0, 2
+    box 1, 2
     pickObject
-    stopRobot 1
-    rotate 180
-    obstacle 7, 7
-    moveTo 7, 5
+    moveTo 0, 1
     releaseObject
-    while z < a do z = z+1 call moveBackwards 1 wend
-    moveTo 6,6
-    
 END

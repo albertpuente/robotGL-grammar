@@ -306,6 +306,14 @@ void keyPressed(unsigned char character, int posX, int posY) {
     else if (character == 'c' or character == 'C') {
         if (++cameraMode > 4) cameraMode = 0;
     }
+    else if (character == '+') {
+        FPS = 120;
+        T = 1000/FPS;
+    }
+    else if (character == '-') {
+        FPS = 30;
+        T = 1000/FPS;
+    }
     moveCamera();
 }
 
@@ -426,22 +434,28 @@ bool ocupat(int x, int z) {
     return false;    
 }
 
-bool detectDirection(double direccio) {
+bool detectDirection(int direccio) {
     int x1 = (int) (R.getX()+0.5);
     int z1 = (int) (R.getZ()+0.5);
-    double ang = fmod(R.getAng()+direccio, 2*M_PI);        
+    double ang = fmod(R.getAng()+(((double)direccio)*M_PI/180), 2*M_PI);        
     int x2 = (int) (x1+sin(ang)+0.5);
     int z2 = (int) (z1+cos(ang)+0.5);
-    return ocupat(x2, z2);
+    return (ocupat(x2, z2) or z2 < 0 or z2 >= SIZE or x2 < 0 or x2 >= SIZE);
 }
 
 void leaveBox() {
     double x1 = R.getX();
     double z1 = R.getZ();
     double ang = R.getAng();
+<<<<<<< HEAD
     for (double inc = 0; inc < 2*M_PI and R.hasABox(); inc += M_PI/4) {        
         int x2 = (int) x1+sin(ang+inc);
         int z2 = (int) z1+cos(ang+inc);    
+=======
+    for (double inc = 0; inc < 2*M_PI and R.hasABox(); inc += M_PI/4) {          
+        int x2 = (int) (x1+0.5+sin(ang+inc));
+        int z2 = (int) (z1+0.5+cos(ang+inc));   
+>>>>>>> e3315483fb7fe428000e633b471b678fe51db070
         double distancia = distanciaQuadrat(x1, z1, x2, z2, 0.25);
         if (not ocupat(x2, z2) and distancia > 0.4 and x2 >= 0 and z2 >= 0 and x2 < SIZE and z2 < SIZE) {
             box n;
@@ -697,6 +711,7 @@ int main(int argc, const char * argv[]) {
 
 
 
+<<<<<<< HEAD
 void rgl_buildMap() {
     exec( action(OBSTACLE, 0, 1) );
     exec( action(OBSTACLE, 0, 3) );
@@ -753,10 +768,21 @@ void rgl_buildMap() {
 
 void rgl_moveinf() {
     while (not detectDirection(0)) {
+=======
+void rgl_moveBackwards(int x) {
+    exec( action(MOVE_FORWARD, x) );
+}
+
+void rgl_tomato(int y) {
+    if (y < 5) {
+        rgl_tomato(y + 1);
+        exec( action(ROTATE, angleActual() + 90) );
+>>>>>>> e3315483fb7fe428000e633b471b678fe51db070
         exec( action(MOVE_FORWARD, 1) );
     }
 }
 
+<<<<<<< HEAD
 void rgl_fetch() {
     while (not detectDirection(0)) {
         exec( action(MOVE_FORWARD, 1) );
@@ -789,5 +815,16 @@ void actions() {
     rgl_buildMap();
     rgl_fetch();
     rgl_traverse();
+=======
+void actions() {
+    R = robot(0, 0, 90);
+    exec( action(MOVE, 0, 1) );
+    exec( action(MARK, 0, 2) );
+    exec( action(BOX, 0, 2) );
+    exec( action(BOX, 1, 2) );
+    exec( action(PICK_OBJECT) );
+    exec( action(MOVE, 0, 1) );
+    exec( action(RELEASE_OBJECT) );
+>>>>>>> e3315483fb7fe428000e633b471b678fe51db070
     finish = true;
 }
