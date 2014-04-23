@@ -105,6 +105,14 @@ double robot::getZ() {
     return posModelZ;
 }
 
+double robot::getIntX() {
+    return ((int) (0.5 + posModelX));
+}
+
+double robot::getIntZ() {
+    return ((int) (0.5 + posModelZ));
+}
+
 void robot::setX(double x) {
     posModelX = x;
 }
