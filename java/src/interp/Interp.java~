@@ -286,9 +286,17 @@ public class Interp {
             if (childtype == RGLLexer.PLUS || childtype == RGLLexer.MINUS) s += ")";
             return s;
         }
-        if (type == RGLLexer.GETPOSX) return "R.getX()";
-        if (type == RGLLexer.GETPOSY) return "R.getZ()";
-        if (type == RGLLexer.DETECT) return "detectDirection(0)";
+        if (type == RGLLexer.GETPOSX) return "R.getIntX()";
+        if (type == RGLLexer.GETPOSY) return "R.getIntZ()";
+        if (type == RGLLexer.DETECT) {
+            int angle = 0;
+            switch (tree.getChild(0).getType()) {
+                case RGLLexer.RIGHT: angle -= 90;   break;
+                case RGLLexer.LEFT:  angle += 90;   break;
+                default: break;
+            }
+            return "detectDirection(" + angle + ")";
+        }
         if (type == RGLLexer.NOT) return "not " + translateExpression(tree.getChild(0));
         return translateExpression(tree.getChild(0)) + " " + tree.getText() +
                     " " + translateExpression(tree.getChild(1));

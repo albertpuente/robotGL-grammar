@@ -38,8 +38,11 @@ actions : ACTIONS! declaration* ENDACTIONS!
 declaration : FUNC! ID^ argList ':'! instrList ENDFUNC!
         	;
         	
-main    : BEGIN! instr+ END!
+main    : BEGIN! initRobot instrList END!
 	    ;
+	    
+initRobot   : INITROBOT^ numExpr ','! numExpr ','! numExpr
+            ;
 
 instr   :
         //typical instructions
@@ -49,7 +52,6 @@ instr   :
         | ID '='^ numExpr                           //assignation
         
         //robot commands
-        | INITROBOT^ numExpr ','! numExpr ','! numExpr  //initRobot x, y, angle
         | MOVEFORWARD^ numExpr
         | STOPROBOT^ numExpr
         | MOVETO^ numExpr ','! numExpr
@@ -83,15 +85,19 @@ forExpr     : FOR^ ID IN! INT '..'! INT DO! instrList FEND!
 ifExpr      : IF^ boolExpr THEN! instrList (ELSE! instrList)? ENDIF!
             ;
 
+
 boolExpr    : boolterm (OR^ boolterm)*
             ;
             
-boolterm    : (NOT^)? boolfact (AND^ boolfact)*
+boolterm    : boolfact (AND^ boolfact)*
+            ;
+
+boolfact    : (NOT^)? boolatom
             ;
             
-boolfact    : numExpr ('=='^ | '!='^ | '<'^ | '<='^ | '>'^ | '>='^) numExpr
+boolatom   : numExpr ('=='^ | '!='^ | '<'^ | '<='^ | '>'^ | '>='^) numExpr
             | TRUE | FALSE
-            | DETECT^ numExpr
+            | DETECT^ side
             ;
 
 numExpr : term ( ('+'^ | '-'^) term)*
@@ -111,6 +117,8 @@ atom    : INT
         ;
 
 direction   : NORTH | SOUTH | EAST | WEST
+            ;
+side      : FRONT | RIGHT | LEFT
             ;
             
 // Basic tokens
@@ -136,6 +144,10 @@ NORTH   : 'north';
 SOUTH   : 'south';
 EAST    : 'east';
 WEST    : 'west';
+
+FRONT   : 'front';
+RIGHT   : 'right';
+LEFT    : 'left';
 
 CALL	: 'call';
 AND     : 'and';

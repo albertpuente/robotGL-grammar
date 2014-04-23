@@ -15,7 +15,6 @@ ACTIONS
         obstacle 2, 3
         obstacle 2, 7
         obstacle 2, 9
-        box 3, 0
         obstacle 3, 1
         obstacle 3, 3
         obstacle 3, 5
@@ -52,13 +51,40 @@ ACTIONS
         obstacle 9, 9
         obstacle 10, 5
         obstacle 10, 9
+        box 3, 0
+    endfunc
+    
+    func moveinf :
+        while not detect front do moveForward 1 wend
+    endfunc
+    
+    func fetch :
+        while not detect front do moveForward 1 wend
+        pickObject
+    endfunc
+    
+    func traverse :
+        while not detect right do
+            if detect front then rotate 180 endif
+            moveForward 1
+        wend
+        if detect left then
+            rotate 270
+        else rotate 90
+        endif
+        moveForward 2
+        rotate 90
+        if getPosX != 10 or getPosY != 10 then call traverse endif
     endfunc
 
 ENDACTIONS
 
 BEGIN
 
-    initRobot x, y 
+    initRobot 0, 0, 0
+    face east
     call buildMap
+    call fetch
+    call traverse
 
 END
