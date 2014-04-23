@@ -426,10 +426,10 @@ bool ocupat(int x, int z) {
     return false;    
 }
 
-bool detectDirection(double direccio) {
+bool detectDirection(int direccio) {
     int x1 = (int) (R.getX()+0.5);
     int z1 = (int) (R.getZ()+0.5);
-    double ang = fmod(R.getAng()+direccio, 2*M_PI);        
+    double ang = fmod(R.getAng()+(((double)direccio)*M_PI/180), 2*M_PI);        
     int x2 = (int) (x1+sin(ang)+0.5);
     int z2 = (int) (z1+cos(ang)+0.5);
     return ocupat(x2, z2);

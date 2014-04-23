@@ -1,69 +1,24 @@
 
-void rgl_buildMap() {
-    exec( action(OBSTACLE, 0, 1) );
-    exec( action(OBSTACLE, 0, 2) );
-    exec( action(OBSTACLE, 0, 3) );
-    exec( action(OBSTACLE, 0, 4) );
-    exec( action(OBSTACLE, 0, 5) );
-    exec( action(OBSTACLE, 1, 1) );
-    exec( action(OBSTACLE, 1, 5) );
-    exec( action(OBSTACLE, 2, 1) );
-    exec( action(OBSTACLE, 2, 3) );
-    exec( action(OBSTACLE, 2, 5) );
-    exec( action(OBSTACLE, 3, 1) );
-    exec( action(OBSTACLE, 3, 3) );
-    exec( action(OBSTACLE, 3, 4) );
-    exec( action(OBSTACLE, 3, 5) );
-    exec( action(OBSTACLE, 5, 1) );
-    exec( action(OBSTACLE, 5, 2) );
-    exec( action(OBSTACLE, 5, 3) );
-    exec( action(OBSTACLE, 5, 4) );
-    exec( action(OBSTACLE, 5, 5) );
-    exec( action(OBSTACLE, 6, 1) );
-    exec( action(OBSTACLE, 6, 5) );
-    exec( action(OBSTACLE, 7, 1) );
-    exec( action(OBSTACLE, 7, 3) );
-    exec( action(OBSTACLE, 7, 5) );
-    exec( action(OBSTACLE, 8, 1) );
-    exec( action(OBSTACLE, 8, 3) );
-    exec( action(OBSTACLE, 8, 4) );
-    exec( action(OBSTACLE, 8, 5) );
-    exec( action(OBSTACLE, 10, 1) );
-    exec( action(OBSTACLE, 10, 2) );
-    exec( action(OBSTACLE, 10, 3) );
-    exec( action(OBSTACLE, 10, 5) );
-    exec( action(BOX, 2, 4) );
+void rgl_moveBackwards(int x) {
+    exec( action(MOVE_FORWARD, x) );
 }
 
-void rgl_moveIndefinitely() {
-    while (not detectDirection(0)) {
+void rgl_tomato(int y) {
+    if (y < 5) {
+        rgl_tomato(y + 1);
+        exec( action(ROTATE, angleActual() + 90) );
         exec( action(MOVE_FORWARD, 1) );
     }
 }
 
-void rgl_spyral(int x, int y, int angle) {
-    if (R.getIntX() != x or R.getIntZ() != y) {
-        exec( action(ROTATE, angleActual() + angle) );
-        rgl_moveIndefinitely();
-        rgl_spyral(x, y, angle);
-    }
-}
-
 void actions() {
-    R = robot(4, 8, 180);
-    rgl_buildMap();
-    exec( action(MOVE_FORWARD, 6) );
-    rgl_spyral(1, 4, 90);
+    R = robot(0, 0, 90);
+    exec( action(MOVE, 0, 1) );
+    exec( action(MARK, 0, 2) );
+    exec( action(BOX, 0, 2) );
+    exec( action(BOX, 1, 2) );
     exec( action(PICK_OBJECT) );
-    exec( action(MARK, 7, 4) );
-    rgl_spyral(4, 2, 270);
-    exec( action(MOVE, 4, 0) );
-    exec( action(ROTATE, angleActual() + 270) );
-    exec( action(MOVE_FORWARD, 5) );
-    exec( action(MOVE, 9, 2) );
-    exec( action(ROTATE, 180) );
-    rgl_spyral(6, 4, 90);
-    exec( action(ROTATE, 90) );
+    exec( action(MOVE, 0, 1) );
     exec( action(RELEASE_OBJECT) );
     finish = true;
 }
