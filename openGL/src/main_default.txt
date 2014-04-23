@@ -438,8 +438,8 @@ bool detectDirection(int direccio) {
     int x1 = (int) (R.getX()+0.5);
     int z1 = (int) (R.getZ()+0.5);
     double ang = fmod(R.getAng()+(((double)direccio)*M_PI/180), 2*M_PI);        
-    int x2 = (int) (x1+sin(ang)+0.5);
-    int z2 = (int) (z1+cos(ang)+0.5);
+    int x2 = (int) round(x1+sin(ang));
+    int z2 = (int) round(z1+cos(ang));
     return (ocupat(x2, z2) or z2 < 0 or z2 >= SIZE or x2 < 0 or x2 >= SIZE);
 }
 

@@ -63,19 +63,18 @@ ACTIONS
         pickObject
     endfunc
     
-    func traverse x:
-        if x == 1 then
-            while not detect right do
-                if detect front then rotate 180 call traverse 0 endif
-                else moveForward 1
-            wend
-            if detect left then
-                rotate 270
-            else rotate 90
-            endif
-            moveForward 2
-            rotate 90
-            if getPosX != 10 or getPosY != 10 then call traverse endif
+    func traverse :
+        while detect right and detect left do
+            if detect front then rotate 180 endif
+            moveForward 1
+        wend
+        if detect left then
+            rotate 270
+        else rotate 90
+        endif
+        moveForward 2
+        rotate 90
+        if getPosX != 10 or getPosY != 10 then call traverse endif
     endfunc
 
 ENDACTIONS

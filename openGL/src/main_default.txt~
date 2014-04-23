@@ -82,10 +82,11 @@ double O = 0;
 double stoppedTime = 0;
 
 // Sincronització entre threads
+/*
 condition_variable cv;
 mutex cv_m;
 atomic<int> waitMainThread{1};
-
+*/
 
 void pintaModel() { 
     shaderLlum.on();
@@ -305,6 +306,14 @@ void keyPressed(unsigned char character, int posX, int posY) {
     else if (character == 'c' or character == 'C') {
         if (++cameraMode > 4) cameraMode = 0;
     }
+    else if (character == '+') {
+        FPS = 120;
+        T = 1000/FPS;
+    }
+    else if (character == '-') {
+        FPS = 30;
+        T = 1000/FPS;
+    }
     moveCamera();
 }
 
@@ -425,22 +434,22 @@ bool ocupat(int x, int z) {
     return false;    
 }
 
-bool detectDirection(double direccio) {
+bool detectDirection(int direccio) {
     int x1 = (int) (R.getX()+0.5);
     int z1 = (int) (R.getZ()+0.5);
-    double ang = fmod(R.getAng()+direccio, 2*M_PI);        
-    int x2 = (int) (x1+sin(ang)+0.5);
-    int z2 = (int) (z1+cos(ang)+0.5);
-    return ocupat(x2, z2);
+    double ang = fmod(R.getAng()+(((double)direccio)*M_PI/180), 2*M_PI);        
+    int x2 = (int) round((x1+sin(ang));
+    int z2 = (int) round((z1+cos(ang));
+    return (ocupat(x2, z2) or z2 < 0 or z2 >= SIZE or x2 < 0 or x2 >= SIZE);
 }
 
 void leaveBox() {
     double x1 = R.getX();
     double z1 = R.getZ();
     double ang = R.getAng();
-    for (double inc = 0; inc < 2*M_PI and R.hasABox(); inc += M_PI/4) {        
-        int x2 = (int) x1+0.5+sin(ang+inc);
-        int z2 = (int) z1+0.5+cos(ang+inc);    
+    for (double inc = 0; inc < 2*M_PI and R.hasABox(); inc += M_PI/4) {          
+        int x2 = (int) (x1+0.5+sin(ang+inc));
+        int z2 = (int) (z1+0.5+cos(ang+inc));   
         double distancia = distanciaQuadrat(x1, z1, x2, z2, 0.25);
         if (not ocupat(x2, z2) and distancia > 0.4 and x2 >= 0 and z2 >= 0 and x2 < SIZE and z2 < SIZE) {
             box n;
@@ -467,16 +476,27 @@ void iniciarAccio() {
     switch (currentAction.getType()) {
         
         case BOX :
-            box n;
-            n.x = currentAction.getDestX();
-            n.z = currentAction.getDestZ();
-            n.d = n.p = 0;
-            caixes.push_back(n);
-            currentAction.setStatus(RUNNING);
+            if (not ocupat(currentAction.getDestX(), currentAction.getDestZ())) {
+                box n;
+                n.x = currentAction.getDestX();
+                n.z = currentAction.getDestZ();
+                n.d = n.p = 0;
+                caixes.push_back(n);
+                currentAction.setStatus(RUNNING);
+            }
+            else {
+                cout << "ACCIÓ IGNORADA: BOX            | Ja hi ha un objecte en la posició" << endl;
+                currentAction.setStatus(FINISHED);
+            }
             break;
             
         case OBSTACLE :
-            obstacles.push_back( make_pair( currentAction.getDestX(), currentAction.getDestZ()));        
+            if (not ocupat(currentAction.getDestX(), currentAction.getDestZ())) {
+                obstacles.push_back( make_pair( currentAction.getDestX(), currentAction.getDestZ()));
+            }
+            else {
+                cout << "ACCIÓ IGNORADA: OBSTACLE       | Ja hi ha un objecte en la posició" << endl;
+            }
             currentAction.setStatus(FINISHED);
             break;
             
@@ -548,8 +568,8 @@ void exec(const action& act) {
         }   
         // S'espera a que es faci un resfresc de pantalla per actualitzar les variables de nou
         // Com a molt espera 1 segon.
-        unique_lock<std::mutex> lk(cv_m);
-        cv.wait_for(lk, chrono::milliseconds(1000), [](){ return waitMainThread == 0; });             
+        /*unique_lock<std::mutex> lk(cv_m);
+        cv.wait_for(lk, chrono::milliseconds(1000), [](){ return waitMainThread == 0; });*/
         double d1,d2;
         double px = R.getX();
         double pz = R.getZ();
@@ -576,11 +596,9 @@ void exec(const action& act) {
                 }
             }
             else if (currentAction.getType() == RELEASE_OBJECT) {
-                cout << "dicreasing" << endl;
                 for (int i = 0; i < caixes.size(); ++i) {
                     if (caixes[i].p > 0 and caixes[i].p < 1) caixes[i].p -= LOAD_SPEED;
                     if (caixes[i].p < 0) {
-                        cout << "sss" << endl;
                         caixes[i].p = 0;
                         currentAction.setStatus( FINISHED );
                     }
@@ -613,21 +631,22 @@ void exec(const action& act) {
         }
         
         if (currentAction.getStatus() != FINISHED or type == MOVE or type == MOVE_FORWARD or type == ROTATE) {
-            waitMainThread = 1; 
-            cv.notify_all();
+            usleep(T*1000);
+            /*waitMainThread = 1; 
+            cv.notify_all();*/
         }
     }       
 }
 
 double angleActual() {
-    return R.getAng()*180/M_PI;
+    return R.getAng()*180/M_PI; 
 }
 
 void updateTimer(int v) {
-    if (not finish) { // Espera a que s'hagin actualitzat les variables
+    /*if (not finish) { // Espera a que s'hagin actualitzat les variables
         unique_lock<std::mutex> lk(cv_m);
         cv.wait_for(lk, chrono::milliseconds(1000), [](){ return waitMainThread == 1; });   
-    }
+    }*/
     long double t1 = time(0)*1000;
     moveCamera();
     glutPostRedisplay();        
@@ -635,9 +654,9 @@ void updateTimer(int v) {
     // Només cal esperar el temps no gastat pel següent frame
     long double wait = ((T-(t2-t1)) < 0) ? 0 : (T-(t2-t1));
     // Dona permís al thread d'actualitzar variables
-    glutTimerFunc(wait, updateTimer, 0);
-    waitMainThread = 0;
-    cv.notify_all();
+    /*waitMainThread = 0;
+    cv.notify_all();*/
+    glutTimerFunc(wait, updateTimer, 0);    
 }
 
 void actions(); // Permèt afegir la funció al final de l'arxiu
@@ -683,4 +702,5 @@ int main(int argc, const char * argv[]) {
 }
 
 // Accions: traduccio de robotGL a c++
+
 

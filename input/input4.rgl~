@@ -64,7 +64,7 @@ ACTIONS
     endfunc
     
     func traverse :
-        while not detect right do
+        while detect right or detect left do
             if detect front then rotate 180 endif
             moveForward 1
         wend
