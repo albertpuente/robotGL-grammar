@@ -35,10 +35,10 @@ prog    : actions? main EOF
 actions : ACTIONS! declaration* ENDACTIONS!
         ;
 
-declaration : FUNC! ID^ argList? ':'! instrList ENDFUNC!
+declaration : FUNC! ID^ argList ':'! instrList ENDFUNC!
         	;
         	
-main    : BEGIN! instr* END!
+main    : BEGIN! instr+ END!
 	    ;
 
 instr   :
@@ -54,6 +54,7 @@ instr   :
         | STOPROBOT^ numExpr
         | MOVETO^ numExpr ','! numExpr
         | ROTATE^ numExpr
+        | FACE^ direction
         | PICKOBJECT
         | RELEASEOBJECT
         | OBSTACLE^ numExpr ','! numExpr
@@ -62,7 +63,7 @@ instr   :
         | MARK^ numExpr ','! numExpr
         ;
 
-argList : args -> ^(ARGLIST args)
+argList : args? -> ^(ARGLIST args?)
         ;
 args    : arg (','! arg)*
         ;
@@ -109,6 +110,9 @@ atom    : INT
         | '('! numExpr ')'!
         ;
 
+direction   : NORTH | SOUTH | EAST | WEST
+            ;
+            
 // Basic tokens
 INITROBOT	: 'initRobot';
 MOVEFORWARD	: 'moveForward';
@@ -126,6 +130,12 @@ GETPOSX : 'getPosX';
 GETPOSY : 'getPosY';
 ON      : 'on';
 OFF     : 'off';
+
+FACE    : 'face';
+NORTH   : 'north';
+SOUTH   : 'south';
+EAST    : 'east';
+WEST    : 'west';
 
 CALL	: 'call';
 AND     : 'and';

@@ -576,11 +576,9 @@ void exec(const action& act) {
                 }
             }
             else if (currentAction.getType() == RELEASE_OBJECT) {
-                cout << "dicreasing" << endl;
                 for (int i = 0; i < caixes.size(); ++i) {
                     if (caixes[i].p > 0 and caixes[i].p < 1) caixes[i].p -= LOAD_SPEED;
                     if (caixes[i].p < 0) {
-                        cout << "sss" << endl;
                         caixes[i].p = 0;
                         currentAction.setStatus( FINISHED );
                     }
@@ -685,40 +683,70 @@ int main(int argc, const char * argv[]) {
 // Accions: traduccio de robotGL a c++
 
 
-void rgl_moveBackwards(int x) {
-    exec( action(MOVE_FORWARD, x) );
+void rgl_buildMap() {
+    exec( action(OBSTACLE, 1, 0) );
+    exec( action(OBSTACLE, 1, 1) );
+    exec( action(OBSTACLE, 1, 2) );
+    exec( action(OBSTACLE, 1, 3) );
+    exec( action(OBSTACLE, 1, 5) );
+    exec( action(OBSTACLE, 1, 6) );
+    exec( action(OBSTACLE, 1, 7) );
+    exec( action(OBSTACLE, 1, 8) );
+    exec( action(OBSTACLE, 1, 10) );
+    exec( action(OBSTACLE, 2, 0) );
+    exec( action(OBSTACLE, 2, 5) );
+    exec( action(OBSTACLE, 2, 10) );
+    exec( action(OBSTACLE, 3, 0) );
+    exec( action(OBSTACLE, 3, 2) );
+    exec( action(OBSTACLE, 3, 3) );
+    exec( action(OBSTACLE, 3, 5) );
+    exec( action(OBSTACLE, 3, 7) );
+    exec( action(OBSTACLE, 3, 8) );
+    exec( action(OBSTACLE, 3, 10) );
+    exec( action(OBSTACLE, 4, 0) );
+    exec( action(BOX, 4, 2) );
+    exec( action(OBSTACLE, 4, 3) );
+    exec( action(OBSTACLE, 4, 5) );
+    exec( action(OBSTACLE, 4, 8) );
+    exec( action(OBSTACLE, 5, 0) );
+    exec( action(OBSTACLE, 5, 1) );
+    exec( action(OBSTACLE, 5, 2) );
+    exec( action(OBSTACLE, 5, 3) );
+    exec( action(OBSTACLE, 5, 5) );
+    exec( action(OBSTACLE, 5, 6) );
+    exec( action(OBSTACLE, 5, 7) );
+    exec( action(OBSTACLE, 5, 8) );
+    exec( action(OBSTACLE, 5, 10) );
 }
 
-void rgl_tomato(int y) {
-    while (true) {
-        exec( action(ROTATE, angleActual() + 1) );
+void rgl_moveIndefinitely() {
+    while (not detectDirection(0)) {
+        exec( action(MOVE_FORWARD, 1) );
+    }
+}
+
+void rgl_spyral(int x, int y, int angle) {
+    if (R.getX() != x or R.getZ() != y) {
+        rgl_moveIndefinitely();
+        rgl_spyral(x, y, angle);
     }
 }
 
 void actions() {
-    int a = 6;
-    int z = 3;
-    R = robot(a, z, 45);
-    exec( action(MOVE_FORWARD, 3) );
-    int i = 0;
-    while (i < 10) {
-        exec( action(MARK, 1, i) );
-        exec( action(BOX, 9, i) );
-        i = i + 1;
-    }
-    exec( action(BOX, 0, 0) );
-    exec( action(MOVE, 1, 0) );
+    int a = 3;
+    rgl_buildMap();
+    R = robot(8, 4, 180);
+    exec( action(MOVE_FORWARD, 6) );
+    rgl_spyral(4, 1, 90);
     exec( action(PICK_OBJECT) );
-    exec( action(STOP, 1) );
-    exec( action(ROTATE, angleActual() + 180) );
-    exec( action(OBSTACLE, 7, 7) );
-    exec( action(MOVE, 7, 5) );
+    exec( action(MARK, 4, 7) );
+    rgl_spyral(2, 4, 270);
+    exec( action(MOVE, 0, 4) );
+    exec( action(ROTATE, angleActual() + 270) );
+    exec( action(MOVE_FORWARD, 5) );
+    exec( action(MOVE, 2, 9) );
+    rgl_spyral(4, 6, 270);
+    exec( action(ROTATE, 90) );
     exec( action(RELEASE_OBJECT) );
-    while (z < a) {
-        z = z + 1;
-        rgl_moveBackwards(1);
-    }
-    exec( action(MOVE, 6, 6) );
-    rgl_tomato(1);
     finish = true;
 }
