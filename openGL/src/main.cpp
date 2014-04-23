@@ -468,16 +468,27 @@ void iniciarAccio() {
     switch (currentAction.getType()) {
         
         case BOX :
-            box n;
-            n.x = currentAction.getDestX();
-            n.z = currentAction.getDestZ();
-            n.d = n.p = 0;
-            caixes.push_back(n);
-            currentAction.setStatus(RUNNING);
+            if (not ocupat(currentAction.getDestX(), currentAction.getDestZ())) {
+                box n;
+                n.x = currentAction.getDestX();
+                n.z = currentAction.getDestZ();
+                n.d = n.p = 0;
+                caixes.push_back(n);
+                currentAction.setStatus(RUNNING);
+            }
+            else {
+                cout << "ACCIÓ IGNORADA: BOX            | Ja hi ha un objecte en la posició" << endl;
+                currentAction.setStatus(FINISHED);
+            }
             break;
             
         case OBSTACLE :
-            obstacles.push_back( make_pair( currentAction.getDestX(), currentAction.getDestZ()));        
+            if (not ocupat(currentAction.getDestX(), currentAction.getDestZ())) {
+                obstacles.push_back( make_pair( currentAction.getDestX(), currentAction.getDestZ()));
+            }
+            else {
+                cout << "ACCIÓ IGNORADA: OBSTACLE       | Ja hi ha un objecte en la posició" << endl;
+            }
             currentAction.setStatus(FINISHED);
             break;
             
@@ -761,6 +772,10 @@ void actions() {
 =======
     int a = 6;
     int z = 3;
+    exec( action(BOX, 2, 2) );
+    exec( action(OBSTACLE, 3, 3) );
+    exec( action(OBSTACLE, 2, 2) );
+    exec( action(BOX, 3, 3) );
     R = robot(a, z, 0);
     exec( action(MOVE, 6, 3) );
     rgl_tomato(1);

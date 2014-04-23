@@ -58,6 +58,10 @@ void rgl_spyral(int x, int y, int angle) {
 void actions() {
     int a = 6;
     int z = 3;
+    exec( action(BOX, 2, 2) );
+    exec( action(OBSTACLE, 3, 3) );
+    exec( action(OBSTACLE, 2, 2) );
+    exec( action(BOX, 3, 3) );
     R = robot(a, z, 0);
     exec( action(MOVE, 6, 3) );
     rgl_tomato(1);

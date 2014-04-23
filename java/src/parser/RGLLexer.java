@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 // $ANTLR 3.4 /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g 2014-04-23 10:21:27
 =======
 // $ANTLR 3.4 /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g 2014-04-23 09:41:06
 >>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
+=======
+// $ANTLR 3.4 /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g 2014-04-23 10:20:29
+>>>>>>> 2022ee252b56dd5c3a4d4ad6bb97d04bfd91f6d1
 
     package parser;
 

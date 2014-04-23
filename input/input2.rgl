@@ -17,6 +17,10 @@ BEGIN
 
     a = 6
     z = 3
+    box 2, 2
+    obstacle 3, 3
+    obstacle 2, 2
+    box 3, 3
     initRobot a, z, 0
     moveTo 6, 3
     call tomato 1

@@ -10,6 +10,8 @@ public:
     void update();
     double getX();
     double getZ();  
+    int getIntX();
+    int getIntZ();
     void setX(double x);
     void setZ(double z);
     double getAng();
