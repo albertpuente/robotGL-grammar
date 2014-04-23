@@ -4,16 +4,19 @@ void rgl_moveBackwards(int x) {
 }
 
 void rgl_tomato(int y) {
-    while (true) {
-        exec( action(ROTATE, angleActual() + 1) );
+    if (y < 5) {
+        rgl_tomato(y + 1);
+        exec( action(ROTATE, angleActual() + 90) );
+        exec( action(MOVE_FORWARD, 1) );
     }
 }
 
 void actions() {
     int a = 6;
     int z = 3;
-    R = robot(a, z, 45);
-    exec( action(MOVE_FORWARD, 3) );
+    R = robot(a, z, 0);
+    exec( action(MOVE, 6, 3) );
+    rgl_tomato(1);
     int i = 0;
     while (i < 10) {
         exec( action(MARK, 1, i) );
@@ -33,6 +36,5 @@ void actions() {
         rgl_moveBackwards(1);
     }
     exec( action(MOVE, 6, 6) );
-    rgl_tomato(1);
     finish = true;
 }

@@ -82,10 +82,11 @@ double O = 0;
 double stoppedTime = 0;
 
 // Sincronització entre threads
+/*
 condition_variable cv;
 mutex cv_m;
 atomic<int> waitMainThread{1};
-
+*/
 
 void pintaModel() { 
     shaderLlum.on();
@@ -548,8 +549,8 @@ void exec(const action& act) {
         }   
         // S'espera a que es faci un resfresc de pantalla per actualitzar les variables de nou
         // Com a molt espera 1 segon.
-        unique_lock<std::mutex> lk(cv_m);
-        cv.wait_for(lk, chrono::milliseconds(1000), [](){ return waitMainThread == 0; });             
+        /*unique_lock<std::mutex> lk(cv_m);
+        cv.wait_for(lk, chrono::milliseconds(1000), [](){ return waitMainThread == 0; });*/
         double d1,d2;
         double px = R.getX();
         double pz = R.getZ();
@@ -576,11 +577,9 @@ void exec(const action& act) {
                 }
             }
             else if (currentAction.getType() == RELEASE_OBJECT) {
-                cout << "dicreasing" << endl;
                 for (int i = 0; i < caixes.size(); ++i) {
                     if (caixes[i].p > 0 and caixes[i].p < 1) caixes[i].p -= LOAD_SPEED;
                     if (caixes[i].p < 0) {
-                        cout << "sss" << endl;
                         caixes[i].p = 0;
                         currentAction.setStatus( FINISHED );
                     }
@@ -613,21 +612,22 @@ void exec(const action& act) {
         }
         
         if (currentAction.getStatus() != FINISHED or type == MOVE or type == MOVE_FORWARD or type == ROTATE) {
-            waitMainThread = 1; 
-            cv.notify_all();
+            usleep(T*1000);
+            /*waitMainThread = 1; 
+            cv.notify_all();*/
         }
     }       
 }
 
 double angleActual() {
-    return R.getAng()*180/M_PI;
+    return R.getAng()*180/M_PI; 
 }
 
 void updateTimer(int v) {
-    if (not finish) { // Espera a que s'hagin actualitzat les variables
+    /*if (not finish) { // Espera a que s'hagin actualitzat les variables
         unique_lock<std::mutex> lk(cv_m);
         cv.wait_for(lk, chrono::milliseconds(1000), [](){ return waitMainThread == 1; });   
-    }
+    }*/
     long double t1 = time(0)*1000;
     moveCamera();
     glutPostRedisplay();        
@@ -635,9 +635,9 @@ void updateTimer(int v) {
     // Només cal esperar el temps no gastat pel següent frame
     long double wait = ((T-(t2-t1)) < 0) ? 0 : (T-(t2-t1));
     // Dona permís al thread d'actualitzar variables
-    glutTimerFunc(wait, updateTimer, 0);
-    waitMainThread = 0;
-    cv.notify_all();
+    /*waitMainThread = 0;
+    cv.notify_all();*/
+    glutTimerFunc(wait, updateTimer, 0);    
 }
 
 void actions(); // Permèt afegir la funció al final de l'arxiu
@@ -690,16 +690,19 @@ void rgl_moveBackwards(int x) {
 }
 
 void rgl_tomato(int y) {
-    while (true) {
-        exec( action(ROTATE, angleActual() + 1) );
+    if (y < 5) {
+        rgl_tomato(y + 1);
+        exec( action(ROTATE, angleActual() + 90) );
+        exec( action(MOVE_FORWARD, 1) );
     }
 }
 
 void actions() {
     int a = 6;
     int z = 3;
-    R = robot(a, z, 45);
-    exec( action(MOVE_FORWARD, 3) );
+    R = robot(a, z, 0);
+    exec( action(MOVE, 6, 3) );
+    rgl_tomato(1);
     int i = 0;
     while (i < 10) {
         exec( action(MARK, 1, i) );
@@ -719,6 +722,5 @@ void actions() {
         rgl_moveBackwards(1);
     }
     exec( action(MOVE, 6, 6) );
-    rgl_tomato(1);
     finish = true;
 }
