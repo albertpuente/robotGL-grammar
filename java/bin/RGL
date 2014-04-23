@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec java -enableassertions -jar /home/albert/Desktop/Projecte/java/bin/RGL.jar "$@"
+exec java -enableassertions -jar /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/bin/RGL.jar "$@"

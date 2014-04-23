@@ -1,3 +1,3 @@
-java -jar ./java/bin/RGL.jar -ast $1
-dot -Tpdf -o $1.pdf $1.dot
-evince $1.pdf &
+java -jar ./java/bin/RGL.jar $1 -ast $2
+dot -Tpdf -o $2.pdf $2.dot
+#evince $2.pdf &
