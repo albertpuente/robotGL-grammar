@@ -696,7 +696,7 @@ int main(int argc, const char * argv[]) {
 // Accions: traduccio de robotGL a c++
 
 
-<<<<<<< HEAD
+
 void rgl_buildMap() {
     exec( action(OBSTACLE, 0, 1) );
     exec( action(OBSTACLE, 0, 2) );
@@ -733,43 +733,27 @@ void rgl_buildMap() {
     exec( action(OBSTACLE, 10, 5) );
 }
 
+<<<<<<< HEAD
 void rgl_moveIndefinitely() {
     while (not detectDirection(0)) {
-        exec( action(MOVE_FORWARD, 1) );
-    }
-}
-
-void rgl_spyral(int x, int y, int angle) {
-    cout << "spyral" << endl;
-    if (not ((int)round(R.getX()) == x and (int) round(R.getZ()) == y)) {
-        cout << x << " with " << floor(R.getX()) << " " << y << " with " << floor(R.getZ()) << endl;
-        exec( action(ROTATE, angleActual() + angle) );
-        rgl_moveIndefinitely();
-        rgl_spyral(x, y, angle);
 =======
-
-void rgl_moveBackwards(int x) {
-    exec( action(MOVE_FORWARD, x) );
-}
-
 void rgl_tomato(int y) {
     if (y < 5) {
         rgl_tomato(y + 1);
         exec( action(ROTATE, angleActual() + 90) );
-        exec( action(MOVE_FORWARD, 1) );
 >>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
+        exec( action(MOVE_FORWARD, 1) );
     }
-    else cout << "no hi arribo" << endl;
 }
 
-void actions() {
 <<<<<<< HEAD
-    int a = 3;
-    rgl_buildMap();
-    R = robot(4, 8, 180);
-    exec( action(MOVE_FORWARD, 6) );
-    rgl_spyral(1, 4, 90);
+void rgl_spyral(int x, int y, int angle) {
+    if (R.getX() != x or R.getZ() != y) {
+        exec( action(ROTATE, angleActual() + angle) );
+        rgl_moveIndefinitely();
+        rgl_spyral(x, y, angle);
 =======
+void actions() {
     int a = 6;
     int z = 3;
     exec( action(BOX, 2, 2) );
@@ -784,10 +768,16 @@ void actions() {
         exec( action(MARK, 1, i) );
         exec( action(BOX, 9, i) );
         i = i + 1;
-    }
-    exec( action(BOX, 0, 0) );
-    exec( action(MOVE, 1, 0) );
 >>>>>>> fbb9f8e8bb82f275ccc6572508ecc44769ff55c8
+    }
+}
+
+void actions() {
+    int a = 3;
+    rgl_buildMap();
+    R = robot(4, 8, 180);
+    exec( action(MOVE_FORWARD, 6) );
+    rgl_spyral(4, 1, 90);
     exec( action(PICK_OBJECT) );
     exec( action(MARK, 4, 7) );
     rgl_spyral(4, 2, 270);
