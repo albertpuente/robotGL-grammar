@@ -228,7 +228,17 @@ public class Interp {
                                         ", " + translateExpression(tree.getChild(1)) + ") );");
                 break;  
             case RGLLexer.TRAIL:
-                
+                addLine("exec( action(TRAIL, " + translateExpression(tree.getChild(0)) + ") );");
+                break;
+            case RGLLexer.FACE:
+                int angle = 0;
+                switch (tree.getChild(0).getType()) {
+                    case RGLLexer.EAST:     angle += 90; break;
+                    case RGLLexer.NORTH:    angle += 180; break;
+                    case RGLLexer.WEST:     angle += 270; break;
+                    default: break;
+                }
+                addLine("exec( action(ROTATE, " + angle + ") );");
                 break;
             //function call
             default:
@@ -276,7 +286,11 @@ public class Interp {
             if (childtype == RGLLexer.PLUS || childtype == RGLLexer.MINUS) s += ")";
             return s;
         }
-        else return translateExpression(tree.getChild(0)) + " " + tree.getText() +
+        if (type == RGLLexer.GETPOSX) return "R.getIntX()";
+        if (type == RGLLexer.GETPOSY) return "R.getIntZ()";
+        if (type == RGLLexer.DETECT) return "detectDirection(0)";
+        if (type == RGLLexer.NOT) return "not " + translateExpression(tree.getChild(0));
+        return translateExpression(tree.getChild(0)) + " " + tree.getText() +
                     " " + translateExpression(tree.getChild(1));
     }
     
