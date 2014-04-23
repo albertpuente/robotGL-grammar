@@ -289,7 +289,7 @@ public class Interp {
         if (type == RGLLexer.GETPOSX) return "R.getX()";
         if (type == RGLLexer.GETPOSY) return "R.getZ()";
         if (type == RGLLexer.DETECT) return "detectDirection(0)";
-        
+        if (type == RGLLexer.NOT) return "not " + translateExpression(tree.getChild(0));
         return translateExpression(tree.getChild(0)) + " " + tree.getText() +
                     " " + translateExpression(tree.getChild(1));
     }

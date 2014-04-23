@@ -286,8 +286,8 @@ public class Interp {
             if (childtype == RGLLexer.PLUS || childtype == RGLLexer.MINUS) s += ")";
             return s;
         }
-        if (type == RGLLexer.GETPOSX) return "R.getX()";
-        if (type == RGLLexer.GETPOSY) return "R.getZ()";
+        if (type == RGLLexer.GETPOSX) return "R.getIntX()";
+        if (type == RGLLexer.GETPOSY) return "R.getIntZ()";
         if (type == RGLLexer.DETECT) return "detectDirection(0)";
         if (type == RGLLexer.NOT) return "not " + translateExpression(tree.getChild(0));
         return translateExpression(tree.getChild(0)) + " " + tree.getText() +
