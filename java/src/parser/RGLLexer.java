@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g 2014-04-23 11:39:31
+// $ANTLR 3.4 /dades/albert.puente/linux/CL/Projecte/robotgl/java/src/parser/RGL.g 2014-04-23 12:18:24
 
     package parser;
 

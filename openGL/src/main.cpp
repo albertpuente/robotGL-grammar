@@ -306,6 +306,14 @@ void keyPressed(unsigned char character, int posX, int posY) {
     else if (character == 'c' or character == 'C') {
         if (++cameraMode > 4) cameraMode = 0;
     }
+    else if (character == '+') {
+        FPS = 120;
+        T = 1000/FPS;
+    }
+    else if (character == '-') {
+        FPS = 30;
+        T = 1000/FPS;
+    }
     moveCamera();
 }
 
@@ -432,7 +440,7 @@ bool detectDirection(int direccio) {
     double ang = fmod(R.getAng()+(((double)direccio)*M_PI/180), 2*M_PI);        
     int x2 = (int) (x1+sin(ang)+0.5);
     int z2 = (int) (z1+cos(ang)+0.5);
-    return ocupat(x2, z2);
+    return (ocupat(x2, z2) or z2 < 0 or z2 >= SIZE or x2 < 0 or x2 >= SIZE);
 }
 
 void leaveBox() {
