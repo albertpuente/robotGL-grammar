@@ -684,3 +684,4 @@ int main(int argc, const char * argv[]) {
 
 // Accions: traduccio de robotGL a c++
 
+

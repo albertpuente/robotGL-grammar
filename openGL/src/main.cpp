@@ -685,6 +685,7 @@ int main(int argc, const char * argv[]) {
 // Accions: traduccio de robotGL a c++
 
 
+
 void rgl_moveBackwards(int x) {
     exec( action(MOVE_FORWARD, x) );
 }
