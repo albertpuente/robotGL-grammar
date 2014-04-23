@@ -1,0 +1,315 @@
+digraph {
+
+	ordering=out;
+	ranksep=.4;
+	bgcolor="lightgrey"; node [shape=box, fixedsize=false, fontsize=12, fontname="Helvetica-bold", fontcolor="blue"
+		width=.25, height=.25, color="black", fillcolor="white", style="filled, solid, bold"];
+	edge [arrowsize=.5, color="black", style="bold"]
+
+  n0 [label="RGL"];
+  n1 [label="ACTIONLIST"];
+  n1 [label="ACTIONLIST"];
+  n2 [label="buildMap"];
+  n2 [label="buildMap"];
+  n3 [label="ARGLIST"];
+  n4 [label="INSTRLIST"];
+  n4 [label="INSTRLIST"];
+  n5 [label="obstacle"];
+  n5 [label="obstacle"];
+  n6 [label="1"];
+  n7 [label="0"];
+  n8 [label="obstacle"];
+  n8 [label="obstacle"];
+  n9 [label="1"];
+  n10 [label="1"];
+  n11 [label="obstacle"];
+  n11 [label="obstacle"];
+  n12 [label="1"];
+  n13 [label="2"];
+  n14 [label="obstacle"];
+  n14 [label="obstacle"];
+  n15 [label="1"];
+  n16 [label="3"];
+  n17 [label="obstacle"];
+  n17 [label="obstacle"];
+  n18 [label="1"];
+  n19 [label="5"];
+  n20 [label="obstacle"];
+  n20 [label="obstacle"];
+  n21 [label="1"];
+  n22 [label="6"];
+  n23 [label="obstacle"];
+  n23 [label="obstacle"];
+  n24 [label="1"];
+  n25 [label="7"];
+  n26 [label="obstacle"];
+  n26 [label="obstacle"];
+  n27 [label="1"];
+  n28 [label="8"];
+  n29 [label="obstacle"];
+  n29 [label="obstacle"];
+  n30 [label="1"];
+  n31 [label="10"];
+  n32 [label="obstacle"];
+  n32 [label="obstacle"];
+  n33 [label="2"];
+  n34 [label="0"];
+  n35 [label="obstacle"];
+  n35 [label="obstacle"];
+  n36 [label="2"];
+  n37 [label="5"];
+  n38 [label="obstacle"];
+  n38 [label="obstacle"];
+  n39 [label="2"];
+  n40 [label="10"];
+  n41 [label="obstacle"];
+  n41 [label="obstacle"];
+  n42 [label="3"];
+  n43 [label="0"];
+  n44 [label="obstacle"];
+  n44 [label="obstacle"];
+  n45 [label="3"];
+  n46 [label="2"];
+  n47 [label="obstacle"];
+  n47 [label="obstacle"];
+  n48 [label="3"];
+  n49 [label="3"];
+  n50 [label="obstacle"];
+  n50 [label="obstacle"];
+  n51 [label="3"];
+  n52 [label="5"];
+  n53 [label="obstacle"];
+  n53 [label="obstacle"];
+  n54 [label="3"];
+  n55 [label="7"];
+  n56 [label="obstacle"];
+  n56 [label="obstacle"];
+  n57 [label="3"];
+  n58 [label="8"];
+  n59 [label="obstacle"];
+  n59 [label="obstacle"];
+  n60 [label="3"];
+  n61 [label="10"];
+  n62 [label="obstacle"];
+  n62 [label="obstacle"];
+  n63 [label="4"];
+  n64 [label="0"];
+  n65 [label="box"];
+  n65 [label="box"];
+  n66 [label="4"];
+  n67 [label="2"];
+  n68 [label="obstacle"];
+  n68 [label="obstacle"];
+  n69 [label="4"];
+  n70 [label="3"];
+  n71 [label="obstacle"];
+  n71 [label="obstacle"];
+  n72 [label="4"];
+  n73 [label="5"];
+  n74 [label="obstacle"];
+  n74 [label="obstacle"];
+  n75 [label="4"];
+  n76 [label="8"];
+  n77 [label="obstacle"];
+  n77 [label="obstacle"];
+  n78 [label="5"];
+  n79 [label="0"];
+  n80 [label="obstacle"];
+  n80 [label="obstacle"];
+  n81 [label="5"];
+  n82 [label="1"];
+  n83 [label="obstacle"];
+  n83 [label="obstacle"];
+  n84 [label="5"];
+  n85 [label="2"];
+  n86 [label="obstacle"];
+  n86 [label="obstacle"];
+  n87 [label="5"];
+  n88 [label="3"];
+  n89 [label="obstacle"];
+  n89 [label="obstacle"];
+  n90 [label="5"];
+  n91 [label="5"];
+  n92 [label="obstacle"];
+  n92 [label="obstacle"];
+  n93 [label="5"];
+  n94 [label="6"];
+  n95 [label="obstacle"];
+  n95 [label="obstacle"];
+  n96 [label="5"];
+  n97 [label="7"];
+  n98 [label="obstacle"];
+  n98 [label="obstacle"];
+  n99 [label="5"];
+  n100 [label="8"];
+  n101 [label="obstacle"];
+  n101 [label="obstacle"];
+  n102 [label="5"];
+  n103 [label="10"];
+  n104 [label="moveIndefinitely"];
+  n104 [label="moveIndefinitely"];
+  n105 [label="ARGLIST"];
+  n106 [label="INSTRLIST"];
+  n106 [label="INSTRLIST"];
+  n107 [label="while"];
+  n107 [label="while"];
+  n108 [label="not"];
+  n108 [label="not"];
+  n109 [label="detect"];
+  n109 [label="detect"];
+  n110 [label="1"];
+  n111 [label="INSTRLIST"];
+  n111 [label="INSTRLIST"];
+  n112 [label="moveForward"];
+  n112 [label="moveForward"];
+  n113 [label="1"];
+  n114 [label="spyral"];
+  n114 [label="spyral"];
+  n115 [label="ARGLIST"];
+  n115 [label="ARGLIST"];
+  n116 [label="x"];
+  n117 [label="y"];
+  n118 [label="angle"];
+  n119 [label="INSTRLIST"];
+  n119 [label="INSTRLIST"];
+  n120 [label="spyral"];
+  n120 [label="spyral"];
+  n121 [label="x"];
+  n122 [label="y"];
+  n123 [label="angle"];
+  n124 [label="INSTRLIST"];
+  n124 [label="INSTRLIST"];
+  n125 [label="="];
+  n125 [label="="];
+  n126 [label="a"];
+  n127 [label="3"];
+
+  n0 -> n1 // "RGL" -> "ACTIONLIST"
+  n1 -> n2 // "ACTIONLIST" -> "buildMap"
+  n2 -> n3 // "buildMap" -> "ARGLIST"
+  n2 -> n4 // "buildMap" -> "INSTRLIST"
+  n4 -> n5 // "INSTRLIST" -> "obstacle"
+  n5 -> n6 // "obstacle" -> "1"
+  n5 -> n7 // "obstacle" -> "0"
+  n4 -> n8 // "INSTRLIST" -> "obstacle"
+  n8 -> n9 // "obstacle" -> "1"
+  n8 -> n10 // "obstacle" -> "1"
+  n4 -> n11 // "INSTRLIST" -> "obstacle"
+  n11 -> n12 // "obstacle" -> "1"
+  n11 -> n13 // "obstacle" -> "2"
+  n4 -> n14 // "INSTRLIST" -> "obstacle"
+  n14 -> n15 // "obstacle" -> "1"
+  n14 -> n16 // "obstacle" -> "3"
+  n4 -> n17 // "INSTRLIST" -> "obstacle"
+  n17 -> n18 // "obstacle" -> "1"
+  n17 -> n19 // "obstacle" -> "5"
+  n4 -> n20 // "INSTRLIST" -> "obstacle"
+  n20 -> n21 // "obstacle" -> "1"
+  n20 -> n22 // "obstacle" -> "6"
+  n4 -> n23 // "INSTRLIST" -> "obstacle"
+  n23 -> n24 // "obstacle" -> "1"
+  n23 -> n25 // "obstacle" -> "7"
+  n4 -> n26 // "INSTRLIST" -> "obstacle"
+  n26 -> n27 // "obstacle" -> "1"
+  n26 -> n28 // "obstacle" -> "8"
+  n4 -> n29 // "INSTRLIST" -> "obstacle"
+  n29 -> n30 // "obstacle" -> "1"
+  n29 -> n31 // "obstacle" -> "10"
+  n4 -> n32 // "INSTRLIST" -> "obstacle"
+  n32 -> n33 // "obstacle" -> "2"
+  n32 -> n34 // "obstacle" -> "0"
+  n4 -> n35 // "INSTRLIST" -> "obstacle"
+  n35 -> n36 // "obstacle" -> "2"
+  n35 -> n37 // "obstacle" -> "5"
+  n4 -> n38 // "INSTRLIST" -> "obstacle"
+  n38 -> n39 // "obstacle" -> "2"
+  n38 -> n40 // "obstacle" -> "10"
+  n4 -> n41 // "INSTRLIST" -> "obstacle"
+  n41 -> n42 // "obstacle" -> "3"
+  n41 -> n43 // "obstacle" -> "0"
+  n4 -> n44 // "INSTRLIST" -> "obstacle"
+  n44 -> n45 // "obstacle" -> "3"
+  n44 -> n46 // "obstacle" -> "2"
+  n4 -> n47 // "INSTRLIST" -> "obstacle"
+  n47 -> n48 // "obstacle" -> "3"
+  n47 -> n49 // "obstacle" -> "3"
+  n4 -> n50 // "INSTRLIST" -> "obstacle"
+  n50 -> n51 // "obstacle" -> "3"
+  n50 -> n52 // "obstacle" -> "5"
+  n4 -> n53 // "INSTRLIST" -> "obstacle"
+  n53 -> n54 // "obstacle" -> "3"
+  n53 -> n55 // "obstacle" -> "7"
+  n4 -> n56 // "INSTRLIST" -> "obstacle"
+  n56 -> n57 // "obstacle" -> "3"
+  n56 -> n58 // "obstacle" -> "8"
+  n4 -> n59 // "INSTRLIST" -> "obstacle"
+  n59 -> n60 // "obstacle" -> "3"
+  n59 -> n61 // "obstacle" -> "10"
+  n4 -> n62 // "INSTRLIST" -> "obstacle"
+  n62 -> n63 // "obstacle" -> "4"
+  n62 -> n64 // "obstacle" -> "0"
+  n4 -> n65 // "INSTRLIST" -> "box"
+  n65 -> n66 // "box" -> "4"
+  n65 -> n67 // "box" -> "2"
+  n4 -> n68 // "INSTRLIST" -> "obstacle"
+  n68 -> n69 // "obstacle" -> "4"
+  n68 -> n70 // "obstacle" -> "3"
+  n4 -> n71 // "INSTRLIST" -> "obstacle"
+  n71 -> n72 // "obstacle" -> "4"
+  n71 -> n73 // "obstacle" -> "5"
+  n4 -> n74 // "INSTRLIST" -> "obstacle"
+  n74 -> n75 // "obstacle" -> "4"
+  n74 -> n76 // "obstacle" -> "8"
+  n4 -> n77 // "INSTRLIST" -> "obstacle"
+  n77 -> n78 // "obstacle" -> "5"
+  n77 -> n79 // "obstacle" -> "0"
+  n4 -> n80 // "INSTRLIST" -> "obstacle"
+  n80 -> n81 // "obstacle" -> "5"
+  n80 -> n82 // "obstacle" -> "1"
+  n4 -> n83 // "INSTRLIST" -> "obstacle"
+  n83 -> n84 // "obstacle" -> "5"
+  n83 -> n85 // "obstacle" -> "2"
+  n4 -> n86 // "INSTRLIST" -> "obstacle"
+  n86 -> n87 // "obstacle" -> "5"
+  n86 -> n88 // "obstacle" -> "3"
+  n4 -> n89 // "INSTRLIST" -> "obstacle"
+  n89 -> n90 // "obstacle" -> "5"
+  n89 -> n91 // "obstacle" -> "5"
+  n4 -> n92 // "INSTRLIST" -> "obstacle"
+  n92 -> n93 // "obstacle" -> "5"
+  n92 -> n94 // "obstacle" -> "6"
+  n4 -> n95 // "INSTRLIST" -> "obstacle"
+  n95 -> n96 // "obstacle" -> "5"
+  n95 -> n97 // "obstacle" -> "7"
+  n4 -> n98 // "INSTRLIST" -> "obstacle"
+  n98 -> n99 // "obstacle" -> "5"
+  n98 -> n100 // "obstacle" -> "8"
+  n4 -> n101 // "INSTRLIST" -> "obstacle"
+  n101 -> n102 // "obstacle" -> "5"
+  n101 -> n103 // "obstacle" -> "10"
+  n1 -> n104 // "ACTIONLIST" -> "moveIndefinitely"
+  n104 -> n105 // "moveIndefinitely" -> "ARGLIST"
+  n104 -> n106 // "moveIndefinitely" -> "INSTRLIST"
+  n106 -> n107 // "INSTRLIST" -> "while"
+  n107 -> n108 // "while" -> "not"
+  n108 -> n109 // "not" -> "detect"
+  n109 -> n110 // "detect" -> "1"
+  n107 -> n111 // "while" -> "INSTRLIST"
+  n111 -> n112 // "INSTRLIST" -> "moveForward"
+  n112 -> n113 // "moveForward" -> "1"
+  n1 -> n114 // "ACTIONLIST" -> "spyral"
+  n114 -> n115 // "spyral" -> "ARGLIST"
+  n115 -> n116 // "ARGLIST" -> "x"
+  n115 -> n117 // "ARGLIST" -> "y"
+  n115 -> n118 // "ARGLIST" -> "angle"
+  n114 -> n119 // "spyral" -> "INSTRLIST"
+  n119 -> n120 // "INSTRLIST" -> "spyral"
+  n120 -> n121 // "spyral" -> "x"
+  n120 -> n122 // "spyral" -> "y"
+  n120 -> n123 // "spyral" -> "angle"
+  n0 -> n124 // "RGL" -> "INSTRLIST"
+  n124 -> n125 // "INSTRLIST" -> "="
+  n125 -> n126 // "=" -> "a"
+  n125 -> n127 // "=" -> "3"
+
+}

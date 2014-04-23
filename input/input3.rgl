@@ -1,0 +1,71 @@
+ACTIONS
+
+    func buildMap :
+        obstacle 0, 1
+        obstacle 0, 2
+        obstacle 0, 3
+        obstacle 0, 4
+        obstacle 0, 5
+        obstacle 1, 1
+        obstacle 1, 5
+        obstacle 2, 1
+        obstacle 2, 3
+        obstacle 2, 5
+        obstacle 3, 1
+        obstacle 3, 3
+        obstacle 3, 4
+        obstacle 3, 5
+        obstacle 5, 1
+        obstacle 5, 2
+        obstacle 5, 3
+        obstacle 5, 4
+        obstacle 5, 5
+        obstacle 6, 1
+        obstacle 6, 5
+        obstacle 7, 1
+        obstacle 7, 3
+        obstacle 7, 5
+        obstacle 8, 1
+        obstacle 8, 3
+        obstacle 8, 4
+        obstacle 8, 5
+        obstacle 10, 1
+        obstacle 10, 2
+        obstacle 10, 3
+        obstacle 10, 5
+        box 2, 4
+
+    endfunc
+    
+    func moveIndefinitely :
+        while not detect 1 do moveForward 1 wend
+    endfunc
+    
+    func spyral x, y, angle :
+        if getPosX != x or getPosY != y then
+            rotate angle
+            call moveIndefinitely
+            call spyral x, y, angle
+        endif
+    endfunc
+    
+ENDACTIONS
+
+BEGIN
+    initRobot 4, 8, 180
+    call buildMap
+    moveForward 6
+    call spyral 1,4,90
+    pickObject
+    mark 7,4
+    call spyral 4,2,270
+    
+    moveTo 4,0
+    rotate 270
+    moveForward 5
+    moveTo 9,2
+    face north
+    call spyral 6,4,90
+    face east
+    releaseObject
+END
