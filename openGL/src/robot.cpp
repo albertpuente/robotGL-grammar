@@ -105,11 +105,11 @@ double robot::getZ() {
     return posModelZ;
 }
 
-double robot::getIntX() {
+int robot::getIntX() {
     return ((int) (0.5 + posModelX));
 }
 
-double robot::getIntZ() {
+int robot::getIntZ() {
     return ((int) (0.5 + posModelZ));
 }
 
