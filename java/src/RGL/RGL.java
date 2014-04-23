@@ -22,6 +22,7 @@ import interp.*;
 public class RGL {
 
     private static String filename = null;
+    private static String astname = null;
     private static boolean generateAST = false;
       
     /** Main program that invokes the parser and the interpreter. */
@@ -32,7 +33,7 @@ public class RGL {
 
         // Parsing of the input file        
         CharStream input = null;
-        try { input = new ANTLRFileStream(filename+".rgl"); }
+        try { input = new ANTLRFileStream(filename); }
         catch (IOException e) {
             System.err.println ("Error: file " + filename + " could not be opened.");
             System.exit(1);
@@ -59,7 +60,7 @@ public class RGL {
 
         RGLTree tree = (RGLTree)result.getTree();  //get the AST
         if (generateAST) {
-            File ast = new File(filename+".dot");
+            File ast = new File(astname+".dot");
             BufferedWriter output = new BufferedWriter(new FileWriter(ast));
             DOTTreeGenerator gen = new DOTTreeGenerator();
             output.write(gen.toDOT(tree).toString());
@@ -93,8 +94,9 @@ public class RGL {
     private static void readOptions(String[] args) {
         switch (args.length) {
             case 1:     filename = args[0]; break;                          // ./translate code.rgl
-            case 2:     if (args[0].equals("-ast")) {                       // ./translate -ast code.rgl
-                            filename = args[1];
+            case 3:     if (args[1].equals("-ast")) {                       // ./translate input [-ast filename]
+                            filename = args[0];
+                            astname = args[2];
                             generateAST = true;
                             break;
                         } else usage();      
@@ -104,9 +106,9 @@ public class RGL {
     
     // Translator usage
     private static void usage() {
-        System.out.println("Usage: ./translate [-ast] filename");
+        System.out.println("Usage: ./translate input [-ast astname]");
         System.out.println();
-        System.out.println("If -asl option is added, the AST dot file will be generated and " +
+        System.out.println("If -ast option is added, the AST dot file will be generated and " +
                             "the program will not be translated.");
         System.exit(1);
     }
