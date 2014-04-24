@@ -38,7 +38,7 @@ ACTIONS
     endfunc
     
     func moveIndefinitely :
-        while not detect 1 do moveForward 1 wend
+        while not detect front do moveForward 1 wend
     endfunc
     
     func spyral x, y, angle :

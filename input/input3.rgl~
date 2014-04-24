@@ -38,7 +38,7 @@ ACTIONS
     endfunc
     
     func moveIndefinitely :
-        while not detect 1 do moveForward 1 wend
+        while not detect FRONT do moveForward 1 wend
     endfunc
     
     func spyral x, y, angle :
@@ -64,7 +64,7 @@ BEGIN
     rotate 270
     moveForward 5
     moveTo 9,2
-    face west
+    face north
     call spyral 6,4,90
     face east
     releaseObject

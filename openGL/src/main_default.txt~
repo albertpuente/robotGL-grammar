@@ -82,11 +82,10 @@ double O = 0;
 double stoppedTime = 0;
 
 // Sincronització entre threads
-/*
 condition_variable cv;
 mutex cv_m;
 atomic<int> waitMainThread{1};
-*/
+
 
 void pintaModel() { 
     shaderLlum.on();
@@ -438,8 +437,8 @@ bool detectDirection(int direccio) {
     int x1 = (int) (R.getX()+0.5);
     int z1 = (int) (R.getZ()+0.5);
     double ang = fmod(R.getAng()+(((double)direccio)*M_PI/180), 2*M_PI);        
-    int x2 = (int) round((x1+sin(ang));
-    int z2 = (int) round((z1+cos(ang));
+    int x2 = (int) round(x1+sin(ang));
+    int z2 = (int) round(z1+cos(ang));
     return (ocupat(x2, z2) or z2 < 0 or z2 >= SIZE or x2 < 0 or x2 >= SIZE);
 }
 
@@ -568,8 +567,8 @@ void exec(const action& act) {
         }   
         // S'espera a que es faci un resfresc de pantalla per actualitzar les variables de nou
         // Com a molt espera 1 segon.
-        /*unique_lock<std::mutex> lk(cv_m);
-        cv.wait_for(lk, chrono::milliseconds(1000), [](){ return waitMainThread == 0; });*/
+        unique_lock<std::mutex> lk(cv_m);
+        cv.wait_for(lk, chrono::milliseconds(1000), [](){ return waitMainThread == 0; });
         double d1,d2;
         double px = R.getX();
         double pz = R.getZ();
@@ -631,9 +630,8 @@ void exec(const action& act) {
         }
         
         if (currentAction.getStatus() != FINISHED or type == MOVE or type == MOVE_FORWARD or type == ROTATE) {
-            usleep(T*1000);
-            /*waitMainThread = 1; 
-            cv.notify_all();*/
+            waitMainThread = 1; 
+            cv.notify_all();
         }
     }       
 }
@@ -642,21 +640,25 @@ double angleActual() {
     return R.getAng()*180/M_PI; 
 }
 
+double diffclock(clock_t clock1, clock_t clock2) { 
+    double diffticks = clock1 - clock2; 
+    double diffms = (diffticks*1000)/CLOCKS_PER_SEC; 
+    return diffms;  
+}
+
 void updateTimer(int v) {
-    /*if (not finish) { // Espera a que s'hagin actualitzat les variables
+    if (not finish) { // Espera a que s'hagin actualitzat les variables
         unique_lock<std::mutex> lk(cv_m);
         cv.wait_for(lk, chrono::milliseconds(1000), [](){ return waitMainThread == 1; });   
-    }*/
-    long double t1 = time(0)*1000;
+    }    
     moveCamera();
-    glutPostRedisplay();        
-    long double t2 = time(0)*1000;
-    // Només cal esperar el temps no gastat pel següent frame
-    long double wait = ((T-(t2-t1)) < 0) ? 0 : (T-(t2-t1));
+    glutPostRedisplay();
+    glutTimerFunc(T, updateTimer, 0);
     // Dona permís al thread d'actualitzar variables
-    /*waitMainThread = 0;
-    cv.notify_all();*/
-    glutTimerFunc(wait, updateTimer, 0);    
+    if (not finish) {
+        waitMainThread = 0;
+        cv.notify_all();
+    }
 }
 
 void actions(); // Permèt afegir la funció al final de l'arxiu

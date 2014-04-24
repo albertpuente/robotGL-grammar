@@ -10,6 +10,7 @@
 #include <atomic>
 #include <condition_variable>
 #include <thread>
+#include <pthread.h>
 #include <chrono>
 #include <ctime>
 #include "shader.h"
