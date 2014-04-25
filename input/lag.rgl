@@ -1,0 +1,26 @@
+BEGIN
+    initRobot 0, 5, 90
+    mark getPosX, getPosY
+    box getPosX, getPosY - 1
+    box getPosX, getPosY + 1
+    moveForward 8 
+    box getPosX+1, getPosY
+    pickObject
+    mark getPosX, getPosY
+    rotate 90 
+    moveForward 2
+    releaseObject    
+    moveTo 0, 5
+    face east
+    moveForward 3
+    trail on
+    b = 4
+    while b < 12 do
+        a = 0
+        while a < b do 
+            moveForward 1 
+            rotate 360/b 
+            a = a + 1 wend
+        b = b + 1
+    wend
+END

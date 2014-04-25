@@ -702,13 +702,30 @@ int main(int argc, const char * argv[]) {
 
 
 void actions() {
-    R = robot(5, 5, 0);
-    exec( action(MOVE, 5, 5) );
-    while (true) {
-        exec( action(MOVE_FORWARD, 1) );
-        exec( action(MOVE_FORWARD, 1) );
-        exec( action(MOVE_FORWARD, 1) );
-        exec( action(ROTATE, angleActual() + 90) );
+    R = robot(0, 5, 90);
+    exec( action(MARK, R.getIntX(), R.getIntZ()) );
+    exec( action(BOX, R.getIntX(), R.getIntZ() - 1) );
+    exec( action(BOX, R.getIntX(), R.getIntZ() + 1) );
+    exec( action(MOVE_FORWARD, 8) );
+    exec( action(BOX, R.getIntX() + 1, R.getIntZ()) );
+    exec( action(PICK_OBJECT) );
+    exec( action(MARK, R.getIntX(), R.getIntZ()) );
+    exec( action(ROTATE, angleActual() + 90) );
+    exec( action(MOVE_FORWARD, 2) );
+    exec( action(RELEASE_OBJECT) );
+    exec( action(MOVE, 0, 5) );
+    exec( action(ROTATE, 90) );
+    exec( action(MOVE_FORWARD, 3) );
+    exec( action(TRAIL, true) );
+    int b = 4;
+    while (b < 12) {
+        int a = 0;
+        while (a < b) {
+            exec( action(MOVE_FORWARD, 1) );
+            exec( action(ROTATE, angleActual() + 360 / b) );
+            a = a + 1;
+        }
+        b = b + 1;
     }
     finish = true;
 }
