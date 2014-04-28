@@ -567,8 +567,7 @@ void exec(const action& act) {
         }   
         // S'espera a que es faci un resfresc de pantalla per actualitzar les variables de nou
         // Com a molt espera 1 segon.
-        unique_lock<std::mutex> lk(cv_m);
-        cv.wait_for(lk, chrono::milliseconds(1000), [](){ return waitMainThread == 0; });
+
         double d1,d2;
         double px = R.getX();
         double pz = R.getZ();
@@ -630,8 +629,13 @@ void exec(const action& act) {
         }
         
         if (currentAction.getStatus() != FINISHED or type == MOVE or type == MOVE_FORWARD or type == ROTATE) {
-            waitMainThread = 1; 
+            
+            waitMainThread = 1; //cout << "1" << endl;
             cv.notify_all();
+            
+            unique_lock<std::mutex> lk(cv_m);
+            cv.wait_for(lk, chrono::milliseconds(1000), [](){ return waitMainThread == 0; });
+            
         }
     }       
 }
@@ -640,19 +644,20 @@ double angleActual() {
     return R.getAng()*180/M_PI; 
 }
 
-void updateTimer(int v) {
-    if (not finish) { // Espera a que s'hagin actualitzat les variables
+void updateTimer(int v) {  
+    moveCamera();
+    glutPostRedisplay();    
+    // Dona permís al thread d'actualitzar variables
+    if (not finish) {      
+        
+        waitMainThread = 0; //cout << "0" << endl;
+        cv.notify_all();
+        
         unique_lock<std::mutex> lk(cv_m);
         cv.wait_for(lk, chrono::milliseconds(1000), [](){ return waitMainThread == 1; });   
-    }    
-    moveCamera();
-    glutPostRedisplay();
-    glutTimerFunc(T, updateTimer, 0);
-    // Dona permís al thread d'actualitzar variables
-    if (not finish) {
-        waitMainThread = 0;
-        cv.notify_all();
+        
     }
+    glutTimerFunc(T, updateTimer, 0);
 }
 
 void actions(); // Permèt afegir la funció al final de l'arxiu
