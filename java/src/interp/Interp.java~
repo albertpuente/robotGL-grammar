@@ -106,7 +106,8 @@ public class Interp {
             }
             header += ") {";
             addLine(header);            
-            translate(action.getChild(1));      //body
+            translate(action.getChild(1));      //initRobot
+            translate(action.getChild(2));      //rest
             addLine("}");
             
             variableSet.clear();
@@ -170,6 +171,17 @@ public class Interp {
             case RGLLexer.WHILE:
                 addLine("while (" + translateExpression(tree.getChild(0)) + ") {");
                 translate(tree.getChild(1));
+                addLine("}");
+                break;
+            case RGLLexer.FOR:
+                String iter_id = tree.getChild(0).getText();
+                if (variableSet.contains(iter_id));//warning
+                String minbound = tree.getChild(1).getText();
+                String maxbound = tree.getChild(2).getText();
+                addLine("for (int "+iter_id+" = "+minbound+
+                        "; "+iter_id+" <= "+maxbound+"; "+
+                        "++"+iter_id+"{");
+                translate(tree.getChild(3));
                 addLine("}");
                 break;
             case RGLLexer.CALL:

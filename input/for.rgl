@@ -1,0 +1,14 @@
+ACTIONS
+
+    func moveIndefinitely :
+        while not detect front do moveForward 1 wend
+    endfunc
+    
+ENDACTIONS
+
+BEGIN
+    initRobot 0,0,0
+    for i in 1..5 do
+        moveForward 1
+    fend
+END

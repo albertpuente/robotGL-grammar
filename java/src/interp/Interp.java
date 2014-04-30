@@ -173,6 +173,17 @@ public class Interp {
                 translate(tree.getChild(1));
                 addLine("}");
                 break;
+            case RGLLexer.FOR:
+                String iter_id = tree.getChild(0).getText();
+                if (variableSet.contains(iter_id));//warning
+                String minbound = tree.getChild(1).getText();
+                String maxbound = tree.getChild(2).getText();
+                addLine("for (int "+iter_id+" = "+minbound+
+                        "; "+iter_id+" <= "+maxbound+"; "+
+                        "++"+iter_id+") {");
+                translate(tree.getChild(3));
+                addLine("}");
+                break;
             case RGLLexer.CALL:
                 break;                
             case RGLLexer.INSTRLIST:
