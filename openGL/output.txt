@@ -1,1 +1,1 @@
-g++  -O2 -pthread -std=c++0x -fpermissive /dades/albert.puente/linux/CL/Projecte/robotgl/openGL/src/*.cpp /dades/albert.puente/linux/CL/Projecte/robotgl/openGL/libs/*.c -o robotGL -I/dades/albert.puente/linux/CL/Projecte/robotgl/openGL/libs -lGL -lglut -lGLU -lGLEW -w
+g++  -O2 -pthread -std=c++0x -fpermissive /home2/users/alumnes/1160193/dades/linux/CL/Projecte/robotgl/openGL/src/*.cpp /home2/users/alumnes/1160193/dades/linux/CL/Projecte/robotgl/openGL/libs/*.c -o robotGL -I/home2/users/alumnes/1160193/dades/linux/CL/Projecte/robotgl/openGL/libs -lGL -lglut -lGLU -lGLEW -w

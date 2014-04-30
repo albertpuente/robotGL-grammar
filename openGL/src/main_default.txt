@@ -46,7 +46,7 @@ int cameraMode = 2;
 double fov = 60;
 
 // Distància entre marques
-double distaciaEntreTrails = 0.1;
+double distaciaEntreTrails = 0.01;
 
 struct box {
     uint x; // Posició en eix x
@@ -469,6 +469,14 @@ void leaveBox() {
     }
 }
 
+
+bool existeixMarca(int x, int z) {
+    for (int i = 0; i < marques.size(); ++i) {
+        if (marques[i].first == x and marques[i].second == z) return true;
+    }
+    return false;
+}
+
 // Switch per la inicialització d'accions
 void iniciarAccio() {
     double ang;
@@ -505,7 +513,10 @@ void iniciarAccio() {
             break;
             
         case MARK : 
-            marques.push_back( make_pair( currentAction.getDestX(), currentAction.getDestZ()));        
+            if (not existeixMarca(currentAction.getDestX(), currentAction.getDestZ())) {
+                marques.push_back( make_pair( currentAction.getDestX(), currentAction.getDestZ()));       
+            }
+            else cout << "ACCIÓ IGNORADA: MARK           | Ja hi ha una marca a la posició" << endl;
             currentAction.setStatus(FINISHED);
             break;
             
@@ -696,7 +707,6 @@ int main(int argc, const char * argv[]) {
     
     // Crida del thread d'actualització de variables, i inicialització del timer de glut
     
-    cout << "Inici de la simulació..." << endl;
     thread t(actions);
     glutTimerFunc(T, updateTimer, 0);
     glutMainLoop();
