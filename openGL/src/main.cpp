@@ -730,6 +730,9 @@ int main(int argc, const char * argv[]) {
 
 
 
+void rgl_estrella();
+void rgl_poligons();
+
 void rgl_estrella() {
     int i = 1;
     while (i < 13) {

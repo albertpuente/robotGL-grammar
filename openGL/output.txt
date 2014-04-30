@@ -1,1 +1,0 @@
-g++ -c -pipe -O2 -Wall -W -D_REENTRANT -DQT_WEBKIT -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/default -I. -I/usr/include/QtCore -I/usr/include/QtGui -I/usr/include -I. -Ilibs -Isrc -I. -o test_SOIL.o libs/test_SOIL.cpp
