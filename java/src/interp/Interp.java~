@@ -4,10 +4,13 @@ import parser.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Queue;
 import java.util.Scanner;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.LinkedList;
 
 /** Class that implements the interpreter of the language. */
 
@@ -18,16 +21,14 @@ public class Interp {
     /** c++ code resulting of the translation */
     private String translation;
     
-    /** Set of RGL actions, used to check for potentially invalid calls */
-    private HashSet<String> actionSet;    
+    /** Map of RGL actions, used to check for potentially invalid calls */
+    private HashMap<String, Integer> actionSet;    
     /** Set of variables, used to check they have an assigned value at the current translation state */
     private HashSet<String> variableSet;
     
     /** Stores the line number of the current statement. */
-    //private int linenumber = -1;
-    
-    /** Set to true if the robot has been initialized. Used to check for multiple initializations */
-    private boolean robotInitialized = false;
+    private Queue<String> errors;
+    private Queue<String> warnings;
     
     /** number of spaces to be written before a statement at the current translation state */
     private int tabulation = 0;
@@ -38,19 +39,20 @@ public class Interp {
         tree = T;
         translation = "";
         variableSet = new HashSet<String> ();
-        actionSet = new HashSet<String> ();
+        actionSet = new HashMap<String, Integer> ();
+        
+        errors = new LinkedList ();
+        warnings = new LinkedList ();
     }
-    
-    /** Gets the current line number. In case of a runtime error */
-    //public int lineNumber() { return linenumber; }
 
-    public String translation() { return translation; };
+    /** Returns a string containing the translation. Must have called "Run" before */
+    public String translation() { return translation; }
     
-    /** Defines the current line number associated to an AST node. */
-    //private void setLineNumber(RGLTree t) { linenumber = t.getLine();}
-
-    /** Defines the current line number with a specific value */
-    //private void setLineNumber(int l) { linenumber = l;}
+    /** Queue with error messages */
+    public Queue<String> getErrors() { return errors; }
+    
+    /** Queue with warning messages */
+    public Queue<String> getWarnings() { return warnings; }
     
     /** Adds 'tabulation' spaces to the current state of the translation */
     private void indent() {
@@ -64,11 +66,12 @@ public class Interp {
     
     /** Writes the 'statement' of code, indented correctly */
     private void addLine(String statement) {
-        indent(); translation += statement+"\n";
+        indent();
+        translation += statement+"\n";
     }
     
     /** Runs the program by calling the main function without parameters. */
-    public void Run() throws UndefinedElementException {
+    public void Run() {
         addLine("");
         //CAL recorrer (i guardar info de) tots els ids abans de traduir els bodies.
         //alhora s'han d'escriure les declaracions per poder fer servir funcions dins de
@@ -80,67 +83,76 @@ public class Interp {
         addLine("}");
     }
 
-    /** Translates the actions and fills the 'actionSet' set with their ids */
-    private void translateActions (RGLTree tree) throws UndefinedElementException {
+
+    /** Returns the number of children of a tree node */
+    private int getChildrenNumber(RGLTree tree) {
         int childNumber = 0;
-        RGLTree action = tree.getChild(childNumber);
-        while (action != null) {
-            String actionId = action.getText();
-            actionSet.add(actionId);
+        while (tree.getChild(childNumber) != null) ++childNumber;
+        return childNumber;
+    }
+
+    /** Translates the actions and fills the 'actionSet' set with their ids */
+    private void translateActions (RGLTree tree) {
+        //translate declarations
+        for (int i = 0; i < getChildrenNumber(tree); ++i) {
+            RGLTree action = tree.getChild(i);
+            RGLTree argList = action.getChild(0);
             
-            String header = "void rgl_" + actionId + "(";            
-            //parameters
-            RGLTree arglist = action.getChild(0);
-            int argNumber = 0;
-            RGLTree arg = arglist.getChild(argNumber);
-            if (arg != null) {
-                header += "int " + arg.getText();
-                //used to check that all used vars in the body have a value
-                variableSet.add(arg.getText());
+            String actionId = action.getText();
+            int n_args = getChildrenNumber(argList);
+            if (actionSet.containsKey(actionId) && actionSet.get(actionId) == n_args) {
+                int linenumber = action.getLine();
+                errors.add("Error (line "+linenumber+"): duplicate function name ("+actionId+")");
             }
-            arg = arglist.getChild(++argNumber);
-            while (arg != null) {
-                variableSet.add(arg.getText());                
-                header += ", int " + arg.getText();
-                arg = arglist.getChild(++argNumber);
+            actionSet.put(actionId, n_args);
+            
+            String declaration = "void rgl_" + actionId + "(";
+            //parameters
+            for (int j = 0; j < n_args; ++j) {
+                if (j > 0) declaration += ", ";
+                String arg = argList.getChild(j).getText();
+                if (variableSet.contains(arg)) {
+                    int linenumber = argList.getChild(j).getLine();
+                    errors.add("Error (line "+linenumber+"): duplicate variable name ("+arg+")");
+                }                
+                variableSet.add(arg);
+                declaration += "int " + arg;
+                
+            }
+            variableSet.clear();
+            declaration += ");";
+            addLine(declaration);
+        }
+        addLine("");
+        //translate the headers+bodies
+        for (int i = 0; i < getChildrenNumber(tree); ++i) {
+            RGLTree action = tree.getChild(i);
+            String actionId = action.getText();
+            
+            //parameters
+            RGLTree argList = action.getChild(0); 
+            int n_args = getChildrenNumber(argList);
+            String header = "void rgl_" + actionId + "(";
+            
+            for (int j = 0; j < n_args; ++j) {
+                if (j > 0) header += ", ";
+                String arg = argList.getChild(j).getText();
+                header += "int " + arg;
+                variableSet.add(arg); //used to check that all used vars in the body have a value
             }
             header += ") {";
             addLine(header);            
-            translate(action.getChild(1));      //initRobot
-            translate(action.getChild(2));      //rest
+            translate(action.getChild(1));  //body
             addLine("}");
             
-            variableSet.clear();
+            variableSet.clear();    //no visibility between functions
             
-            addLine("");
-            action = tree.getChild(++childNumber);  
+            addLine(""); 
         }          
     }
     
-/*    
-    // PROVISIONAL, NOMES TORNA ENTERS
-    private int evaluateExpression(RGLTree t) {
-        assert t != null;
-
-        int previous_line = lineNumber();
-        setLineNumber(t);
-        
-        int type = t.getType();
-        int value = 0;        
-        switch (type) {
-            case RGLLexer.INT:
-                value = Integer.parseInt(t.getText());
-                break;            
-            default: break;
-        }
-        
-        setLineNumber(previous_line);
-        return value;
-    }
-*/
-
     /** Begins the translation */
-    private void translate (RGLTree tree) throws UndefinedElementException {
+    private void translate (RGLTree tree) {
         if (tree == null) return;
         tabulation += 4;
         switch (tree.getType()) {
@@ -175,33 +187,31 @@ public class Interp {
                 break;
             case RGLLexer.FOR:
                 String iter_id = tree.getChild(0).getText();
-                if (variableSet.contains(iter_id));//warning
+                boolean exists = variableSet.contains(iter_id);
+                if (exists) {
+                    int linenumber = tree.getLine();
+                    warnings.add("Warning (line "+linenumber+"): using an already "+
+                                  "existing variable as iterator ("+iter_id+")");
+                } else variableSet.add(iter_id);
+                
                 String minbound = tree.getChild(1).getText();
                 String maxbound = tree.getChild(2).getText();
-                addLine("for (int "+iter_id+" = "+minbound+
-                        "; "+iter_id+" <= "+maxbound+"; "+
-                        "++"+iter_id+"{");
+                addLine("for (int "+iter_id+" = "+minbound+"; "+iter_id+" <= "+maxbound+"; "+
+                        "++"+iter_id+") {");
                 translate(tree.getChild(3));
+                if (!exists) variableSet.remove(iter_id);
                 addLine("}");
                 break;
             case RGLLexer.CALL:
                 break;                
             case RGLLexer.INSTRLIST:
                 tabulation -= 4;    //since no line is written, undo the tabulation
-                int childNum = 0;
-                RGLTree child = tree.getChild(childNum);
-                while (child != null) {
-                    translate(child);
-                    child = tree.getChild(++childNum);
-                }
+                for (int i = 0; i < getChildrenNumber(tree); ++i) translate(tree.getChild(i));
                 tabulation += 4;    //back to original tabulation
                 break;
             
             ////////// RGL EXPRESSIONS /////////////
             case RGLLexer.INITROBOT:
-                if (robotInitialized) { /*error. throw exception*/ }
-                robotInitialized = true;
-                
                 addLine("R = robot(" + translateExpression(tree.getChild(0)) +
                                 ", " + translateExpression(tree.getChild(1)) +
                                 ", " + translateExpression(tree.getChild(2)) + ");");
@@ -255,8 +265,19 @@ public class Interp {
             //function call
             default:
                 String actionId = tree.getText();
-                if (!actionSet.contains(actionId))
-                    throw new UndefinedElementException(actionId, tree.getLine());
+                if (!actionSet.containsKey(actionId)) {
+                    int linenumber = tree.getLine();
+                    errors.add("Error (line "+linenumber+"): calling a non-existent function ("+actionId+")");
+                }
+                else {
+                    int n_params = getChildrenNumber(tree);
+                    int n_args = actionSet.get(actionId);
+                    if (n_args != n_params) {
+                        int linenumber = tree.getLine();
+                        errors.add("Error (line "+linenumber+"): calling a function with wrong number of parameters ("+
+                            "actionId, expected "+n_args+", found "+n_params+")");
+                    }
+                }
                 String call = "rgl_" + actionId + "(";
                 int paramNumber = 0;
                 RGLTree param = tree.getChild(paramNumber);
@@ -272,7 +293,7 @@ public class Interp {
         tabulation -= 4;
     }
     
-    private String translateExpression(RGLTree tree) throws UndefinedElementException {
+    private String translateExpression(RGLTree tree) {
         assert tree != null;
         int type = tree.getType();
         if (type == RGLLexer.TRUE || type == RGLLexer.ON) return "true";
@@ -280,8 +301,10 @@ public class Interp {
         if (type == RGLLexer.INT) return tree.getText();
         if (type == RGLLexer.ID) {
             String id = tree.getText();
-            if (!variableSet.contains(id))
-                throw new UndefinedElementException(id, tree.getLine());
+            if (!variableSet.contains(id)) {
+                int linenumber = tree.getLine();
+                errors.add("Error (line "+linenumber+"): using a variable with no assigned value ("+id+")");
+            }
             return id;
         }
         if (type == RGLLexer.MUL || type == RGLLexer.DIV) {

@@ -1,0 +1,23 @@
+ACTIONS
+
+    func op x,z,p : endfunc
+    func yay a, a : endfunc
+
+    func moveIndefinitely :
+        while not detect front do moveForward 1 wend
+    endfunc
+    
+    func moveIndefinitely : endfunc
+    
+    
+    
+ENDACTIONS
+
+BEGIN
+    initRobot 0,0,0
+    i = 3
+    for i in 1..5 do
+        moveForward 1
+    fend
+    call op i, 2
+END

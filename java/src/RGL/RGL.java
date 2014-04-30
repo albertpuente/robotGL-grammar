@@ -7,6 +7,8 @@ import org.antlr.stringtemplate.*;
 
 // Imports from Java
 import java.io.*;
+import java.util.Queue;
+import java.util.LinkedList;
 
 // Parser and Interpreter
 import parser.*;
@@ -70,22 +72,25 @@ public class RGL {
         else {
             // Creates and prepares the translator
             Interp I = null;
-            int linenumber = -1;
-            try {
-                I = new Interp(tree); // prepares the interpreter
-                I.Run();                  // Executes the code
-                
+            I = new Interp(tree); // prepares the interpreter
+            I.Run();                  // Executes the code
+            
+            
+            System.out.println();
+            Queue<String> warnings = I.getWarnings();
+            while (!warnings.isEmpty()) System.out.println(warnings.remove());
+            
+            Queue<String> errors = I.getErrors();
+            if (!errors.isEmpty()) {
+                System.out.println();
+                while (!errors.isEmpty()) System.out.println(errors.remove());
+                System.out.println("One or more errors found. Translation cancelled.");
+            }
+            else {
                 File ast = new File("translation.txt");
                 BufferedWriter output = new BufferedWriter(new FileWriter(ast));
                 output.write(I.translation());
                 output.close();
-                
-            } catch (UndefinedElementException e) {
-                System.out.println("Translation error (line " + e.getLineNumber() + "): ");
-                System.out.println("Variable (or function) " + e.getVariable() + 
-                                   " is used but has no assigned value (or doesn't exist)");
-            } catch (RuntimeException e) {
-                System.out.println("Runtime exception");
             }
         }
     }
