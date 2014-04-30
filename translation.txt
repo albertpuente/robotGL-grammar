@@ -23,10 +23,6 @@ void rgl_poligons() {
 
 void actions() {
     R = robot(0, 5, 90);
-    int a = 3;
-    exec( action(MARK, a, a) );
-    exec( action(MARK, a, a) );
-    rgl_estrella();
     exec( action(MARK, R.getIntX(), R.getIntZ()) );
     exec( action(BOX, R.getIntX(), R.getIntZ() - 1) );
     exec( action(BOX, R.getIntX(), R.getIntZ() + 1) );

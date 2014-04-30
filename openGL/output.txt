@@ -1,1 +1,1 @@
-g++  -O2 -pthread -std=c++0x -fpermissive /home2/users/alumnes/1160193/dades/linux/CL/Projecte/robotgl/openGL/src/*.cpp /home2/users/alumnes/1160193/dades/linux/CL/Projecte/robotgl/openGL/libs/*.c -o robotGL -I/home2/users/alumnes/1160193/dades/linux/CL/Projecte/robotgl/openGL/libs -lGL -lglut -lGLU -lGLEW -w
+g++ -c -pipe -O2 -Wall -W -D_REENTRANT -DQT_WEBKIT -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/default -I. -I/usr/include/QtCore -I/usr/include/QtGui -I/usr/include -I. -Ilibs -Isrc -I. -o test_SOIL.o libs/test_SOIL.cpp

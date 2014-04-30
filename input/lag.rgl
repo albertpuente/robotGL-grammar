@@ -9,7 +9,7 @@ ACTIONS
         wend
     endfunc
     
-    func poligons:        
+    func poligons :
         b = 3
         while b < 8 do
             a = 0
@@ -25,11 +25,6 @@ ENDACTIONS
 
 BEGIN
     initRobot 0, 5, 90
-    a = 3
-    mark a,a
-    mark a,a
-    call estrella
-    
     mark getPosX, getPosY    
     box getPosX, getPosY - 1
     box getPosX, getPosY + 1
