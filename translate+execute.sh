@@ -2,12 +2,11 @@ if [[ -f translation.txt ]]; then
     rm translation.txt
 fi
 
-echo "Translating..."
 ./make+run.sh $1
 
 if [[ -f translation.txt ]]; then
     
-    echo "Merging code..."
+    echo "Merging c++ code..."
     cp translation.txt openGL/src/ops.txt
     cd openGL/src
     cat main_default.txt > main.cpp
@@ -21,7 +20,7 @@ if [[ -f translation.txt ]]; then
     qmake -project > out.txt
     qmake > out.txt
     make > out.txt
-    echo "Compiling..."
+    echo "Compiling project..."
     ./splash &
     cd ../openGL
     make all > output.txt    

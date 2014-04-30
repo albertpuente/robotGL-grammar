@@ -41,8 +41,8 @@ public class Interp {
         variableSet = new HashSet<String> ();
         actionSet = new HashMap<String, Integer> ();
         
-        errors = new LinkedList ();
-        warnings = new LinkedList ();
+        errors = new LinkedList<String> ();
+        warnings = new LinkedList<String> ();
     }
 
     /** Returns a string containing the translation. Must have called "Run" before */

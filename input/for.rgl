@@ -7,8 +7,11 @@ ACTIONS
 ENDACTIONS
 
 BEGIN
-    initRobot 0,0,0
+    initRobot 0,0,90
+    obstacle 10,0
     for i in 1..5 do
         moveForward 1
     fend
+    rotate 90
+    call moveIndefinitely
 END

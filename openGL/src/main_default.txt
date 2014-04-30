@@ -196,7 +196,7 @@ void pintaObstacles() {
 void pintaRastre() {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glColor4f(0.2, 0.2, 1, 0.5);
+    glColor4f(0.2, 0.2, 1, 1);
     for (int i = 0; i < trail.size(); ++i) {
         double x = trail[i].first;
         double z = trail[i].second;
@@ -330,7 +330,9 @@ void keyPressed(unsigned char character, int posX, int posY) {
 
 void initGLUT() {     
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE);
-    glutInitWindowSize(viewportHeight, viewportWidth);
+    glutInitWindowSize(viewportWidth, viewportHeight);
+    glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH)-viewportWidth)/2,
+                       (glutGet(GLUT_SCREEN_HEIGHT)-viewportHeight)/2);
     glutCreateWindow("Projecte CL : robotGL");
     glutReshapeFunc(resize);
     glutDisplayFunc(refresh);
@@ -727,5 +729,3 @@ int main(int argc, const char * argv[]) {
 }
 
 // Accions: traduccio de robotGL a c++
-
-
