@@ -1,6 +1,36 @@
+ACTIONS
+
+    func estrella :
+        i = 1
+        while i < 13 do
+            moveForward 4
+            rotate 150
+            i = i + 1
+        wend
+    endfunc
+    
+    func poligons:        
+        b = 3
+        while b < 8 do
+            a = 0
+            while a < b do 
+                moveForward 1 
+                rotate 360/b 
+                a = a + 1 wend
+            b = b + 1
+        wend
+    endfunc
+    
+ENDACTIONS
+
 BEGIN
     initRobot 0, 5, 90
-    mark getPosX, getPosY
+    a = 3
+    mark a,a
+    mark a,a
+    call estrella
+    
+    mark getPosX, getPosY    
     box getPosX, getPosY - 1
     box getPosX, getPosY + 1
     moveForward 8 
@@ -12,15 +42,8 @@ BEGIN
     releaseObject    
     moveTo 0, 5
     face east
-    moveForward 3
+    moveForward 1
     trail on
-    b = 4
-    while b < 12 do
-        a = 0
-        while a < b do 
-            moveForward 1 
-            rotate 360/b 
-            a = a + 1 wend
-        b = b + 1
-    wend
+    call estrella
+    call poligons
 END

@@ -46,7 +46,7 @@ int cameraMode = 2;
 double fov = 60;
 
 // Distància entre marques
-double distaciaEntreTrails = 0.1;
+double distaciaEntreTrails = 0.01;
 
 struct box {
     uint x; // Posició en eix x
@@ -469,6 +469,14 @@ void leaveBox() {
     }
 }
 
+
+bool existeixMarca(int x, int z) {
+    for (int i = 0; i < marques.size(); ++i) {
+        if (marques[i].first == x and marques[i].second == z) return true;
+    }
+    return false;
+}
+
 // Switch per la inicialització d'accions
 void iniciarAccio() {
     double ang;
@@ -505,7 +513,10 @@ void iniciarAccio() {
             break;
             
         case MARK : 
-            marques.push_back( make_pair( currentAction.getDestX(), currentAction.getDestZ()));        
+            if (not existeixMarca(currentAction.getDestX(), currentAction.getDestZ())) {
+                marques.push_back( make_pair( currentAction.getDestX(), currentAction.getDestZ()));       
+            }
+            else cout << "ACCIÓ IGNORADA: MARK           | Ja hi ha una marca a la posició" << endl;
             currentAction.setStatus(FINISHED);
             break;
             
@@ -696,7 +707,6 @@ int main(int argc, const char * argv[]) {
     
     // Crida del thread d'actualització de variables, i inicialització del timer de glut
     
-    cout << "Inici de la simulació..." << endl;
     thread t(actions);
     glutTimerFunc(T, updateTimer, 0);
     glutMainLoop();
@@ -706,8 +716,34 @@ int main(int argc, const char * argv[]) {
 
 
 
+void rgl_estrella() {
+    int i = 1;
+    while (i < 13) {
+        exec( action(MOVE_FORWARD, 4) );
+        exec( action(ROTATE, angleActual() + 150) );
+        i = i + 1;
+    }
+}
+
+void rgl_poligons() {
+    int b = 3;
+    while (b < 8) {
+        int a = 0;
+        while (a < b) {
+            exec( action(MOVE_FORWARD, 1) );
+            exec( action(ROTATE, angleActual() + 360 / b) );
+            a = a + 1;
+        }
+        b = b + 1;
+    }
+}
+
 void actions() {
     R = robot(0, 5, 90);
+    int a = 3;
+    exec( action(MARK, a, a) );
+    exec( action(MARK, a, a) );
+    rgl_estrella();
     exec( action(MARK, R.getIntX(), R.getIntZ()) );
     exec( action(BOX, R.getIntX(), R.getIntZ() - 1) );
     exec( action(BOX, R.getIntX(), R.getIntZ() + 1) );
@@ -720,17 +756,9 @@ void actions() {
     exec( action(RELEASE_OBJECT) );
     exec( action(MOVE, 0, 5) );
     exec( action(ROTATE, 90) );
-    exec( action(MOVE_FORWARD, 3) );
+    exec( action(MOVE_FORWARD, 1) );
     exec( action(TRAIL, true) );
-    int b = 4;
-    while (b < 12) {
-        int a = 0;
-        while (a < b) {
-            exec( action(MOVE_FORWARD, 1) );
-            exec( action(ROTATE, angleActual() + 360 / b) );
-            a = a + 1;
-        }
-        b = b + 1;
-    }
+    rgl_estrella();
+    rgl_poligons();
     finish = true;
 }
