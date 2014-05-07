@@ -497,10 +497,10 @@ void iniciarAccio() {
     switch (currentAction.getType()) {
         
         case BOX :
-            if (not ocupat(currentAction.getDestX(), currentAction.getDestZ())) {
+            if (not ocupat(round(currentAction.getDestX()), round(currentAction.getDestZ()))) {
                 box n;
-                n.x = currentAction.getDestX();
-                n.z = currentAction.getDestZ();
+                n.x = round(currentAction.getDestX());
+                n.z = round(currentAction.getDestZ());
                 n.d = n.p = 0;
                 caixes.push_back(n);
                 currentAction.setStatus(RUNNING);
@@ -527,8 +527,8 @@ void iniciarAccio() {
             break;
             
         case MARK : 
-            if (not existeixMarca(currentAction.getDestX(), currentAction.getDestZ())) {
-                marques.push_back( make_pair( currentAction.getDestX(), currentAction.getDestZ()));       
+            if (not existeixMarca(round(currentAction.getDestX()), round(currentAction.getDestZ()))) {
+                marques.push_back( make_pair( round(currentAction.getDestX()), round(currentAction.getDestZ())));       
             }
             else cout << "ACCIÓ IGNORADA: MARK           | Ja hi ha una marca a la posició" << endl;
             currentAction.setStatus(FINISHED);
