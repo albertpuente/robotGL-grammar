@@ -1,2 +1,0 @@
-Translation error (line 20): 
-Variable (or function) potato is used but has no assigned value (or doesn't exist)

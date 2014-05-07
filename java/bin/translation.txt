@@ -1,5 +1,0 @@
-void actions() {
-exec(action(MOVE_FORWARD,2));
-exec(action(ROTATE,angleActual()+90));
-finish = true;
-}

@@ -4,6 +4,7 @@ ACTIONS
 ENDACTIONS
 
 BEGIN
+<<<<<<< HEAD
     initRobot 1,1,0
     face south
     trail on
@@ -14,4 +15,13 @@ BEGIN
         else moveForward 1
         endif
     wend
+=======
+    initRobot 0,0,90
+    obstacle 10,0
+    for i in 1..5 do
+        moveForward 1
+    fend
+    rotate 90
+    call moveIndefinitely
+>>>>>>> aa7bc7442b77899f111692a8954e4816b129e19c
 END
