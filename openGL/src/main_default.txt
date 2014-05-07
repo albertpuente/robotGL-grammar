@@ -12,8 +12,8 @@ using namespace std;
 // Fotogrames per segon (màxim)
 double FPS = 30;
 
-// Mida del tauler (SIZE*SIZE)
-const static int SIZE = 11;
+// Mida del tauler (SIZE*SIZE), default = 11
+static int SIZE = 11;
 
 // Timer ms
 double T = 1000/FPS;
