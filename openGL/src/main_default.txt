@@ -552,21 +552,29 @@ void iniciarAccio() {
         
         case STOP :
             stoppedTime = 0;
-            currentAction.setStatus(RUNNING);
+            if (currentAction.getDestAng()*1000 < stoppedTime) {
+                cout << "ACCIÓ IGNORADA: STOP           | Temps no valid" << endl;
+                currentAction.setStatus(FINISHED);
+            }
+            else currentAction.setStatus(RUNNING);
             break;
         
         case MOVE_FORWARD : // falta informacio de desti
-            currentAction.setDest(R.getX()+currentAction.getDestAng()*sin(R.getAng()), 
-                                  R.getZ()+currentAction.getDestAng()*cos(R.getAng()));
-            currentAction.setStatus(RUNNING);
-            R.newAction(&currentAction);  
+            if (currentAction.getDestAng() <= 0) {
+                cout << "ACCIÓ IGNORADA: MOVE_FORWARD   | Distancia <= 0" << endl;
+                currentAction.setStatus(FINISHED);
+            }
+            else {
+                currentAction.setDest(R.getX()+currentAction.getDestAng()*sin(R.getAng()), 
+                                    R.getZ()+currentAction.getDestAng()*cos(R.getAng()));
+                currentAction.setStatus(RUNNING);
+                R.newAction(&currentAction);
+            }
             break;
         
         case ROTATE :
             ang = currentAction.getDestAng() * M_PI/180;
-            cout << ang << " ";
             ang = fmod(ang,2*M_PI);
-            cout << ang << endl;
             currentAction.setDestAng(ang);
             currentAction.setStatus(RUNNING);
             R.newAction(&currentAction);  

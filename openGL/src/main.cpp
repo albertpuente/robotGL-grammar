@@ -552,21 +552,30 @@ void iniciarAccio() {
         
         case STOP :
             stoppedTime = 0;
-            currentAction.setStatus(RUNNING);
+            if (currentAction.getDestAng()*1000 < stoppedTime) {
+                cout << "ACCIÓ IGNORADA: STOP           | Temps no valid" << endl;
+                currentAction.setStatus(FINISHED);
+            }
+            else currentAction.setStatus(RUNNING);
             break;
         
         case MOVE_FORWARD : // falta informacio de desti
-            currentAction.setDest(R.getX()+currentAction.getDestAng()*sin(R.getAng()), 
-                                  R.getZ()+currentAction.getDestAng()*cos(R.getAng()));
-            currentAction.setStatus(RUNNING);
-            R.newAction(&currentAction);  
+            cout << currentAction.getDestAng() << endl;
+            if (currentAction.getDestAng() <= 0) {
+                cout << "ACCIÓ IGNORADA: MOVE_FORWARD   | Distancia <= 0" << endl;
+                currentAction.setStatus(FINISHED);
+            }
+            else {
+                currentAction.setDest(R.getX()+currentAction.getDestAng()*sin(R.getAng()), 
+                                    R.getZ()+currentAction.getDestAng()*cos(R.getAng()));
+                currentAction.setStatus(RUNNING);
+                R.newAction(&currentAction);
+            }
             break;
         
         case ROTATE :
             ang = currentAction.getDestAng() * M_PI/180;
-            cout << ang << " ";
             ang = fmod(ang,2*M_PI);
-            cout << ang << endl;
             currentAction.setDestAng(ang);
             currentAction.setStatus(RUNNING);
             R.newAction(&currentAction);  
@@ -741,9 +750,12 @@ int main(int argc, const char * argv[]) {
 // Accions: traduccio de robotGL a c++
 
 void actions() {
-    R = robot(0, 5, 90);
-    exec( action(ROTATE, angleActual() + 90) );
-    exec( action(STOP, 1) );
-    exec( action(ROTATE, angleActual() + 10) );
+    R = robot(0, 0, 0);
+    exec( action(TRAIL, true) );
+    for (double i = 0; i <= 10; i += 0.1) {
+        exec( action(STOP, 1) );
+        exec( action(ROTATE, angleActual() + 10) );
+        exec( action(MOVE_FORWARD, i) );
+    }
     finish = true;
 }

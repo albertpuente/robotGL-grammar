@@ -1,9 +1,12 @@
 
 
 void actions() {
-    R = robot(0, 5, 90);
-    exec( action(ROTATE, angleActual() + 90) );
-    exec( action(STOP, 1) );
-    exec( action(ROTATE, angleActual() + 10) );
+    R = robot(0, 0, 0);
+    exec( action(TRAIL, true) );
+    for (double i = 0; i <= 10; i += 0.1) {
+        exec( action(STOP, 1) );
+        exec( action(ROTATE, angleActual() + 10) );
+        exec( action(MOVE_FORWARD, i) );
+    }
     finish = true;
 }
