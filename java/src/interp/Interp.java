@@ -196,17 +196,21 @@ public class Interp {
                 
                 String minbound = tree.getChild(1).getText();
                 String maxbound = tree.getChild(2).getText();
+                
+                String increment = "1.0";
+                if (getChildrenNumber(tree) == 5) increment = tree.getChild(3).getText();   //step specified
                 addLine("for (double "+iter_id+" = "+minbound+"; "+iter_id+" <= "+maxbound+"; "+
-                        "++"+iter_id+") {");
-                translate(tree.getChild(3));
+                        iter_id+" += " + increment + ") {");
+                        
+                if (getChildrenNumber(tree) == 4) translate(tree.getChild(3));
+                else translate(tree.getChild(4));
+                
                 if (!exists) variableSet.remove(iter_id);
                 addLine("}");
                 break;
-            case RGLLexer.CALL:
-                break;                
             case RGLLexer.INSTRLIST:
                 tabulation -= 4;    //since no line is written, undo the tabulation
-                HashSet<String> scope = variableSet.clone();
+                HashSet<String> scope = (HashSet<String>) variableSet.clone();
                 for (int i = 0; i < getChildrenNumber(tree); ++i) translate(tree.getChild(i));
                 variableSet = scope;
                 tabulation += 4;    //back to original tabulation
@@ -264,15 +268,14 @@ public class Interp {
                 }
                 addLine("exec( action(ROTATE, " + angle + ") );");
                 break;
-            //function call
-            default:
-                String actionId = tree.getText();
+            case RGLLexer.CALL:
+                String actionId = tree.getChild(0).getText();
+                int n_params = getChildrenNumber(tree) - 1;
                 if (!actionSet.containsKey(actionId)) {
                     int linenumber = tree.getLine();
                     errors.add("Error (line "+linenumber+"): calling a non-existent function ("+actionId+")");
                 }
                 else {
-                    int n_params = getChildrenNumber(tree);
                     int n_args = actionSet.get(actionId);
                     if (n_args != n_params) {
                         int linenumber = tree.getLine();
@@ -281,16 +284,16 @@ public class Interp {
                     }
                 }
                 String call = "rgl_" + actionId + "(";
-                int paramNumber = 0;
-                RGLTree param = tree.getChild(paramNumber);
-                if (param != null) call += translateExpression(param);
-                param = tree.getChild(++paramNumber);
-                while (param != null) {
-                    call += ", " + translateExpression(param);
-                    param = tree.getChild(++paramNumber);
+                
+                for (int paramNumber = 0; paramNumber < n_params; ++paramNumber) {
+                    RGLTree param = tree.getChild(paramNumber + 1);
+                    if (paramNumber > 0) call += ", ";
+                    call += translateExpression(param);
                 }
                 call += ");";
                 addLine(call);
+                break;
+            default:    System.out.println("Something went wrong: "+tree.getText());
         }
         tabulation -= 4;
     }
@@ -300,7 +303,7 @@ public class Interp {
         int type = tree.getType();
         if (type == RGLLexer.TRUE || type == RGLLexer.ON) return "true";
         if (type == RGLLexer.FALSE || type == RGLLexer.OFF) return "false";
-        if (type == RGLLexer.INT) return tree.getText();
+        if (type == RGLLexer.DOUBLE) return tree.getText();
         if (type == RGLLexer.ID) {
             String id = tree.getText();
             if (!variableSet.contains(id)) {
