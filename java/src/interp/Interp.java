@@ -116,7 +116,7 @@ public class Interp {
                     errors.add("Error (line "+linenumber+"): duplicate variable name ("+arg+")");
                 }                
                 variableSet.add(arg);
-                declaration += "int " + arg;
+                declaration += "double " + arg;
                 
             }
             variableSet.clear();
@@ -137,7 +137,7 @@ public class Interp {
             for (int j = 0; j < n_args; ++j) {
                 if (j > 0) header += ", ";
                 String arg = argList.getChild(j).getText();
-                header += "int " + arg;
+                header += "double " + arg;
                 variableSet.add(arg); //used to check that all used vars in the body have a value
             }
             header += ") {";
@@ -163,7 +163,7 @@ public class Interp {
                 String id = tree.getChild(0).getText();
                 String ini = "";
                 if (!variableSet.contains(id)) {
-                    ini += "int ";
+                    ini += "double ";
                     variableSet.add(id);
                 }
                 addLine(ini + tree.getChild(0).getText() + " = "
@@ -196,7 +196,7 @@ public class Interp {
                 
                 String minbound = tree.getChild(1).getText();
                 String maxbound = tree.getChild(2).getText();
-                addLine("for (int "+iter_id+" = "+minbound+"; "+iter_id+" <= "+maxbound+"; "+
+                addLine("for (double "+iter_id+" = "+minbound+"; "+iter_id+" <= "+maxbound+"; "+
                         "++"+iter_id+") {");
                 translate(tree.getChild(3));
                 if (!exists) variableSet.remove(iter_id);
@@ -206,7 +206,9 @@ public class Interp {
                 break;                
             case RGLLexer.INSTRLIST:
                 tabulation -= 4;    //since no line is written, undo the tabulation
+                HashSet<String> scope = variableSet.clone();
                 for (int i = 0; i < getChildrenNumber(tree); ++i) translate(tree.getChild(i));
+                variableSet = scope;
                 tabulation += 4;    //back to original tabulation
                 break;
             
@@ -337,11 +339,4 @@ public class Interp {
                     " " + translateExpression(tree.getChild(1));
     }
     
-    /** Checks that the function call is valid
-     */
-     
-    private boolean validFunction (RGLTree tree) {
-        // Check that the number of parameters is the same
-        return true;
-    }
 }

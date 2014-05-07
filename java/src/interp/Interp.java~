@@ -41,8 +41,8 @@ public class Interp {
         variableSet = new HashSet<String> ();
         actionSet = new HashMap<String, Integer> ();
         
-        errors = new LinkedList ();
-        warnings = new LinkedList ();
+        errors = new LinkedList<String> ();
+        warnings = new LinkedList<String> ();
     }
 
     /** Returns a string containing the translation. Must have called "Run" before */
@@ -275,7 +275,7 @@ public class Interp {
                     if (n_args != n_params) {
                         int linenumber = tree.getLine();
                         errors.add("Error (line "+linenumber+"): calling a function with wrong number of parameters ("+
-                            "actionId, expected "+n_args+", found "+n_params+")");
+                            "actionId: expected "+n_args+", found "+n_params+")");
                     }
                 }
                 String call = "rgl_" + actionId + "(";
