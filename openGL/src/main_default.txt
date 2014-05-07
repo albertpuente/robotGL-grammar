@@ -564,7 +564,9 @@ void iniciarAccio() {
         
         case ROTATE :
             ang = currentAction.getDestAng() * M_PI/180;
-            if (ang < 0) ang += 2*M_PI;
+            cout << ang << " ";
+            ang = fmod(ang,2*M_PI);
+            cout << ang << endl;
             currentAction.setDestAng(ang);
             currentAction.setStatus(RUNNING);
             R.newAction(&currentAction);  
@@ -686,6 +688,14 @@ void updateTimer(int v) {
 }
 
 void actions(); // Permèt afegir la funció al final de l'arxiu
+
+// Algorismes 
+
+void goTo(double destX, double destZ) {
+    
+}
+
+//
     
 int main(int argc, const char * argv[]) {
     glutInit(&argc, (char **) argv);

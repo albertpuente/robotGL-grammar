@@ -564,7 +564,9 @@ void iniciarAccio() {
         
         case ROTATE :
             ang = currentAction.getDestAng() * M_PI/180;
-            if (ang < 0) ang += 2*M_PI;
+            cout << ang << " ";
+            ang = fmod(ang,2*M_PI);
+            cout << ang << endl;
             currentAction.setDestAng(ang);
             currentAction.setStatus(RUNNING);
             R.newAction(&currentAction);  
@@ -686,6 +688,14 @@ void updateTimer(int v) {
 }
 
 void actions(); // Permèt afegir la funció al final de l'arxiu
+
+// Algorismes 
+
+void goTo(double destX, double destZ) {
+    
+}
+
+//
     
 int main(int argc, const char * argv[]) {
     glutInit(&argc, (char **) argv);
@@ -729,48 +739,11 @@ int main(int argc, const char * argv[]) {
 }
 
 // Accions: traduccio de robotGL a c++
-void rgl_estrella();
-void rgl_poligons();
-
-void rgl_estrella() {
-    int i = 1;
-    while (i < 13) {
-        exec( action(MOVE_FORWARD, 4) );
-        exec( action(ROTATE, angleActual() + 150) );
-        i = i + 1;
-    }
-}
-
-void rgl_poligons() {
-    int b = 3;
-    while (b < 8) {
-        int a = 0;
-        while (a < b) {
-            exec( action(MOVE_FORWARD, 1) );
-            exec( action(ROTATE, angleActual() + 360 / b) );
-            a = a + 1;
-        }
-        b = b + 1;
-    }
-}
 
 void actions() {
     R = robot(0, 5, 90);
-    exec( action(MARK, R.getIntX(), R.getIntZ()) );
-    exec( action(BOX, R.getIntX(), R.getIntZ() - 1) );
-    exec( action(BOX, R.getIntX(), R.getIntZ() + 1) );
-    exec( action(MOVE_FORWARD, 8) );
-    exec( action(BOX, R.getIntX() + 1, R.getIntZ()) );
-    exec( action(PICK_OBJECT) );
-    exec( action(MARK, R.getIntX(), R.getIntZ()) );
     exec( action(ROTATE, angleActual() + 90) );
-    exec( action(MOVE_FORWARD, 2) );
-    exec( action(RELEASE_OBJECT) );
-    exec( action(MOVE, 0, 5) );
-    exec( action(ROTATE, 90) );
-    exec( action(MOVE_FORWARD, 1) );
-    exec( action(TRAIL, true) );
-    rgl_estrella();
-    rgl_poligons();
+    exec( action(STOP, 1) );
+    exec( action(ROTATE, angleActual() + 10) );
     finish = true;
 }
