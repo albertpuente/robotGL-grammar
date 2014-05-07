@@ -48,7 +48,7 @@ instr   :
         //typical instructions
         whileExpr | forExpr                         //loops
         | ifExpr                                    //conditionals
-        | CALL! ID^ (numExpr (','! numExpr)*)?      //func call
+        | CALL^ ID (numExpr (','! numExpr)*)?      //func call
         | ID '='^ numExpr                           //assignation
         
         //robot commands
@@ -70,7 +70,7 @@ argList : args? -> ^(ARGLIST args?)
 args    : arg (','! arg)*
         ;
 
-arg     : ID | INT
+arg     : ID | DOUBLE
         ;
 
 instrList   : instr*  -> ^(INSTRLIST instr*)
@@ -79,7 +79,8 @@ instrList   : instr*  -> ^(INSTRLIST instr*)
 whileExpr   : WHILE^ boolExpr DO! instrList WEND!
             ;
             
-forExpr     : FOR^ ID IN! INT '..'! INT DO! instrList FEND!
+forExpr     : FOR^ ID FROM! DOUBLE TO! DOUBLE (STEP! DOUBLE)?
+                    DO! instrList FEND!
             ;
             
 ifExpr      : IF^ boolExpr THEN! instrList (ELSE! instrList)? ENDIF!
@@ -109,7 +110,7 @@ term    : factor ( ('*'^ | '/'^ | '%'^) factor)*
 factor  : ('+'^ | '-'^)? atom
         ;
 
-atom    : INT
+atom    : DOUBLE
         | ID
         | GETPOSX
         | GETPOSY
@@ -161,7 +162,9 @@ WHILE	: 'while';
 DO  	: 'do';
 WEND	: 'wend';
 FOR	    : 'for';
-IN	    : 'in';
+FROM    : 'from';
+TO      : 'to';
+STEP    : 'step';
 FEND	: 'fend';
 FUNC	: 'func';
 ENDFUNC	: 'endfunc';
@@ -174,8 +177,8 @@ FALSE 	: 'false';
 RETURN	: 'return' ;
 READ	: 'read' ;
 WRITE	: 'write' ;
-ID     	:   ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')* ;
-INT    	:   '0'..'9'+ ;
+ID     	: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')* ;
+DOUBLE	: ('0'..'9')+ ('.' ('0'..'9')+)? ;
 
 EQUAL	: '=' ;
 

@@ -1,12 +1,21 @@
 ACTIONS
 
-    func moveIndefinitely :
-        while not detect front do moveForward 1 wend
-    endfunc
     
 ENDACTIONS
 
 BEGIN
+<<<<<<< HEAD
+    initRobot 1,1,0
+    face south
+    trail on
+    i = 0
+    while true do
+        if detect front then
+            rotate 112
+        else moveForward 1
+        endif
+    wend
+=======
     initRobot 0,0,90
     obstacle 10,0
     for i in 1..5 do
@@ -14,4 +23,5 @@ BEGIN
     fend
     rotate 90
     call moveIndefinitely
+>>>>>>> aa7bc7442b77899f111692a8954e4816b129e19c
 END
