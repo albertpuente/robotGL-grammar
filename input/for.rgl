@@ -1,9 +1,25 @@
+DEFINITIONS
+
+    func inverse a :
+        if false then
+            return 0
+        else a = 0
+        endif
+    endfunc    
+    
+    action moveBackwards x :
+        moveForward get inverse (x)
+        return x
+    endaction
+    
+ENDDEFINITIONS
+
 BEGIN
 
     initRobot 0,0,0
-    trail on
-    for i from 0.1 to 20 step 0.2 do
-        rotate 10*i
-        moveForward 1-i
-    fend
+    face east
+    call potato ()    
+    moveForward 4
+    return 8
+    call moveBackwards (4)
 END
