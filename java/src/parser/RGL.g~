@@ -10,6 +10,7 @@ tokens {
     ASSIGN;     // Assignment instruction
     //FUNCALL;    // Function call
     
+    CALL;
     INSTRLIST;      //instruction list token
     ARGLIST;        //argument list token
     PROGRAM;        //main code
@@ -40,7 +41,7 @@ declaration : action | function
             
 action  : ACTION^ ID argList ':'! instrList ENDACTION!
         ;
-function : FUNC^ ID argList ':'! retInstrList ENDFUNC!
+function : FUNC^ ID argList ':'! instrList ENDFUNC!
         ;
         	
 main    : BEGIN! initialInstr instrList END!
@@ -55,22 +56,13 @@ setMap  :   INITMAP^ INT
 setRobot    : INITROBOT^ numExpr ','! numExpr ','! numExpr
             ;
 
-instrList   : instr*  -> ^(INSTRLIST instr*)
-            ;    
- 
-retInstrList  : retInstr*  -> ^(INSTRLIST retInstr*)
-              ;    
-
-retInstr : instr
-         | RETURN^ numExpr
-         ;
-
 instr   :
         //typical instructions
         whileExpr | forExpr                                 //loops
         | ifExpr                                            //conditionals
-        | CALL^ ID '('! (numExpr (','! numExpr)*)? ')'!     //func call
+        | funccall
         | ID '='^ numExpr                                   //assignation
+        | RETURN^ numExpr
         
         //robot commands
         | MOVEFORWARD^ numExpr
@@ -85,6 +77,17 @@ instr   :
         | TRAIL^ (boolExpr | ON | OFF)
         | MARK^ numExpr ','! numExpr
         ;
+        
+actioncall  : ID '(' params? ')'
+        -> ^(CALL ID params?)
+        ;
+        
+funccall: ID '(' params? ')'
+        -> ^(GET ID params?)
+        ;
+        
+params : numExpr (',' numExpr)*
+        ;
 
 argList : args? -> ^(ARGLIST args?)
         ;
@@ -93,7 +96,10 @@ args    : arg (','! arg)*
 
 arg     : ID | DOUBLE
         ;
-                 
+
+instrList   : instr*  -> ^(INSTRLIST instr*)
+            ;    
+                  
 whileExpr   : WHILE^ boolExpr DO! instrList WEND!
             ;
             
@@ -122,7 +128,7 @@ boolatom   : numExpr ('=='^ | '!='^ | '<'^ | '<='^ | '>'^ | '>='^) numExpr
 numExpr : term ( ('+'^ | '-'^) term)*
         ;
 
-term    : factor ( ('*'^ | '/'^ | '%'^) factor)*
+term    : factor ( ('*'^ | '/'^ | MOD^) factor)*
         ;
 
 factor  : ('+'^ | '-'^)? atom
@@ -130,11 +136,17 @@ factor  : ('+'^ | '-'^)? atom
 
 atom    : (DOUBLE | INT)
         | ID
-        | GET^ ID '('! (numExpr (','! numExpr)*)? ')'!
+        | funccall
+        | predefined
         | GETPOSX
         | GETPOSY
         | '('! numExpr ')'!
         ;
+
+predefined  : SIN^ '('! numExpr ')'!
+            | COS^ '('! numExpr ')'!
+            | SQRT^ '('! numExpr ')'!
+            ;
 
 direction   : NORTH | SOUTH | EAST | WEST
             ;
@@ -159,6 +171,10 @@ GETPOSX : 'getPosX';
 GETPOSY : 'getPosY';
 ON      : 'on';
 OFF     : 'off';
+
+SIN     : 'sin';
+COS     : 'cos';
+SQRT    : 'sqrt';
 
 FACE    : 'face';
 NORTH   : 'north';

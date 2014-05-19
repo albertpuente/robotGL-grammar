@@ -328,7 +328,7 @@ public class Interp {
                 else ++returnCount;
                 addLine("return " + translateExpression( tree.getChild(0) ) + ";");
                 break;
-            default:    System.out.println("Something went wrong: "+tree.getText());
+            default:    System.out.println("Something went wrong ("+tree.getLine() +"): "+tree.getText());
         }
         tabulation -= 4;
     }
@@ -346,6 +346,10 @@ public class Interp {
                 errors.add("Error (line "+linenumber+"): using a variable with no assigned value ("+id+")");
             }
             return id;
+        }
+        if (type == RGLLexer.MOD) {
+            return "fmod( ((double)" + translateExpression(tree.getChild(0)) + "), ((double) " +
+               translateExpression(tree.getChild(1)) + ") )";
         }
         if (type == RGLLexer.MUL || type == RGLLexer.DIV) {
             String s = "";
@@ -400,6 +404,9 @@ public class Interp {
             }
             get += ")";
             return get;
+        }
+        if (type == RGLLexer.COS || type == RGLLexer.SIN || type == RGLLexer.SQRT) {
+            return tree.getText() + "(" + translateExpression(tree.getChild(0)) + ")";
         }
         return translateExpression(tree.getChild(0)) + " " + tree.getText() +
                     " " + translateExpression(tree.getChild(1));

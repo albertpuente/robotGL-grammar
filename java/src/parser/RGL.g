@@ -10,6 +10,7 @@ tokens {
     ASSIGN;     // Assignment instruction
     //FUNCALL;    // Function call
     
+    CALL;
     INSTRLIST;      //instruction list token
     ARGLIST;        //argument list token
     PROGRAM;        //main code
@@ -59,7 +60,7 @@ instr   :
         //typical instructions
         whileExpr | forExpr                                 //loops
         | ifExpr                                            //conditionals
-        | CALL^ ID '('! (numExpr (','! numExpr)*)? ')'!     //func call
+        | actioncall
         | ID '='^ numExpr                                   //assignation
         | RETURN^ numExpr
         
@@ -75,6 +76,17 @@ instr   :
         | BOX^ numExpr ','! numExpr
         | TRAIL^ (boolExpr | ON | OFF)
         | MARK^ numExpr ','! numExpr
+        ;
+        
+actioncall  : ID '(' params? ')'
+        -> ^(CALL ID params?)
+        ;
+        
+funccall: ID '(' params? ')'
+        -> ^(GET ID params?)
+        ;
+        
+params : numExpr (',' numExpr)*
         ;
 
 argList : args? -> ^(ARGLIST args?)
@@ -116,7 +128,7 @@ boolatom   : numExpr ('=='^ | '!='^ | '<'^ | '<='^ | '>'^ | '>='^) numExpr
 numExpr : term ( ('+'^ | '-'^) term)*
         ;
 
-term    : factor ( ('*'^ | '/'^ | '%'^) factor)*
+term    : factor ( ('*'^ | '/'^ | MOD^) factor)*
         ;
 
 factor  : ('+'^ | '-'^)? atom
@@ -124,11 +136,17 @@ factor  : ('+'^ | '-'^)? atom
 
 atom    : (DOUBLE | INT)
         | ID
-        | GET^ ID '('! (numExpr (','! numExpr)*)? ')'!
+        | funccall
+        | predefined
         | GETPOSX
         | GETPOSY
         | '('! numExpr ')'!
         ;
+
+predefined  : SIN^ '('! numExpr ')'!
+            | COS^ '('! numExpr ')'!
+            | SQRT^ '('! numExpr ')'!
+            ;
 
 direction   : NORTH | SOUTH | EAST | WEST
             ;
@@ -153,6 +171,10 @@ GETPOSX : 'getPosX';
 GETPOSY : 'getPosY';
 ON      : 'on';
 OFF     : 'off';
+
+SIN     : 'sin';
+COS     : 'cos';
+SQRT    : 'sqrt';
 
 FACE    : 'face';
 NORTH   : 'north';
