@@ -1,15 +1,12 @@
 DEFINITIONS
 
     func inverse a :
-        if false then
-            return 0
-        else a = 0
-        endif
+        return 0-a
     endfunc    
     
     action moveBackwards x :
-        moveForward get inverse (x)
-        return x
+        rotate sin(cos(sqrt(180%35)))
+        moveForward inverse (inverse (x))
     endaction
     
 ENDDEFINITIONS
@@ -18,8 +15,6 @@ BEGIN
 
     initRobot 0,0,0
     face east
-    call potato ()    
     moveForward 4
-    return 8
-    call moveBackwards (4)
+    moveBackwards (4)
 END
