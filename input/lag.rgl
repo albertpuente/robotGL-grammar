@@ -1,15 +1,15 @@
-ACTIONS
+DEFINITIONS
 
-    func estrella :
+    action estrella :
         i = 1
         while i < 13 do
             moveForward 4
             rotate 150
             i = i + 1
         wend
-    endfunc
+    endaction
     
-    func poligons :
+    action poligons :
         b = 3
         while b < 8 do
             a = 0
@@ -19,9 +19,9 @@ ACTIONS
                 a = a + 1 wend
             b = b + 1
         wend
-    endfunc
+    endaction
     
-ENDACTIONS
+ENDDEFINITIONS
 
 BEGIN
     initRobot 0, 5, 90
@@ -39,6 +39,6 @@ BEGIN
     face east
     moveForward 1
     trail on
-    call estrella
-    call poligons
+    estrella ()
+    poligons ()
 END

@@ -1,2 +1,2 @@
 Main-Class: RGL.RGL
-Class-Path: /home2/users/alumnes/1160193/Desktop/CL/Projecte/robotgl/java/libs/antlr-3.4-complete.jar /home2/users/alumnes/1160193/Desktop/CL/Projecte/robotgl/java/libs/commons-cli-1.2.jar
+Class-Path: /home/albert/Escriptori/Projecte/java/libs/antlr-3.4-complete.jar /home/albert/Escriptori/Projecte/java/libs/commons-cli-1.2.jar
