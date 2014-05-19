@@ -13,7 +13,7 @@ tokens {
     INSTRLIST;      //instruction list token
     ARGLIST;        //argument list token
     PROGRAM;        //main code
-    ACTIONLIST;    //list of actions (defined functions)
+    DEFINELIST;    //list of actions (defined functions)
     RGL;            //initial node
 }
 
@@ -28,28 +28,40 @@ tokens {
 
 
 // A program is a list of instructions
-prog    : actions? main EOF
-         -> ^(RGL ^(ACTIONLIST actions?) ^(INSTRLIST main))
+prog    : definitions? main EOF
+         -> ^(RGL ^(DEFINELIST definitions?) ^(INSTRLIST main))
         ;
 
-actions : ACTIONS! declaration* ENDACTIONS!
+definitions : DEFINITIONS! declaration* ENDDEFINITIONS!
         ;
 
-declaration : FUNC! ID^ argList ':'! instrList ENDFUNC!
-        	;
+declaration : action | function
+            ;
+            
+action  : ACTION^ ID argList ':'! instrList ENDACTION!
+        ;
+function : FUNC^ ID argList ':'! instrList ENDFUNC!
+        ;
         	
-main    : BEGIN! initRobot instrList END!
+main    : BEGIN! initialInstr instrList END!
 	    ;
 	    
-initRobot   : INITROBOT^ numExpr ','! numExpr ','! numExpr
+initialInstr :  setMap? setRobot
+             ;
+
+setMap  :   INITMAP^ INT
+        ;
+
+setRobot    : INITROBOT^ numExpr ','! numExpr ','! numExpr
             ;
 
 instr   :
         //typical instructions
-        whileExpr | forExpr                         //loops
-        | ifExpr                                    //conditionals
-        | CALL^ ID (numExpr (','! numExpr)*)?      //func call
-        | ID '='^ numExpr                           //assignation
+        whileExpr | forExpr                                 //loops
+        | ifExpr                                            //conditionals
+        | CALL^ ID '('! (numExpr (','! numExpr)*)? ')'!     //func call
+        | ID '='^ numExpr                                   //assignation
+        | RETURN^ numExpr
         
         //robot commands
         | MOVEFORWARD^ numExpr
@@ -110,8 +122,9 @@ term    : factor ( ('*'^ | '/'^ | '%'^) factor)*
 factor  : ('+'^ | '-'^)? atom
         ;
 
-atom    : DOUBLE
+atom    : (DOUBLE | INT)
         | ID
+        | GET^ ID '('! (numExpr (','! numExpr)*)? ')'!
         | GETPOSX
         | GETPOSY
         | '('! numExpr ')'!
@@ -124,6 +137,7 @@ side      : FRONT | RIGHT | LEFT
             
 // Basic tokens
 INITROBOT	: 'initRobot';
+INITMAP     : 'initMap';
 MOVEFORWARD	: 'moveForward';
 MOVETO		: 'moveTo';
 ROTATE		: 'rotate';
@@ -150,7 +164,9 @@ FRONT   : 'front';
 RIGHT   : 'right';
 LEFT    : 'left';
 
+RETURN  : 'return';
 CALL	: 'call';
+GET     : 'get';
 AND     : 'and';
 OR      : 'or';
 NOT     : 'not';
@@ -166,19 +182,21 @@ FROM    : 'from';
 TO      : 'to';
 STEP    : 'step';
 FEND	: 'fend';
+
+DEFINITIONS	: 'DEFINITIONS';
+ENDDEFINITIONS  : 'ENDDEFINITIONS';
 FUNC	: 'func';
 ENDFUNC	: 'endfunc';
+ACTION  : 'action';
+ENDACTION   : 'endaction';
 BEGIN	: 'BEGIN';
 END	    : 'END';
-ACTIONS	: 'ACTIONS';
-ENDACTIONS  : 'ENDACTIONS';
+
 TRUE   	: 'true';
 FALSE 	: 'false';
-RETURN	: 'return' ;
-READ	: 'read' ;
-WRITE	: 'write' ;
 ID     	: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')* ;
-DOUBLE	: ('0'..'9')+ ('.' ('0'..'9')+)? ;
+DOUBLE	: ('0'..'9')+ '.' ('0'..'9')+ ;
+INT     : '0'..'9'+;
 
 EQUAL	: '=' ;
 

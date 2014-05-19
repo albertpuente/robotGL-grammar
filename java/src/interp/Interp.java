@@ -21,8 +21,9 @@ public class Interp {
     /** c++ code resulting of the translation */
     private String translation;
     
-    /** Map of RGL actions, used to check for potentially invalid calls */
-    private HashMap<String, Integer> actionSet;    
+    /** Maps of RGL actions and functions, used to check for potentially invalid calls */
+    private HashMap<String, Integer> actionSet;
+    private HashMap<String, Integer> functionSet;
     /** Set of variables, used to check they have an assigned value at the current translation state */
     private HashSet<String> variableSet;
     
@@ -33,6 +34,9 @@ public class Interp {
     /** number of spaces to be written before a statement at the current translation state */
     private int tabulation = 0;
     
+    /** used to check correct use of returns */
+    private int returnCount = -1;
+    
     /** Constructor of the interpreter */
     public Interp(RGLTree T) {
         assert T != null;
@@ -40,6 +44,7 @@ public class Interp {
         translation = "";
         variableSet = new HashSet<String> ();
         actionSet = new HashMap<String, Integer> ();
+        functionSet = new HashMap<String, Integer> ();
         
         errors = new LinkedList<String> ();
         warnings = new LinkedList<String> ();
@@ -73,9 +78,6 @@ public class Interp {
     /** Runs the program by calling the main function without parameters. */
     public void Run() {
         addLine("");
-        //CAL recorrer (i guardar info de) tots els ids abans de traduir els bodies.
-        //alhora s'han d'escriure les declaracions per poder fer servir funcions dins de
-        //funcions i no tenir problemes de visibilitat a C++
         translateActions(tree.getChild(0));
         addLine("void actions() {");        
         translate(tree.getChild(1));
@@ -95,18 +97,27 @@ public class Interp {
     private void translateActions (RGLTree tree) {
         //translate declarations
         for (int i = 0; i < getChildrenNumber(tree); ++i) {
-            RGLTree action = tree.getChild(i);
-            RGLTree argList = action.getChild(0);
-            
-            String actionId = action.getText();
+            RGLTree definition = tree.getChild(i);
+            RGLTree argList = definition.getChild(1);            
+            String defId = definition.getChild(0).getText();
             int n_args = getChildrenNumber(argList);
-            if (actionSet.containsKey(actionId) && actionSet.get(actionId) == n_args) {
-                int linenumber = action.getLine();
-                errors.add("Error (line "+linenumber+"): duplicate function name ("+actionId+")");
-            }
-            actionSet.put(actionId, n_args);
             
-            String declaration = "void rgl_" + actionId + "(";
+            HashMap<String, Integer> defSet;
+            String declaration = "";
+            if (definition.getType() == RGLLexer.ACTION) {
+                defSet = actionSet;
+                declaration += "void ";
+            }
+            else {
+                defSet = functionSet;
+                declaration += "double ";
+            }
+            if (defSet.containsKey(defId) && defSet.get(defId) == n_args) {
+                int linenumber = definition.getLine();
+                errors.add("Error (line "+linenumber+"): duplicate definition name ("+defId+")");
+            }
+            defSet.put(defId, n_args);
+            declaration += "rgl_" + defId + "(";
             //parameters
             for (int j = 0; j < n_args; ++j) {
                 if (j > 0) declaration += ", ";
@@ -126,14 +137,16 @@ public class Interp {
         addLine("");
         //translate the headers+bodies
         for (int i = 0; i < getChildrenNumber(tree); ++i) {
-            RGLTree action = tree.getChild(i);
-            String actionId = action.getText();
+            RGLTree definition = tree.getChild(i);         
+            String defId = definition.getChild(0).getText();
             
             //parameters
-            RGLTree argList = action.getChild(0); 
+            RGLTree argList = definition.getChild(1);   
             int n_args = getChildrenNumber(argList);
-            String header = "void rgl_" + actionId + "(";
-            
+            String header = "";
+            if (definition.getType() == RGLLexer.ACTION) header += "void ";
+            else header += "double ";
+            header += "rgl_" + defId + "(";
             for (int j = 0; j < n_args; ++j) {
                 if (j > 0) header += ", ";
                 String arg = argList.getChild(j).getText();
@@ -141,15 +154,29 @@ public class Interp {
                 variableSet.add(arg); //used to check that all used vars in the body have a value
             }
             header += ") {";
-            addLine(header);            
-            translate(action.getChild(1));  //body
-            addLine("}");
+            addLine(header);
             
+            if (definition.getType() == RGLLexer.FUNC)
+                returnCount = 0;
+                //checkForReturn(definition);
+            translate(definition.getChild(2));  //body
+            addLine("}");
+            if (definition.getType() == RGLLexer.FUNC && returnCount == 0)
+                errors.add("Missing return instruction at function " + definition.getChild(0).getText() + " (line " + definition.getLine() + ")");
+            returnCount = -1;
             variableSet.clear();    //no visibility between functions
             
             addLine(""); 
         }          
     }
+    /*
+    private void checkForReturn(RGLTree func) {
+        boolean found = false;
+        RGLTree instrlist = func.getChild(2);
+        for (int i = 0; i < instrlist.getChildCount(); ++i)
+            found = found || (instrlist.getChild(i).getType() == RGLLexer.RETURN);
+        if (!found) errors.add("Missing return at function " + func.getText() + " (line " + func.getLine() + ")");
+    }*/
     
     /** Begins the translation */
     private void translate (RGLTree tree) {
@@ -222,6 +249,9 @@ public class Interp {
                                 ", " + translateExpression(tree.getChild(1)) +
                                 ", " + translateExpression(tree.getChild(2)) + ");");
                 break;
+            case RGLLexer.INITMAP:
+                addLine("SIZE = " + translateExpression(tree.getChild(0)));
+                break;
             case RGLLexer.MOVEFORWARD:
                 addLine("exec( action(MOVE_FORWARD, "          +
                         translateExpression(tree.getChild(0)) + ") );");
@@ -273,13 +303,13 @@ public class Interp {
                 int n_params = getChildrenNumber(tree) - 1;
                 if (!actionSet.containsKey(actionId)) {
                     int linenumber = tree.getLine();
-                    errors.add("Error (line "+linenumber+"): calling a non-existent function ("+actionId+")");
+                    errors.add("Error (line "+linenumber+"): calling a non-existent action ("+actionId+")");
                 }
                 else {
                     int n_args = actionSet.get(actionId);
                     if (n_args != n_params) {
                         int linenumber = tree.getLine();
-                        errors.add("Error (line "+linenumber+"): calling a function with wrong number of parameters ("+
+                        errors.add("Error (line "+linenumber+"): calling an action with a wrong number of parameters ("+
                             "actionId: expected "+n_args+", found "+n_params+")");
                     }
                 }
@@ -293,6 +323,11 @@ public class Interp {
                 call += ");";
                 addLine(call);
                 break;
+            case RGLLexer.RETURN:
+                if (returnCount < 0) errors.add("Return found outside a function (line " + tree.getLine() + ")");
+                else ++returnCount;
+                addLine("return " + translateExpression( tree.getChild(0) ) + ";");
+                break;
             default:    System.out.println("Something went wrong: "+tree.getText());
         }
         tabulation -= 4;
@@ -303,7 +338,7 @@ public class Interp {
         int type = tree.getType();
         if (type == RGLLexer.TRUE || type == RGLLexer.ON) return "true";
         if (type == RGLLexer.FALSE || type == RGLLexer.OFF) return "false";
-        if (type == RGLLexer.DOUBLE) return tree.getText();
+        if (type == RGLLexer.DOUBLE || type == RGLLexer.INT) return tree.getText();
         if (type == RGLLexer.ID) {
             String id = tree.getText();
             if (!variableSet.contains(id)) {
@@ -326,6 +361,9 @@ public class Interp {
             if (childtype == RGLLexer.PLUS || childtype == RGLLexer.MINUS) s += ")";
             return s;
         }
+        if ((type == RGLLexer.PLUS || type == RGLLexer.MINUS) && getChildrenNumber(tree) == 1) {
+            return tree.getText() + " " + translateExpression(tree.getChild(0));
+        }
         if (type == RGLLexer.GETPOSX) return "R.getIntX()";
         if (type == RGLLexer.GETPOSY) return "R.getIntZ()";
         if (type == RGLLexer.DETECT) {
@@ -338,6 +376,31 @@ public class Interp {
             return "detectDirection(" + angle + ")";
         }
         if (type == RGLLexer.NOT) return "not " + translateExpression(tree.getChild(0));
+        if (type == RGLLexer.GET) {
+            String functionId = tree.getChild(0).getText();
+            int n_params = getChildrenNumber(tree) - 1;
+            if (!functionSet.containsKey(functionId)) {
+                int linenumber = tree.getLine();
+                errors.add("Error (line "+linenumber+"): calling a non-existent function ("+functionId+")");
+            }
+            else {
+                int n_args = functionSet.get(functionId);
+                if (n_args != n_params) {
+                    int linenumber = tree.getLine();
+                    errors.add("Error (line "+linenumber+"): calling a function with a wrong number of parameters ("+
+                        "functionId: expected "+n_args+", found "+n_params+")");
+                }
+            }
+            String get = "rgl_" + functionId + "(";
+            
+            for (int paramNumber = 0; paramNumber < n_params; ++paramNumber) {
+                RGLTree param = tree.getChild(paramNumber + 1);
+                if (paramNumber > 0) get += ", ";
+                get += translateExpression(param);
+            }
+            get += ")";
+            return get;
+        }
         return translateExpression(tree.getChild(0)) + " " + tree.getText() +
                     " " + translateExpression(tree.getChild(1));
     }
