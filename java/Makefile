@@ -45,7 +45,7 @@ PARSER_SRC =	$(PARSER)/$(TARGET)Lexer.java \
 INTERP_SRC =	$(INTERP)/Interp.java \
 				$(INTERP)/$(TARGET)Tree.java \
 				$(INTERP)/RGLTreeAdaptor.java \
-				$(INTERP)/UndefinedElementException.java
+				$(INTERP)/RGLErrorStack.java
 
 ALL_SRC =		$(MAIN_SRC) $(PARSER_SRC) $(INTERP_SRC)
 				
