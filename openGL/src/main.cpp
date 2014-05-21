@@ -128,14 +128,16 @@ void pintaTerra() {
 }
 
 void pintaMarques() {    
-    glColor4f(0.0, 1.0, 0.0, 0.25);
-    glEnable(GL_BLEND);
+    glEnable(GL_BLEND);    
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
     for (int i = 0; i < marques.size(); ++i) {
         int x = marques[i].first;
         int z = marques[i].second;
-        glPushMatrix();
-        plotterMark(x, z); 
+
+        glColor4f(0.75, 0, 0, 0.40);
+        glPushMatrix();                
+        plotterMark(x, 0.001, z); 
         glPopMatrix();
     }
     glDisable(GL_BLEND);     
@@ -747,48 +749,23 @@ int main(int argc, const char * argv[]) {
 }
 
 // Accions: traduccio de robotGL a c++
-void rgl_estrella();
-void rgl_poligons();
-
-void rgl_estrella() {
-    double i = 1;
-    while (i < 13) {
-        exec( action(MOVE_FORWARD, 4) );
-        exec( action(ROTATE, angleActual() + 150) );
-        i = i + 1;
-    }
-}
-
-void rgl_poligons() {
-    double b = 3;
-    while (b < 8) {
-        double a = 0;
-        while (a < b) {
-            exec( action(MOVE_FORWARD, 1) );
-            exec( action(ROTATE, angleActual() + 360 / b) );
-            a = a + 1;
-        }
-        b = b + 1;
-    }
-}
 
 void actions() {
-    R = robot(0, 5, 90);
-    exec( action(MARK, R.getIntX(), R.getIntZ()) );
-    exec( action(BOX, R.getIntX(), R.getIntZ() - 1) );
-    exec( action(BOX, R.getIntX(), R.getIntZ() + 1) );
-    exec( action(MOVE_FORWARD, 8) );
-    exec( action(BOX, R.getIntX() + 1, R.getIntZ()) );
-    exec( action(PICK_OBJECT) );
-    exec( action(MARK, R.getIntX(), R.getIntZ()) );
-    exec( action(ROTATE, angleActual() + 90) );
-    exec( action(MOVE_FORWARD, 2) );
-    exec( action(RELEASE_OBJECT) );
-    exec( action(MOVE, 0, 5) );
-    exec( action(ROTATE, 90) );
-    exec( action(MOVE_FORWARD, 1) );
+    SIZE = 10;
+    R = robot(5, 5, 0);
+    exec( action(MARK, R.getIntX() + 1, R.getIntZ() + 1) );
+    for (double rglv_i = 0; rglv_i <= 9; rglv_i += 1) {
+        exec( action(BOX, 0, rglv_i) );
+    }
+    exec( action(MOVE, 5, 5) );
     exec( action(TRAIL, true) );
-    rgl_estrella();
-    rgl_poligons();
+    for (double rglv_i = 0; rglv_i <= 9; rglv_i += 1) {
+        exec( action(MOVE, 1, rglv_i) );
+        exec( action(ROTATE, 270) );
+        exec( action(PICK_OBJECT) );
+        exec( action(MOVE, 8, 9 - rglv_i) );
+        exec( action(ROTATE, 90) );
+        exec( action(RELEASE_OBJECT) );
+    }
     finish = true;
 }
