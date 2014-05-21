@@ -1,0 +1,60 @@
+package interp;
+
+import java.util.Queue;
+import java.util.ArrayList;
+
+public class RGLErrorStack {
+    
+    private static enum ErrType { WARNING, ERROR }
+    
+    public class RGLError {
+        
+        private int linenumber;
+        private String comment;
+        private ErrType type;
+        
+        public RGLError(ErrType type, int linenumber, String comment) {
+            this.linenumber = linenumber;
+            this.comment = comment;
+            this.type = type;
+        }
+        
+        @Override
+        public String toString() {
+            String ret = "";
+            if (type == ErrType.WARNING) ret += "Warning";
+            else ret += "Error";
+            ret += " (line " + linenumber + ")";
+            ret += ": " + comment;
+            return ret;
+        }
+    }
+    
+    private ArrayList<RGLError> errors;
+    private ArrayList<RGLError> warnings;
+    private String filename;
+    
+    public RGLErrorStack () {
+        errors = new ArrayList<RGLError>();
+        warnings = new ArrayList<RGLError>();
+    }    
+    public ArrayList<String> getErrors() { 
+        ArrayList<String> strErrors = new ArrayList<String>();
+        for (RGLError e : errors) strErrors.add(e.toString());
+        return strErrors;
+    }
+    
+    public ArrayList<String> getWarnings() { 
+        ArrayList<String> strWarnings = new ArrayList<String>();
+        for (RGLError w : warnings) strWarnings.add(w.toString());
+        return strWarnings;
+    }
+    
+    public void addError (int linenumber, String comment) {
+        errors.add(new RGLError(ErrType.ERROR, linenumber, comment));
+    }
+    
+    public void addWarning (int linenumber, String comment) {
+        warnings.add(new RGLError(ErrType.WARNING, linenumber, comment));
+    }
+}

@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g 2014-05-21 08:41:35
+// $ANTLR 3.4 /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g 2014-05-21 09:18:08
 
     package parser;
     import interp.RGLTree;
@@ -1703,7 +1703,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: ID, params
+            // elements: params, ID
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1834,7 +1834,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: ID, params
+            // elements: params, ID
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2463,7 +2463,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "forExpr"
-    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:106:1: forExpr : FOR ^ ID FROM ! DOUBLE TO ! DOUBLE ( STEP ! DOUBLE )? DO ! instrList FEND !;
+    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:106:1: forExpr : FOR ^ ID FROM ! numExpr TO ! numExpr ( STEP ! numExpr )? DO ! instrList FEND !;
     public final RGLParser.forExpr_return forExpr() throws RecognitionException {
         RGLParser.forExpr_return retval = new RGLParser.forExpr_return();
         retval.start = input.LT(1);
@@ -2474,30 +2474,30 @@ public TreeAdaptor getTreeAdaptor() {
         Token FOR96=null;
         Token ID97=null;
         Token FROM98=null;
-        Token DOUBLE99=null;
         Token TO100=null;
-        Token DOUBLE101=null;
         Token STEP102=null;
-        Token DOUBLE103=null;
         Token DO104=null;
         Token FEND106=null;
+        RGLParser.numExpr_return numExpr99 =null;
+
+        RGLParser.numExpr_return numExpr101 =null;
+
+        RGLParser.numExpr_return numExpr103 =null;
+
         RGLParser.instrList_return instrList105 =null;
 
 
         RGLTree FOR96_tree=null;
         RGLTree ID97_tree=null;
         RGLTree FROM98_tree=null;
-        RGLTree DOUBLE99_tree=null;
         RGLTree TO100_tree=null;
-        RGLTree DOUBLE101_tree=null;
         RGLTree STEP102_tree=null;
-        RGLTree DOUBLE103_tree=null;
         RGLTree DO104_tree=null;
         RGLTree FEND106_tree=null;
 
         try {
-            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:106:13: ( FOR ^ ID FROM ! DOUBLE TO ! DOUBLE ( STEP ! DOUBLE )? DO ! instrList FEND !)
-            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:106:15: FOR ^ ID FROM ! DOUBLE TO ! DOUBLE ( STEP ! DOUBLE )? DO ! instrList FEND !
+            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:106:13: ( FOR ^ ID FROM ! numExpr TO ! numExpr ( STEP ! numExpr )? DO ! instrList FEND !)
+            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:106:15: FOR ^ ID FROM ! numExpr TO ! numExpr ( STEP ! numExpr )? DO ! instrList FEND !
             {
             root_0 = (RGLTree)adaptor.nil();
 
@@ -2518,23 +2518,23 @@ public TreeAdaptor getTreeAdaptor() {
 
             FROM98=(Token)match(input,FROM,FOLLOW_FROM_in_forExpr1200); 
 
-            DOUBLE99=(Token)match(input,DOUBLE,FOLLOW_DOUBLE_in_forExpr1203); 
-            DOUBLE99_tree = 
-            (RGLTree)adaptor.create(DOUBLE99)
-            ;
-            adaptor.addChild(root_0, DOUBLE99_tree);
+            pushFollow(FOLLOW_numExpr_in_forExpr1203);
+            numExpr99=numExpr();
 
+            state._fsp--;
+
+            adaptor.addChild(root_0, numExpr99.getTree());
 
             TO100=(Token)match(input,TO,FOLLOW_TO_in_forExpr1205); 
 
-            DOUBLE101=(Token)match(input,DOUBLE,FOLLOW_DOUBLE_in_forExpr1208); 
-            DOUBLE101_tree = 
-            (RGLTree)adaptor.create(DOUBLE101)
-            ;
-            adaptor.addChild(root_0, DOUBLE101_tree);
+            pushFollow(FOLLOW_numExpr_in_forExpr1208);
+            numExpr101=numExpr();
 
+            state._fsp--;
 
-            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:106:47: ( STEP ! DOUBLE )?
+            adaptor.addChild(root_0, numExpr101.getTree());
+
+            // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:106:49: ( STEP ! numExpr )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -2543,16 +2543,16 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt13) {
                 case 1 :
-                    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:106:48: STEP ! DOUBLE
+                    // /home2/users/alumnes/1160196/dades/linux/cl/Project/robotgl/java/src/parser/RGL.g:106:50: STEP ! numExpr
                     {
                     STEP102=(Token)match(input,STEP,FOLLOW_STEP_in_forExpr1211); 
 
-                    DOUBLE103=(Token)match(input,DOUBLE,FOLLOW_DOUBLE_in_forExpr1214); 
-                    DOUBLE103_tree = 
-                    (RGLTree)adaptor.create(DOUBLE103)
-                    ;
-                    adaptor.addChild(root_0, DOUBLE103_tree);
+                    pushFollow(FOLLOW_numExpr_in_forExpr1214);
+                    numExpr103=numExpr();
 
+                    state._fsp--;
+
+                    adaptor.addChild(root_0, numExpr103.getTree());
 
                     }
                     break;
@@ -3744,7 +3744,7 @@ public TreeAdaptor getTreeAdaptor() {
                 if ( (LA25_2==85) ) {
                     alt25=3;
                 }
-                else if ( (LA25_2==AND||LA25_2==BOX||(LA25_2 >= DIV && LA25_2 <= DO)||(LA25_2 >= ELSE && LA25_2 <= ENDACTION)||(LA25_2 >= ENDFUNC && LA25_2 <= ENDIF)||LA25_2==EQUALS||LA25_2==FACE||(LA25_2 >= FEND && LA25_2 <= FOR)||LA25_2==GE||(LA25_2 >= GT && LA25_2 <= IF)||LA25_2==LE||(LA25_2 >= LT && LA25_2 <= MUL)||(LA25_2 >= NOT_EQUAL && LA25_2 <= OBSTACLE)||(LA25_2 >= OR && LA25_2 <= PLUS)||(LA25_2 >= RELEASEOBJECT && LA25_2 <= RETURN)||LA25_2==ROTATE||LA25_2==STOPROBOT||LA25_2==THEN||LA25_2==TRAIL||LA25_2==WEND||LA25_2==WHILE||(LA25_2 >= 86 && LA25_2 <= 87)) ) {
+                else if ( (LA25_2==AND||LA25_2==BOX||(LA25_2 >= DIV && LA25_2 <= DO)||(LA25_2 >= ELSE && LA25_2 <= ENDACTION)||(LA25_2 >= ENDFUNC && LA25_2 <= ENDIF)||LA25_2==EQUALS||LA25_2==FACE||(LA25_2 >= FEND && LA25_2 <= FOR)||LA25_2==GE||(LA25_2 >= GT && LA25_2 <= IF)||LA25_2==LE||(LA25_2 >= LT && LA25_2 <= MUL)||(LA25_2 >= NOT_EQUAL && LA25_2 <= OBSTACLE)||(LA25_2 >= OR && LA25_2 <= PLUS)||(LA25_2 >= RELEASEOBJECT && LA25_2 <= RETURN)||LA25_2==ROTATE||(LA25_2 >= STEP && LA25_2 <= STOPROBOT)||(LA25_2 >= THEN && LA25_2 <= TRAIL)||LA25_2==WEND||LA25_2==WHILE||(LA25_2 >= 86 && LA25_2 <= 87)) ) {
                     alt25=2;
                 }
                 else {
@@ -4329,12 +4329,12 @@ public TreeAdaptor getTreeAdaptor() {
     public static final BitSet FOLLOW_WEND_in_whileExpr1157 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_FOR_in_forExpr1195 = new BitSet(new long[]{0x0000020000000000L});
     public static final BitSet FOLLOW_ID_in_forExpr1198 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_FROM_in_forExpr1200 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_DOUBLE_in_forExpr1203 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
-    public static final BitSet FOLLOW_TO_in_forExpr1205 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_DOUBLE_in_forExpr1208 = new BitSet(new long[]{0x0000000000020000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_STEP_in_forExpr1211 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_DOUBLE_in_forExpr1214 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_FROM_in_forExpr1200 = new BitSet(new long[]{0x000842C000041000L,0x0000000000200281L});
+    public static final BitSet FOLLOW_numExpr_in_forExpr1203 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+    public static final BitSet FOLLOW_TO_in_forExpr1205 = new BitSet(new long[]{0x000842C000041000L,0x0000000000200281L});
+    public static final BitSet FOLLOW_numExpr_in_forExpr1208 = new BitSet(new long[]{0x0000000000020000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_STEP_in_forExpr1211 = new BitSet(new long[]{0x000842C000041000L,0x0000000000200281L});
+    public static final BitSet FOLLOW_numExpr_in_forExpr1214 = new BitSet(new long[]{0x0000000000020000L});
     public static final BitSet FOLLOW_DO_in_forExpr1238 = new BitSet(new long[]{0x88640601A0000200L,0x000000000008884CL});
     public static final BitSet FOLLOW_instrList_in_forExpr1241 = new BitSet(new long[]{0x0000000080000000L});
     public static final BitSet FOLLOW_FEND_in_forExpr1243 = new BitSet(new long[]{0x0000000000000002L});

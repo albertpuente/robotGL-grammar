@@ -1,0 +1,16 @@
+BEGIN
+    initMap 10
+    initRobot 5,5, 0
+    for i from 0 to 9 step 1 do box 0,i fend
+    
+    moveTo 5, 5
+    trail on
+    for i from 0 to 9 step 1 do 
+        moveTo 1,i
+        face west
+        pickObject
+        moveTo 8, (9-i)
+        face east
+        releaseObject
+    fend
+END
