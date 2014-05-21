@@ -291,7 +291,7 @@ public class Interp {
                 String actionId = tree.getChild(0).getText();
                 int n_params = getChildrenNumber(tree) - 1;
                 if (!actionSet.containsKey(actionId)) {
-                    errorStack.addError(tree.getLine(), "Calling a nonexistent action" ("+actionId+")");
+                    errorStack.addError(tree.getLine(), "Calling a nonexistent action ("+actionId+")");
                 }
                 else {
                     int n_args = actionSet.get(actionId);

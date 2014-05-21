@@ -391,7 +391,7 @@ public class Interp {
             return get;
         }
         if (type == RGLLexer.COS || type == RGLLexer.SIN || type == RGLLexer.SQRT) {
-            return tree.getText() + "(" + translateExpression(tree.getChild(0)) + ")";
+            return tree.getText() + "((" + translateExpression(tree.getChild(0)) + ") * 180 / M_PI)";
         }
         return translateExpression(tree.getChild(0)) + " " + tree.getText() +
                     " " + translateExpression(tree.getChild(1));
