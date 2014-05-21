@@ -1,0 +1,8 @@
+
+
+- initMap no afegeix punt i coma al final de línia
+
+- Quan s'usa un for i s'entra un valor enter diu que s'espera un DOUBLE
+
+- Agegir la conversió sin(...) -> sin((...)*180/M_PI i cos(...) -> cos((...)*180/M_PI
+
