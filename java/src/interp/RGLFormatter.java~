@@ -1,0 +1,10 @@
+package interp;
+
+public class RGLFormatter {
+        
+    /** number of spaces to be written before a statement at the current translation state */
+    private int tabulation = 0;        
+    
+    /** c++ code resulting of the translation */
+    private String translation = "";
+}
