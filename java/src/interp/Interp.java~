@@ -5,12 +5,10 @@ import parser.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.HashMap;
-import java.util.Queue;
 import java.util.Scanner;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.LinkedList;
 
 /** Class that implements the interpreter of the language. */
 
@@ -28,8 +26,7 @@ public class Interp {
     private HashSet<String> variableSet;
     
     /** Stores the line number of the current statement. */
-    private Queue<String> errors;
-    private Queue<String> warnings;
+    private RGLErrorStack errorStack;
     
     /** number of spaces to be written before a statement at the current translation state */
     private int tabulation = 0;
@@ -46,18 +43,17 @@ public class Interp {
         actionSet = new HashMap<String, Integer> ();
         functionSet = new HashMap<String, Integer> ();
         
-        errors = new LinkedList<String> ();
-        warnings = new LinkedList<String> ();
+        errorStack = new RGLErrorStack();
     }
 
     /** Returns a string containing the translation. Must have called "Run" before */
     public String translation() { return translation; }
     
     /** Queue with error messages */
-    public Queue<String> getErrors() { return errors; }
+    public ArrayList<String> getErrors() { return errorStack.getErrors(); }
     
     /** Queue with warning messages */
-    public Queue<String> getWarnings() { return warnings; }
+    public ArrayList<String> getWarnings() { return errorStack.getWarnings(); }
     
     /** Adds 'tabulation' spaces to the current state of the translation */
     private void indent() {
@@ -114,7 +110,7 @@ public class Interp {
             }
             if (defSet.containsKey(defId) && defSet.get(defId) == n_args) {
                 int linenumber = definition.getLine();
-                errors.add("Error (line "+linenumber+"): duplicate definition name ("+defId+")");
+                errorStack.addError(linenumber, "duplicate definition name ("+defId+")");
             }
             defSet.put(defId, n_args);
             declaration += "rgl_" + defId + "(";
@@ -124,7 +120,7 @@ public class Interp {
                 String arg = argList.getChild(j).getText();
                 if (variableSet.contains(arg)) {
                     int linenumber = argList.getChild(j).getLine();
-                    errors.add("Error (line "+linenumber+"): duplicate variable name ("+arg+")");
+                    errorStack.addError(linenumber, "duplicate variable name ("+arg+")");
                 }                
                 variableSet.add(arg);
                 declaration += "double " + arg;
@@ -162,21 +158,14 @@ public class Interp {
             translate(definition.getChild(2));  //body
             addLine("}");
             if (definition.getType() == RGLLexer.FUNC && returnCount == 0)
-                errors.add("Missing return instruction at function " + definition.getChild(0).getText() + " (line " + definition.getLine() + ")");
+                errorStack.addError(definition.getLine(), "Missing return instruction at " +
+                    "function " + definition.getChild(0).getText());
             returnCount = -1;
             variableSet.clear();    //no visibility between functions
             
             addLine(""); 
         }          
     }
-    /*
-    private void checkForReturn(RGLTree func) {
-        boolean found = false;
-        RGLTree instrlist = func.getChild(2);
-        for (int i = 0; i < instrlist.getChildCount(); ++i)
-            found = found || (instrlist.getChild(i).getType() == RGLLexer.RETURN);
-        if (!found) errors.add("Missing return at function " + func.getText() + " (line " + func.getLine() + ")");
-    }*/
     
     /** Begins the translation */
     private void translate (RGLTree tree) {
@@ -217,8 +206,8 @@ public class Interp {
                 boolean exists = variableSet.contains(iter_id);
                 if (exists) {
                     int linenumber = tree.getLine();
-                    warnings.add("Warning (line "+linenumber+"): using an already "+
-                                  "existing variable as iterator ("+iter_id+")");
+                    errorStack.addWarning(tree.getLine(), "using an already existing variable " + 
+                        " as iterator ("+iter_id+")");
                 } else variableSet.add(iter_id);
                 
                 String minbound = tree.getChild(1).getText();
@@ -302,15 +291,15 @@ public class Interp {
                 String actionId = tree.getChild(0).getText();
                 int n_params = getChildrenNumber(tree) - 1;
                 if (!actionSet.containsKey(actionId)) {
-                    int linenumber = tree.getLine();
-                    errors.add("Error (line "+linenumber+"): calling a non-existent action ("+actionId+")");
+                    errorStack.addError(tree.getLine(), "Calling a nonexistent action" + 
+                        " ("+actionId+")");
                 }
                 else {
                     int n_args = actionSet.get(actionId);
                     if (n_args != n_params) {
-                        int linenumber = tree.getLine();
-                        errors.add("Error (line "+linenumber+"): calling an action with a wrong number of parameters ("+
-                            "actionId: expected "+n_args+", found "+n_params+")");
+                        errorStack.addError(tree.getLine(), "Calling an action with a wrong "+
+                            "number of parameters (" + "actionId: expected " + n_args +
+                            ", found "+n_params+")");
                     }
                 }
                 String call = "rgl_" + actionId + "(";
@@ -324,7 +313,7 @@ public class Interp {
                 addLine(call);
                 break;
             case RGLLexer.RETURN:
-                if (returnCount < 0) errors.add("Return found outside a function (line " + tree.getLine() + ")");
+                if (returnCount < 0) errorStack.addError(tree.getLine(), "Return found outside a function");
                 else ++returnCount;
                 addLine("return " + translateExpression( tree.getChild(0) ) + ";");
                 break;
@@ -342,14 +331,13 @@ public class Interp {
         if (type == RGLLexer.ID) {
             String id = tree.getText();
             if (!variableSet.contains(id)) {
-                int linenumber = tree.getLine();
-                errors.add("Error (line "+linenumber+"): using a variable with no assigned value ("+id+")");
+                errorStack.addError(tree.getLine(), "Using a variable with no assigned value ("+id+")");
             }
             return id;
         }
         if (type == RGLLexer.MOD) {
             return "fmod( ((double)" + translateExpression(tree.getChild(0)) + "), ((double) " +
-               translateExpression(tree.getChild(1)) + ")";
+               translateExpression(tree.getChild(1)) + ") )";
         }
         if (type == RGLLexer.MUL || type == RGLLexer.DIV) {
             String s = "";
@@ -384,14 +372,12 @@ public class Interp {
             String functionId = tree.getChild(0).getText();
             int n_params = getChildrenNumber(tree) - 1;
             if (!functionSet.containsKey(functionId)) {
-                int linenumber = tree.getLine();
-                errors.add("Error (line "+linenumber+"): calling a non-existent function ("+functionId+")");
+                errorStack.addError(tree.getLine(), "Calling a nonexistent function ("+functionId+")");
             }
             else {
                 int n_args = functionSet.get(functionId);
                 if (n_args != n_params) {
-                    int linenumber = tree.getLine();
-                    errors.add("Error (line "+linenumber+"): calling a function with a wrong number of parameters ("+
+                    errorStack.addError(tree.getLine(), "Calling a function with a wrong number of parameters ("+
                         "functionId: expected "+n_args+", found "+n_params+")");
                 }
             }

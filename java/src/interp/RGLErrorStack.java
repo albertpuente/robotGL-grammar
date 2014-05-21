@@ -13,7 +13,7 @@ public class RGLErrorStack {
         private String comment;
         private ErrType type;
         
-        private RGLError(ErrType type, int linenumber, String comment) {
+        public RGLError(ErrType type, int linenumber, String comment) {
             this.linenumber = linenumber;
             this.comment = comment;
             this.type = type;
@@ -22,7 +22,7 @@ public class RGLErrorStack {
         @Override
         public String toString() {
             String ret = "";
-            if (type == WARNING) ret += "Warning";
+            if (type == ErrType.WARNING) ret += "Warning";
             else ret += "Error";
             ret += " (line " + linenumber + ")";
             ret += ": " + comment;
@@ -30,23 +30,31 @@ public class RGLErrorStack {
         }
     }
     
-    private ArrayList<String> errors;
-    private ArrayList<String> warnings;
+    private ArrayList<RGLError> errors;
+    private ArrayList<RGLError> warnings;
     private String filename;
     
     public RGLErrorStack () {
-        errors = new ArrayList<String>();
-        warnings = new ArrayList<String>();
+        errors = new ArrayList<RGLError>();
+        warnings = new ArrayList<RGLError>();
     }    
+    public ArrayList<String> getErrors() { 
+        ArrayList<String> strErrors = new ArrayList<String>();
+        for (RGLError e : errors) strErrors.add(e.toString());
+        return strErrors;
+    }
     
-    public ArrayList<String> getErrors() { return errors; }    
-    public ArrayList<String> getWarnings() { return warnings; }
+    public ArrayList<String> getWarnings() { 
+        ArrayList<String> strWarnings = new ArrayList<String>();
+        for (RGLError w : warnings) strWarnings.add(w.toString());
+        return strWarnings;
+    }
     
     public void addError (int linenumber, String comment) {
-        errors.add(new RGLError(ERROR, linenumber, comment);
+        errors.add(new RGLError(ErrType.ERROR, linenumber, comment));
     }
     
     public void addWarning (int linenumber, String comment) {
-        warnings.add(new RGLError(WARNING, linenumber, comment);
+        warnings.add(new RGLError(ErrType.WARNING, linenumber, comment));
     }
 }

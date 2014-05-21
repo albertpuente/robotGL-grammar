@@ -7,7 +7,7 @@ import org.antlr.stringtemplate.*;
 
 // Imports from Java
 import java.io.*;
-import java.util.Queue;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 // Parser and Interpreter
@@ -77,13 +77,13 @@ public class RGL {
             
             
             System.out.println();
-            Queue<String> warnings = I.getWarnings();
-            while (!warnings.isEmpty()) System.out.println(warnings.remove());
+            ArrayList<String> warnings = I.getWarnings();
+            for (String w : warnings) System.out.println(w);
             
-            Queue<String> errors = I.getErrors();
+            ArrayList<String> errors = I.getErrors();
             if (!errors.isEmpty()) {
                 System.out.println();
-                while (!errors.isEmpty()) System.out.println(errors.remove());
+                for (String e : errors) System.out.println(e);
                 System.out.println("One or more errors found. Translation cancelled.");
             }
             else {
