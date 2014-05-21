@@ -113,7 +113,7 @@ public class Interp {
                 errorStack.addError(linenumber, "duplicate definition name ("+defId+")");
             }
             defSet.put(defId, n_args);
-            declaration += "rgl_" + defId + "(";
+            declaration += "rglf_" + defId + "(";
             //parameters
             for (int j = 0; j < n_args; ++j) {
                 if (j > 0) declaration += ", ";
@@ -123,7 +123,7 @@ public class Interp {
                     errorStack.addError(linenumber, "duplicate variable name ("+arg+")");
                 }                
                 variableSet.add(arg);
-                declaration += "double " + arg;
+                declaration += "double rglv_" + arg;
                 
             }
             variableSet.clear();
@@ -142,11 +142,11 @@ public class Interp {
             String header = "";
             if (definition.getType() == RGLLexer.ACTION) header += "void ";
             else header += "double ";
-            header += "rgl_" + defId + "(";
+            header += "rglf_" + defId + "(";
             for (int j = 0; j < n_args; ++j) {
                 if (j > 0) header += ", ";
                 String arg = argList.getChild(j).getText();
-                header += "double " + arg;
+                header += "double rglv_" + arg;
                 variableSet.add(arg); //used to check that all used vars in the body have a value
             }
             header += ") {";
@@ -178,12 +178,10 @@ public class Interp {
                 //guardarla per comprovar que usos posteriors son correctes
                 String id = tree.getChild(0).getText();
                 String ini = "";
-                if (!variableSet.contains(id)) {
-                    ini += "double ";
-                    variableSet.add(id);
-                }
+                if (!variableSet.contains(id)) ini += "double rglv_";
                 addLine(ini + tree.getChild(0).getText() + " = "
                         + translateExpression(tree.getChild(1)) + ";");
+                if (!variableSet.contains(id)) variableSet.add(id);
                 break;
             case RGLLexer.IF:
                 addLine("if (" + translateExpression(tree.getChild(0)) + ") {");
@@ -210,13 +208,13 @@ public class Interp {
                         " as iterator ("+iter_id+")");
                 } else variableSet.add(iter_id);
                 
-                String minbound = tree.getChild(1).getText();
-                String maxbound = tree.getChild(2).getText();
+                String minbound = translateExpression(tree.getChild(1));
+                String maxbound = translateExpression(tree.getChild(2));
                 
                 String increment = "1.0";
-                if (getChildrenNumber(tree) == 5) increment = tree.getChild(3).getText();   //step specified
-                addLine("for (double "+iter_id+" = "+minbound+"; "+iter_id+" <= "+maxbound+"; "+
-                        iter_id+" += " + increment + ") {");
+                if (getChildrenNumber(tree) == 5) increment = translate(tree.getChild(3));   //step specified
+                addLine("for (double rglv_"+iter_id+" = "+minbound+"; "+iter_id+" <= "+maxbound+"; "+
+                        "rglv_" + iter_id+" += " + increment + ") {");
                         
                 if (getChildrenNumber(tree) == 4) translate(tree.getChild(3));
                 else translate(tree.getChild(4));
@@ -301,7 +299,7 @@ public class Interp {
                             ", found "+n_params+")");
                     }
                 }
-                String call = "rgl_" + actionId + "(";
+                String call = "rglf_" + actionId + "(";
                 
                 for (int paramNumber = 0; paramNumber < n_params; ++paramNumber) {
                     RGLTree param = tree.getChild(paramNumber + 1);
@@ -332,7 +330,7 @@ public class Interp {
             if (!variableSet.contains(id)) {
                 errorStack.addError(tree.getLine(), "Using a variable with no assigned value ("+id+")");
             }
-            return id;
+            return ("rglv_" + id);
         }
         if (type == RGLLexer.MOD) {
             return "fmod( ((double)" + translateExpression(tree.getChild(0)) + "), ((double) " +
@@ -380,7 +378,7 @@ public class Interp {
                         "functionId: expected "+n_args+", found "+n_params+")");
                 }
             }
-            String get = "rgl_" + functionId + "(";
+            String get = "rglf_" + functionId + "(";
             
             for (int paramNumber = 0; paramNumber < n_params; ++paramNumber) {
                 RGLTree param = tree.getChild(paramNumber + 1);
@@ -391,7 +389,7 @@ public class Interp {
             return get;
         }
         if (type == RGLLexer.COS || type == RGLLexer.SIN || type == RGLLexer.SQRT) {
-            return tree.getText() + "((" + translateExpression(tree.getChild(0)) + ") * 180 / M_PI)";
+            return tree.getText() + "((" + translateExpression(tree.getChild(0)) + ") * M_PI / 180)";
         }
         return translateExpression(tree.getChild(0)) + " " + tree.getText() +
                     " " + translateExpression(tree.getChild(1));
