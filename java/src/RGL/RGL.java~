@@ -78,7 +78,7 @@ public class RGL {
             
             System.out.println();
             ArrayList<String> warnings = I.getWarnings();
-            while (!warnings.isEmpty()) System.out.println(warnings.remove());
+            for (String w : warnings) System.out.println(w);
             
             ArrayList<String> errors = I.getErrors();
             if (!errors.isEmpty()) {

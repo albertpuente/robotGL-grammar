@@ -213,7 +213,7 @@ public class Interp {
                 
                 String increment = "1.0";
                 if (getChildrenNumber(tree) == 5) increment = translateExpression(tree.getChild(3));   //step specified
-                addLine("for (double rglv_"+iter_id+" = "+minbound+"; "+iter_id+" <= "+maxbound+"; "+
+                addLine("for (double rglv_"+iter_id+" = "+minbound+"; "+ "rglv_" +iter_id+" <= "+maxbound+"; "+
                         "rglv_" + iter_id+" += " + increment + ") {");
                         
                 if (getChildrenNumber(tree) == 4) translate(tree.getChild(3));
@@ -224,7 +224,7 @@ public class Interp {
                 break;
             case RGLLexer.INSTRLIST:
                 tabulation -= 4;    //since no line is written, undo the tabulation
-                HashSet<String> scope = (HashSet<String>) variableSet.clone();
+                HashSet<String> scope = new HashSet<String> (variableSet);
                 for (int i = 0; i < getChildrenNumber(tree); ++i) translate(tree.getChild(i));
                 variableSet = scope;
                 tabulation += 4;    //back to original tabulation
@@ -316,6 +316,7 @@ public class Interp {
                 break;
             default:    System.out.println("Something went wrong ("+tree.getLine() +"): "+tree.getText());
         }
+        if (tree.getType() != RGLLexer.RETURN && returnCount > 0) errorStack.addWarning(tree.getLine(), "Unreachable statement");
         tabulation -= 4;
     }
     

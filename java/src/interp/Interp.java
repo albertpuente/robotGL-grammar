@@ -224,7 +224,7 @@ public class Interp {
                 break;
             case RGLLexer.INSTRLIST:
                 tabulation -= 4;    //since no line is written, undo the tabulation
-                HashSet<String> scope = (HashSet<String>) variableSet.clone();
+                HashSet<String> scope = new HashSet<String> (variableSet);
                 for (int i = 0; i < getChildrenNumber(tree); ++i) translate(tree.getChild(i));
                 variableSet = scope;
                 tabulation += 4;    //back to original tabulation
@@ -316,6 +316,7 @@ public class Interp {
                 break;
             default:    System.out.println("Something went wrong ("+tree.getLine() +"): "+tree.getText());
         }
+        if ((tree.getType() != RGLLexer.RETURN) && returnCount > 0) errorStack.addWarning(tree.getLine(), "Unreachable statement");
         tabulation -= 4;
     }
     
