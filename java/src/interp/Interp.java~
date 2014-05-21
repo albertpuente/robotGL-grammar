@@ -159,7 +159,7 @@ public class Interp {
             addLine("}");
             if (definition.getType() == RGLLexer.FUNC && returnCount == 0)
                 errorStack.addError(definition.getLine(), "Missing return instruction at " +
-                    "function " + definition.getChild(0).getText());
+                    "some branch of function " + definition.getChild(0).getText());
             returnCount = -1;
             variableSet.clear();    //no visibility between functions
             
@@ -185,18 +185,27 @@ public class Interp {
                 break;
             case RGLLexer.IF:
                 addLine("if (" + translateExpression(tree.getChild(0)) + ") {");
+                boolean returnNeeded = returnCount < 1;
                 translate(tree.getChild(1));
+                boolean returnFound = returnCount > 0;
                 addLine("}");
                 RGLTree elseTree = tree.getChild(2);
-                if (elseTree != null) {
+                if (elseTree == null) {
+                    if (returnNeeded) returnCount = 0;
+                    else returnCount = 1;
+                } else {
+                    returnCount = 0;
                     addLine("else {");
                     translate(elseTree);
                     addLine("}");
+                    returnFound = returnFound && returnCount > 0;
                 }
                 break;
             case RGLLexer.WHILE:
+                returnNeeded = returnCount < 1;
                 addLine("while (" + translateExpression(tree.getChild(0)) + ") {");
                 translate(tree.getChild(1));
+                if (returnNeeded) returnCount = 0;
                 addLine("}");
                 break;
             case RGLLexer.FOR:
@@ -215,9 +224,11 @@ public class Interp {
                 if (getChildrenNumber(tree) == 5) increment = translateExpression(tree.getChild(3));   //step specified
                 addLine("for (double rglv_"+iter_id+" = "+minbound+"; "+ "rglv_" +iter_id+" <= "+maxbound+"; "+
                         "rglv_" + iter_id+" += " + increment + ") {");
-                        
+                
+                returnNeeded = returnCount < 1;        
                 if (getChildrenNumber(tree) == 4) translate(tree.getChild(3));
                 else translate(tree.getChild(4));
+                if (returnNeeded) returnCount = 0;
                 
                 if (!exists) variableSet.remove(iter_id);
                 addLine("}");
@@ -225,7 +236,13 @@ public class Interp {
             case RGLLexer.INSTRLIST:
                 tabulation -= 4;    //since no line is written, undo the tabulation
                 HashSet<String> scope = new HashSet<String> (variableSet);
-                for (int i = 0; i < getChildrenNumber(tree); ++i) translate(tree.getChild(i));
+                int i = 0;
+                while (i < getChildrenNumber(tree) && returnCount < 1)  {
+                    translate(tree.getChild(i));
+                    ++i;
+                }
+                if (i < getChildrenNumber(tree)) 
+                    errorStack.addWarning(tree.getChild(i).getLine(), "Unreachable statements");
                 variableSet = scope;
                 tabulation += 4;    //back to original tabulation
                 break;
@@ -316,7 +333,6 @@ public class Interp {
                 break;
             default:    System.out.println("Something went wrong ("+tree.getLine() +"): "+tree.getText());
         }
-        if (tree.getType() != RGLLexer.RETURN && returnCount > 0) errorStack.addWarning(tree.getLine(), "Unreachable statement");
         tabulation -= 4;
     }
     
