@@ -213,7 +213,7 @@ public class Interp {
                 
                 String increment = "1.0";
                 if (getChildrenNumber(tree) == 5) increment = translateExpression(tree.getChild(3));   //step specified
-                addLine("for (double rglv_"+iter_id+" = "+minbound+"; "+iter_id+" <= "+maxbound+"; "+
+                addLine("for (double rglv_"+iter_id+" = "+minbound+"; "+ "rglv_" +iter_id+" <= "+maxbound+"; "+
                         "rglv_" + iter_id+" += " + increment + ") {");
                         
                 if (getChildrenNumber(tree) == 4) translate(tree.getChild(3));
