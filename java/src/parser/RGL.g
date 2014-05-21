@@ -103,7 +103,7 @@ instrList   : instr*  -> ^(INSTRLIST instr*)
 whileExpr   : WHILE^ boolExpr DO! instrList WEND!
             ;
             
-forExpr     : FOR^ ID FROM! DOUBLE TO! DOUBLE (STEP! DOUBLE)?
+forExpr     : FOR^ ID FROM! numExpr TO! numExpr (STEP! numExpr)?
                     DO! instrList FEND!
             ;
             

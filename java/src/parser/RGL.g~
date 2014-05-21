@@ -60,7 +60,7 @@ instr   :
         //typical instructions
         whileExpr | forExpr                                 //loops
         | ifExpr                                            //conditionals
-        | funccall
+        | actioncall
         | ID '='^ numExpr                                   //assignation
         | RETURN^ numExpr
         
