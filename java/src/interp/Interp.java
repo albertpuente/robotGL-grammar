@@ -212,7 +212,7 @@ public class Interp {
                 String maxbound = translateExpression(tree.getChild(2));
                 
                 String increment = "1.0";
-                if (getChildrenNumber(tree) == 5) increment = translate(tree.getChild(3));   //step specified
+                if (getChildrenNumber(tree) == 5) increment = translateExpression(tree.getChild(3));   //step specified
                 addLine("for (double rglv_"+iter_id+" = "+minbound+"; "+iter_id+" <= "+maxbound+"; "+
                         "rglv_" + iter_id+" += " + increment + ") {");
                         
