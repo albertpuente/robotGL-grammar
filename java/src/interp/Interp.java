@@ -5,21 +5,19 @@ import parser.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.HashMap;
-import java.util.Queue;
 import java.util.Scanner;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.LinkedList;
 
 /** Class that implements the interpreter of the language. */
-
 public class Interp {
+
     /** AST root */
-    private RGLTree tree;        
+    private RGLTree tree;
     
-    /** c++ code resulting of the translation */
-    private String translation;
+    /** Formatted translation */
+    private RGLTranslation translation;    
     
     /** Maps of RGL actions and functions, used to check for potentially invalid calls */
     private HashMap<String, Integer> actionSet;
@@ -28,61 +26,41 @@ public class Interp {
     private HashSet<String> variableSet;
     
     /** Stores the line number of the current statement. */
-    private Queue<String> errors;
-    private Queue<String> warnings;
-    
-    /** number of spaces to be written before a statement at the current translation state */
-    private int tabulation = 0;
+    private RGLErrorStack errorStack;
     
     /** used to check correct use of returns */
     private int returnCount = -1;
     
     /** Constructor of the interpreter */
     public Interp(RGLTree T) {
-        assert T != null;
-        tree = T;
-        translation = "";
+        assert T != null;   tree = T;
+        
+        translation = new RGLTranslation();
         variableSet = new HashSet<String> ();
         actionSet = new HashMap<String, Integer> ();
-        functionSet = new HashMap<String, Integer> ();
-        
-        errors = new LinkedList<String> ();
-        warnings = new LinkedList<String> ();
+        functionSet = new HashMap<String, Integer> ();        
+        errorStack = new RGLErrorStack();
     }
 
     /** Returns a string containing the translation. Must have called "Run" before */
-    public String translation() { return translation; }
+    public String translation() { return translation.toString(); }
     
     /** Queue with error messages */
-    public Queue<String> getErrors() { return errors; }
+    public ArrayList<String> getErrors() { return errorStack.getErrors(); }
     
     /** Queue with warning messages */
-    public Queue<String> getWarnings() { return warnings; }
-    
-    /** Adds 'tabulation' spaces to the current state of the translation */
-    private void indent() {
-        indent(tabulation);
-    }
-    
-    /** Adds as many spaces to the current state of the translation as specified with nspaces */
-    private void indent(int nspaces) {
-        for (int i = 0; i < nspaces; ++i) translation += " ";
-    }
-    
-    /** Writes the 'statement' of code, indented correctly */
-    private void addLine(String statement) {
-        indent();
-        translation += statement+"\n";
-    }
+    public ArrayList<String> getWarnings() { return errorStack.getWarnings(); }
     
     /** Runs the program by calling the main function without parameters. */
     public void Run() {
-        addLine("");
+        translation.addLine();
         translateActions(tree.getChild(0));
-        addLine("void actions() {");        
+        translation.addLine("void actions() {");
         translate(tree.getChild(1));
-        addLine("    finish = true;");        
-        addLine("}");
+        translation.tab();
+        translation.addLine("finish = true;");
+        translation.untab();
+        translation.addLine("}");
     }
 
 
@@ -114,27 +92,27 @@ public class Interp {
             }
             if (defSet.containsKey(defId) && defSet.get(defId) == n_args) {
                 int linenumber = definition.getLine();
-                errors.add("Error (line "+linenumber+"): duplicate definition name ("+defId+")");
+                errorStack.addError(linenumber, "duplicate definition name ("+defId+")");
             }
             defSet.put(defId, n_args);
-            declaration += "rgl_" + defId + "(";
+            declaration += "rglf_" + defId + "(";
             //parameters
             for (int j = 0; j < n_args; ++j) {
                 if (j > 0) declaration += ", ";
                 String arg = argList.getChild(j).getText();
                 if (variableSet.contains(arg)) {
                     int linenumber = argList.getChild(j).getLine();
-                    errors.add("Error (line "+linenumber+"): duplicate variable name ("+arg+")");
+                    errorStack.addError(linenumber, "duplicate variable name ("+arg+")");
                 }                
                 variableSet.add(arg);
-                declaration += "double " + arg;
+                declaration += "double rglv_" + arg;
                 
             }
             variableSet.clear();
             declaration += ");";
-            addLine(declaration);
+            translation.addLine(declaration);
         }
-        addLine("");
+        translation.addLine("");
         //translate the headers+bodies
         for (int i = 0; i < getChildrenNumber(tree); ++i) {
             RGLTree definition = tree.getChild(i);         
@@ -146,42 +124,34 @@ public class Interp {
             String header = "";
             if (definition.getType() == RGLLexer.ACTION) header += "void ";
             else header += "double ";
-            header += "rgl_" + defId + "(";
+            header += "rglf_" + defId + "(";
             for (int j = 0; j < n_args; ++j) {
                 if (j > 0) header += ", ";
                 String arg = argList.getChild(j).getText();
-                header += "double " + arg;
+                header += "double rglv_" + arg;
                 variableSet.add(arg); //used to check that all used vars in the body have a value
             }
             header += ") {";
-            addLine(header);
+            translation.addLine(header);
             
             if (definition.getType() == RGLLexer.FUNC)
                 returnCount = 0;
                 //checkForReturn(definition);
             translate(definition.getChild(2));  //body
-            addLine("}");
+            translation.addLine("}");
             if (definition.getType() == RGLLexer.FUNC && returnCount == 0)
-                errors.add("Missing return instruction at function " + definition.getChild(0).getText() + " (line " + definition.getLine() + ")");
+                errorStack.addError(definition.getLine(), "Missing return instruction at " +
+                    "some branch of function " + definition.getChild(0).getText());
             returnCount = -1;
             variableSet.clear();    //no visibility between functions
             
-            addLine(""); 
+            translation.addLine(""); 
         }          
     }
-    /*
-    private void checkForReturn(RGLTree func) {
-        boolean found = false;
-        RGLTree instrlist = func.getChild(2);
-        for (int i = 0; i < instrlist.getChildCount(); ++i)
-            found = found || (instrlist.getChild(i).getType() == RGLLexer.RETURN);
-        if (!found) errors.add("Missing return at function " + func.getText() + " (line " + func.getLine() + ")");
-    }*/
     
     /** Begins the translation */
     private void translate (RGLTree tree) {
         if (tree == null) return;
-        tabulation += 4;
         switch (tree.getType()) {
         
             //////// FLOW CONTROL EXPRESSIONS /////////
@@ -189,104 +159,121 @@ public class Interp {
                 //guardarla per comprovar que usos posteriors son correctes
                 String id = tree.getChild(0).getText();
                 String ini = "";
-                if (!variableSet.contains(id)) {
-                    ini += "double ";
-                    variableSet.add(id);
-                }
-                addLine(ini + tree.getChild(0).getText() + " = "
+                if (!variableSet.contains(id)) ini += "double rglv_";
+                translation.addLine(ini + tree.getChild(0).getText() + " = "
                         + translateExpression(tree.getChild(1)) + ";");
+                if (!variableSet.contains(id)) variableSet.add(id);
                 break;
             case RGLLexer.IF:
-                addLine("if (" + translateExpression(tree.getChild(0)) + ") {");
+                translation.addLine("if (" + translateExpression(tree.getChild(0)) + ") {");
+                boolean returnNeeded = returnCount < 1;
                 translate(tree.getChild(1));
-                addLine("}");
+                boolean returnFound = returnCount > 0;
+                translation.addLine("}");
                 RGLTree elseTree = tree.getChild(2);
-                if (elseTree != null) {
-                    addLine("else {");
+                if (elseTree == null) {
+                    if (returnNeeded) returnCount = 0;
+                    else returnCount = 1;
+                } else {
+                    returnCount = 0;
+                    translation.addLine("else {");
                     translate(elseTree);
-                    addLine("}");
+                    translation.addLine("}");
+                    returnFound = returnFound && returnCount > 0;
+                    if (returnNeeded && returnFound) returnCount = 1;
+                    else returnCount = 0;
                 }
                 break;
             case RGLLexer.WHILE:
-                addLine("while (" + translateExpression(tree.getChild(0)) + ") {");
+                returnNeeded = returnCount < 1;
+                translation.addLine("while (" + translateExpression(tree.getChild(0)) + ") {");
                 translate(tree.getChild(1));
-                addLine("}");
+                if (returnNeeded) returnCount = 0;
+                translation.addLine("}");
                 break;
             case RGLLexer.FOR:
                 String iter_id = tree.getChild(0).getText();
                 boolean exists = variableSet.contains(iter_id);
                 if (exists) {
                     int linenumber = tree.getLine();
-                    warnings.add("Warning (line "+linenumber+"): using an already "+
-                                  "existing variable as iterator ("+iter_id+")");
+                    errorStack.addWarning(tree.getLine(), "using an already existing variable " + 
+                        " as iterator ("+iter_id+")");
                 } else variableSet.add(iter_id);
                 
-                String minbound = tree.getChild(1).getText();
-                String maxbound = tree.getChild(2).getText();
+                String minbound = translateExpression(tree.getChild(1));
+                String maxbound = translateExpression(tree.getChild(2));
                 
                 String increment = "1.0";
-                if (getChildrenNumber(tree) == 5) increment = tree.getChild(3).getText();   //step specified
-                addLine("for (double "+iter_id+" = "+minbound+"; "+iter_id+" <= "+maxbound+"; "+
-                        iter_id+" += " + increment + ") {");
-                        
+                if (getChildrenNumber(tree) == 5) increment = translateExpression(tree.getChild(3));   //step specified
+                translation.addLine("for (double rglv_"+iter_id+" = "+minbound+"; "+ "rglv_" +iter_id+" <= "+maxbound+"; "+
+                        "rglv_" + iter_id+" += " + increment + ") {");
+                
+                returnNeeded = returnCount < 1;        
                 if (getChildrenNumber(tree) == 4) translate(tree.getChild(3));
                 else translate(tree.getChild(4));
+                if (returnNeeded) returnCount = 0;
                 
                 if (!exists) variableSet.remove(iter_id);
-                addLine("}");
+                translation.addLine("}");
                 break;
             case RGLLexer.INSTRLIST:
-                tabulation -= 4;    //since no line is written, undo the tabulation
-                HashSet<String> scope = (HashSet<String>) variableSet.clone();
-                for (int i = 0; i < getChildrenNumber(tree); ++i) translate(tree.getChild(i));
+                translation.tab();
+                HashSet<String> scope = new HashSet<String> (variableSet);
+                int i = 0;
+                while (i < getChildrenNumber(tree) && returnCount < 1)  {
+                    translate(tree.getChild(i));
+                    ++i;
+                }
+                if (i < getChildrenNumber(tree)) 
+                    errorStack.addWarning(tree.getChild(i).getLine(), "Unreachable statements");
                 variableSet = scope;
-                tabulation += 4;    //back to original tabulation
+                translation.untab();
                 break;
             
             ////////// RGL EXPRESSIONS /////////////
             case RGLLexer.INITROBOT:
-                addLine("R = robot(" + translateExpression(tree.getChild(0)) +
+                translation.addLine("R = robot(" + translateExpression(tree.getChild(0)) +
                                 ", " + translateExpression(tree.getChild(1)) +
                                 ", " + translateExpression(tree.getChild(2)) + ");");
                 break;
             case RGLLexer.INITMAP:
-                addLine("SIZE = " + translateExpression(tree.getChild(0)));
+                translation.addLine("SIZE = " + translateExpression(tree.getChild(0)) + ";");
                 break;
             case RGLLexer.MOVEFORWARD:
-                addLine("exec( action(MOVE_FORWARD, "          +
+                translation.addLine("exec( action(MOVE_FORWARD, "          +
                         translateExpression(tree.getChild(0)) + ") );");
                 break;
             case RGLLexer.STOPROBOT:
-                addLine("exec( action(STOP, " + translateExpression(tree.getChild(0)) +") );");
+                translation.addLine("exec( action(STOP, " + translateExpression(tree.getChild(0)) +") );");
                 break;
             case RGLLexer.MOVETO:
-                addLine("exec( action(MOVE, " + translateExpression(tree.getChild(0)) +
+                translation.addLine("exec( action(MOVE, " + translateExpression(tree.getChild(0)) +
                                          ", " + translateExpression(tree.getChild(1)) + ") );");
                 break;
             case RGLLexer.ROTATE:
-                addLine("exec( action(ROTATE, angleActual() + " +
+                translation.addLine("exec( action(ROTATE, angleActual() + " +
                         translateExpression(tree.getChild(0))   + ") );");
                 break;
             case RGLLexer.PICKOBJECT:
-                addLine("exec( action(PICK_OBJECT) );");
+                translation.addLine("exec( action(PICK_OBJECT) );");
                 break;
             case RGLLexer.RELEASEOBJECT:
-                addLine("exec( action(RELEASE_OBJECT) );");
+                translation.addLine("exec( action(RELEASE_OBJECT) );");
                 break;
             case RGLLexer.OBSTACLE:
-                addLine("exec( action(OBSTACLE, " + translateExpression(tree.getChild(0)) +
+                translation.addLine("exec( action(OBSTACLE, " + translateExpression(tree.getChild(0)) +
                                              ", " + translateExpression(tree.getChild(1)) + ") );");
                 break; 
             case RGLLexer.MARK:
-                addLine("exec( action(MARK, " + translateExpression(tree.getChild(0)) +
+                translation.addLine("exec( action(MARK, " + translateExpression(tree.getChild(0)) +
                                          ", " + translateExpression(tree.getChild(1)) + ") );");
                 break; 
             case RGLLexer.BOX:
-                addLine("exec( action(BOX, " + translateExpression(tree.getChild(0)) +
+                translation.addLine("exec( action(BOX, " + translateExpression(tree.getChild(0)) +
                                         ", " + translateExpression(tree.getChild(1)) + ") );");
                 break;  
             case RGLLexer.TRAIL:
-                addLine("exec( action(TRAIL, " + translateExpression(tree.getChild(0)) + ") );");
+                translation.addLine("exec( action(TRAIL, " + translateExpression(tree.getChild(0)) + ") );");
                 break;
             case RGLLexer.FACE:
                 int angle = 0;
@@ -296,24 +283,23 @@ public class Interp {
                     case RGLLexer.WEST:     angle += 270; break;
                     default: break;
                 }
-                addLine("exec( action(ROTATE, " + angle + ") );");
+                translation.addLine("exec( action(ROTATE, " + angle + ") );");
                 break;
             case RGLLexer.CALL:
                 String actionId = tree.getChild(0).getText();
                 int n_params = getChildrenNumber(tree) - 1;
                 if (!actionSet.containsKey(actionId)) {
-                    int linenumber = tree.getLine();
-                    errors.add("Error (line "+linenumber+"): calling a non-existent action ("+actionId+")");
+                    errorStack.addError(tree.getLine(), "Calling a nonexistent action ("+actionId+")");
                 }
                 else {
                     int n_args = actionSet.get(actionId);
                     if (n_args != n_params) {
-                        int linenumber = tree.getLine();
-                        errors.add("Error (line "+linenumber+"): calling an action with a wrong number of parameters ("+
-                            "actionId: expected "+n_args+", found "+n_params+")");
+                        errorStack.addError(tree.getLine(), "Calling an action with a wrong "+
+                            "number of parameters (" + "actionId: expected " + n_args +
+                            ", found "+n_params+")");
                     }
                 }
-                String call = "rgl_" + actionId + "(";
+                String call = "rglf_" + actionId + "(";
                 
                 for (int paramNumber = 0; paramNumber < n_params; ++paramNumber) {
                     RGLTree param = tree.getChild(paramNumber + 1);
@@ -321,16 +307,15 @@ public class Interp {
                     call += translateExpression(param);
                 }
                 call += ");";
-                addLine(call);
+                translation.addLine(call);
                 break;
             case RGLLexer.RETURN:
-                if (returnCount < 0) errors.add("Return found outside a function (line " + tree.getLine() + ")");
+                if (returnCount < 0) errorStack.addError(tree.getLine(), "Return found outside a function");
                 else ++returnCount;
-                addLine("return " + translateExpression( tree.getChild(0) ) + ";");
+                translation.addLine("return " + translateExpression( tree.getChild(0) ) + ";");
                 break;
             default:    System.out.println("Something went wrong ("+tree.getLine() +"): "+tree.getText());
         }
-        tabulation -= 4;
     }
     
     private String translateExpression(RGLTree tree) {
@@ -342,10 +327,9 @@ public class Interp {
         if (type == RGLLexer.ID) {
             String id = tree.getText();
             if (!variableSet.contains(id)) {
-                int linenumber = tree.getLine();
-                errors.add("Error (line "+linenumber+"): using a variable with no assigned value ("+id+")");
+                errorStack.addError(tree.getLine(), "Using a variable with no assigned value ("+id+")");
             }
-            return id;
+            return ("rglv_" + id);
         }
         if (type == RGLLexer.MOD) {
             return "fmod( ((double)" + translateExpression(tree.getChild(0)) + "), ((double) " +
@@ -384,18 +368,16 @@ public class Interp {
             String functionId = tree.getChild(0).getText();
             int n_params = getChildrenNumber(tree) - 1;
             if (!functionSet.containsKey(functionId)) {
-                int linenumber = tree.getLine();
-                errors.add("Error (line "+linenumber+"): calling a non-existent function ("+functionId+")");
+                errorStack.addError(tree.getLine(), "Calling a nonexistent function ("+functionId+")");
             }
             else {
                 int n_args = functionSet.get(functionId);
                 if (n_args != n_params) {
-                    int linenumber = tree.getLine();
-                    errors.add("Error (line "+linenumber+"): calling a function with a wrong number of parameters ("+
+                    errorStack.addError(tree.getLine(), "Calling a function with a wrong number of parameters ("+
                         "functionId: expected "+n_args+", found "+n_params+")");
                 }
             }
-            String get = "rgl_" + functionId + "(";
+            String get = "rglf_" + functionId + "(";
             
             for (int paramNumber = 0; paramNumber < n_params; ++paramNumber) {
                 RGLTree param = tree.getChild(paramNumber + 1);
@@ -406,7 +388,7 @@ public class Interp {
             return get;
         }
         if (type == RGLLexer.COS || type == RGLLexer.SIN || type == RGLLexer.SQRT) {
-            return tree.getText() + "(" + translateExpression(tree.getChild(0)) + ")";
+            return tree.getText() + "((" + translateExpression(tree.getChild(0)) + ") * M_PI / 180)";
         }
         return translateExpression(tree.getChild(0)) + " " + tree.getText() +
                     " " + translateExpression(tree.getChild(1));

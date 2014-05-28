@@ -84,12 +84,22 @@ void plotterBox(double x, double z, double height) {
     glEnd();
 }
 
-void plotterMark(int x, int z) {
+void plotterMark(int x, double y, int z) {   
+
     glBegin(GL_POLYGON);    
-        glVertex3f(x-0.5, 0.001, z+0.5);        
-        glVertex3f(x+0.5, 0.001, z+0.5);        
-        glVertex3f(x+0.5, 0.001, z-0.5);
-        glVertex3f(x-0.5, 0.001, z-0.5);
+        glVertex3f(x, y, z+0.2);
+        glVertex3f(x+0.2, y, z+0.4);
+        glVertex3f(x+0.4, y, z+0.2);
+        glVertex3f(x+0.2, y, z);
+        glVertex3f(x+0.4, y, z-0.2);
+        glVertex3f(x+0.2, y, z-0.4);
+        glVertex3f(x, y, z-0.2);
+        glVertex3f(x-0.2, y, z-0.4);
+        glVertex3f(x-0.4, y, z-0.2);
+        glVertex3f(x-0.2, y, z);
+        glVertex3f(x-0.4, y, z+0.2);
+        glVertex3f(x-0.2, y, z+0.4);
+        
     glEnd();    
 }
 

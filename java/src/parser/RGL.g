@@ -7,14 +7,12 @@ options {
 
 // Imaginary tokens to create some AST nodes
 tokens {
-    ASSIGN;     // Assignment instruction
-    //FUNCALL;    // Function call
-    
-    CALL;
+    CALL;           //action call
+    GET;            //func call (which returns a value)
     INSTRLIST;      //instruction list token
     ARGLIST;        //argument list token
     PROGRAM;        //main code
-    DEFINELIST;    //list of actions (defined functions)
+    DEFINELIST;     //list of actions (defined functions)
     RGL;            //initial node
 }
 
@@ -33,28 +31,18 @@ prog    : definitions? main EOF
          -> ^(RGL ^(DEFINELIST definitions?) ^(INSTRLIST main))
         ;
 
-definitions : DEFINITIONS! declaration* ENDDEFINITIONS!
-        ;
+definitions : DEFINITIONS! declaration* ENDDEFINITIONS! ;
 
-declaration : action | function
-            ;
+declaration : action | function ;
             
-action  : ACTION^ ID argList ':'! instrList ENDACTION!
-        ;
-function : FUNC^ ID argList ':'! instrList ENDFUNC!
-        ;
+action  : ACTION^ ID argList ':'! instrList ENDACTION! ;
+function : FUNC^ ID argList ':'! instrList ENDFUNC! ;
         	
-main    : BEGIN! initialInstr instrList END!
-	    ;
+main    : BEGIN! initialInstr instr* END! ;
 	    
-initialInstr :  setMap? setRobot
-             ;
-
-setMap  :   INITMAP^ INT
-        ;
-
-setRobot    : INITROBOT^ numExpr ','! numExpr ','! numExpr
-            ;
+initialInstr :  setMap? setRobot ;
+setMap  :   INITMAP^ INT ;
+setRobot    : INITROBOT^ numExpr ','! numExpr ','! numExpr ;
 
 instr   :
         //typical instructions
@@ -86,53 +74,40 @@ funccall: ID '(' params? ')'
         -> ^(GET ID params?)
         ;
         
-params : numExpr (',' numExpr)*
+params : numExpr (',' numExpr)* ;
+
+argList : args? -> ^(ARGLIST args?) ;
+args    : arg (','! arg)* ;
+
+arg     : ID 
+        | DOUBLE
         ;
 
-argList : args? -> ^(ARGLIST args?)
-        ;
-args    : arg (','! arg)*
-        ;
-
-arg     : ID | DOUBLE
-        ;
-
-instrList   : instr*  -> ^(INSTRLIST instr*)
-            ;    
+instrList   : instr*  -> ^(INSTRLIST instr*) ;    
                   
-whileExpr   : WHILE^ boolExpr DO! instrList WEND!
-            ;
+whileExpr   : WHILE^ boolExpr DO! instrList WEND! ;
             
-forExpr     : FOR^ ID FROM! DOUBLE TO! DOUBLE (STEP! DOUBLE)?
-                    DO! instrList FEND!
-            ;
+forExpr     : FOR^ ID FROM! numExpr TO! numExpr (STEP! numExpr)? DO! instrList FEND! ;
             
-ifExpr      : IF^ boolExpr THEN! instrList (ELSE! instrList)? ENDIF!
-            ;
+ifExpr      : IF^ boolExpr THEN! instrList (ELSE! instrList)? ENDIF! ;
 
 
-boolExpr    : boolterm (OR^ boolterm)*
-            ;
+boolExpr    : boolterm (OR^ boolterm)* ;
             
-boolterm    : boolfact (AND^ boolfact)*
-            ;
+boolterm    : boolfact (AND^ boolfact)* ;
 
-boolfact    : (NOT^)? boolatom
-            ;
+boolfact    : (NOT^)? boolatom ;
             
 boolatom   : numExpr ('=='^ | '!='^ | '<'^ | '<='^ | '>'^ | '>='^) numExpr
             | TRUE | FALSE
             | DETECT^ side
             ;
 
-numExpr : term ( ('+'^ | '-'^) term)*
-        ;
+numExpr : term ( ('+'^ | '-'^) term)* ;
 
-term    : factor ( ('*'^ | '/'^ | MOD^) factor)*
-        ;
+term    : factor ( ('*'^ | '/'^ | MOD^) factor)* ;
 
-factor  : ('+'^ | '-'^)? atom
-        ;
+factor  : ('+'^ | '-'^)? atom ;
 
 atom    : (DOUBLE | INT)
         | ID
@@ -148,10 +123,8 @@ predefined  : SIN^ '('! numExpr ')'!
             | SQRT^ '('! numExpr ')'!
             ;
 
-direction   : NORTH | SOUTH | EAST | WEST
-            ;
-side      : FRONT | RIGHT | LEFT
-            ;
+direction   : NORTH | SOUTH | EAST | WEST ;
+side      : FRONT | RIGHT | LEFT ;
             
 // Basic tokens
 INITROBOT	: 'initRobot';
@@ -187,18 +160,19 @@ RIGHT   : 'right';
 LEFT    : 'left';
 
 RETURN  : 'return';
-CALL	: 'call';
-GET     : 'get';
 AND     : 'and';
 OR      : 'or';
 NOT     : 'not';
+
 IF      : 'if';
 ELSE 	: 'else';
 THEN	: 'then';
 ENDIF	: 'endif';
+
 WHILE	: 'while';
 DO  	: 'do';
 WEND	: 'wend';
+
 FOR	    : 'for';
 FROM    : 'from';
 TO      : 'to';
@@ -221,22 +195,13 @@ DOUBLE	: ('0'..'9')+ '.' ('0'..'9')+ ;
 INT     : '0'..'9'+;
 
 EQUAL	: '=' ;
-
 EQUALS  : '==' ;
 NOT_EQUAL: '!=' ;
-LT	    : '<' ;
-LE	    : '<=';
-GT	    : '>';
-GE	    : '>=';
 PLUS	: '+' ;
 MINUS	: '-' ;
 MUL	    : '*';
 DIV	    : '/';
 MOD	    : '%' ;
-STRING  :  '"' ( ESC_SEQ | ~('\\'|'"') )* '"';
-ESC_SEQ
-    :   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
-    ;
 
 // C-style comments
 COMMENT : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}

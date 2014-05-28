@@ -1,1 +1,1 @@
-g++  -O2 -pthread -std=c++0x -fpermissive /home/albert/Escriptori/Projecte/openGL/src/*.cpp /home/albert/Escriptori/Projecte/openGL/libs/*.c -o robotGL -I/home/albert/Escriptori/Projecte/openGL/libs -lGL -lglut -lGLU -lGLEW -w
+g++  -O2 -pthread -std=c++0x -fpermissive /home/andres/cl/Translator/RGLTranslator/robotgl/openGL/src/*.cpp /home/andres/cl/Translator/RGLTranslator/robotgl/openGL/libs/*.c -o robotGL -I/home/andres/cl/Translator/RGLTranslator/robotgl/openGL/libs -lGL -lglut -lGLU -lGLEW -w

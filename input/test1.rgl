@@ -1,0 +1,26 @@
+DEFINITIONS
+
+    action dibuixarCercle radi :
+        trail on
+        initX = getPosX
+        initY = getPosY
+        for i from 0.0 to 360.0 step 10.0 do
+            moveTo initX+sin(i), initY+cos(i)
+        fend
+    endaction
+    
+    func retest n :
+        if n == 5 then return n endif
+    endfunc
+    
+ENDDEFINITIONS
+
+
+BEGIN
+    initMap 50
+    initRobot 5, 5, 90
+    
+    radi = 10
+    dibuixarCercle ( retest (10) )
+
+END
