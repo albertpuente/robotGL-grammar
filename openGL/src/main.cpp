@@ -263,13 +263,9 @@ void moveCamera() {
                         R.getX(), 0, R.getZ(),
                         0, 1, 0);
         } else if (cameraMode == 3) { // Planta
-            gluLookAt(R.getX(), 5, R.getZ(),
-                        R.getX(), 0, R.getZ(),
+            gluLookAt(R.getX()+panX, 5, R.getZ()+panZ,
+                        R.getX()+panX, 0, R.getZ()+panZ,
                         0, 0, -1);
-        } else if (cameraMode == 4) { // Perfil
-            gluLookAt(SIZE+1, 0.5, R.getZ(),
-                        0, 0.5, R.getZ(),
-                        0, 1, 0);
         }
         
         changeCameraOrtho();
@@ -289,11 +285,17 @@ void click(int pressedButton, int mode, int pX, int pY) {
 }
 
 void drag(int posX, int posY) { 
-    if (clickedButton == 1 and cameraMode == 1) {
+    if (clickedButton == 1) {
         double incX = zoom*0.015*(oldMousePositionX-posX);
         double incY = zoom*0.025*(oldMousePositionY-posY);
-        panX += incX + incY;
-        panZ += incY - incX;
+        if (cameraMode == 1) { // Isometrica            
+            panX += incX + incY;
+            panZ += incY - incX;
+        }
+        else if (cameraMode == 3) { // Planta
+            panX += incX;
+            panZ += incY;
+        }
     }
     else {        
         if (cameraMode == 0) {
@@ -315,7 +317,9 @@ void drag(int posX, int posY) {
 void keyPressed(unsigned char character, int posX, int posY) {
     if (character == 27) exit(0); // ESC tanca la finestra    
     else if (character == 'c' or character == 'C') {
-        if (++cameraMode > 4) cameraMode = 0;
+        if (++cameraMode > 3) cameraMode = 0;
+        panX = panZ = 0;
+        
     }
     else if (character == '+') {        
         FPS = 60;
