@@ -159,8 +159,8 @@ public class Interp {
                 //guardarla per comprovar que usos posteriors son correctes
                 String id = tree.getChild(0).getText();
                 String ini = "";
-                if (!variableSet.contains(id)) ini += "double rglv_";
-                translation.addLine(ini + tree.getChild(0).getText() + " = "
+                if (!variableSet.contains(id)) ini += "double ";
+                translation.addLine(ini + "rglv_" + tree.getChild(0).getText() + " = "
                         + translateExpression(tree.getChild(1)) + ";");
                 if (!variableSet.contains(id)) variableSet.add(id);
                 break;
