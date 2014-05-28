@@ -128,14 +128,16 @@ void pintaTerra() {
 }
 
 void pintaMarques() {    
-    glColor4f(0.0, 1.0, 0.0, 0.25);
-    glEnable(GL_BLEND);
+    glEnable(GL_BLEND);    
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
     for (int i = 0; i < marques.size(); ++i) {
         int x = marques[i].first;
         int z = marques[i].second;
-        glPushMatrix();
-        plotterMark(x, z); 
+
+        glColor4f(0.75, 0, 0, 0.40);
+        glPushMatrix();                
+        plotterMark(x, 0.001, z); 
         glPopMatrix();
     }
     glDisable(GL_BLEND);     
