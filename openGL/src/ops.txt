@@ -1,21 +1,31 @@
 
+void rglf_buildMap();
+
+void rglf_buildMap() {
+    exec( action(OBSTACLE, 0, 5) );
+    exec( action(OBSTACLE, 2, 5) );
+    exec( action(OBSTACLE, 4, 5) );
+    exec( action(OBSTACLE, 7, 5) );
+    exec( action(OBSTACLE, 9, 5) );
+    exec( action(OBSTACLE, 0, 6) );
+    exec( action(OBSTACLE, 2, 6) );
+    exec( action(OBSTACLE, 7, 6) );
+    exec( action(OBSTACLE, 9, 6) );
+    exec( action(OBSTACLE, 0, 7) );
+    exec( action(OBSTACLE, 1, 7) );
+    exec( action(OBSTACLE, 2, 7) );
+    exec( action(OBSTACLE, 4, 7) );
+    exec( action(OBSTACLE, 0, 8) );
+    exec( action(OBSTACLE, 2, 8) );
+    exec( action(OBSTACLE, 4, 8) );
+    exec( action(OBSTACLE, 7, 8) );
+    exec( action(OBSTACLE, 9, 8) );
+}
 
 void actions() {
-    SIZE = 10;
-    R = robot(5, 5, 0);
-    exec( action(MARK, R.getIntX() + 1, R.getIntZ() + 1) );
-    for (double rglv_i = 0; rglv_i <= 9; rglv_i += 1) {
-        exec( action(BOX, 0, rglv_i) );
-    }
-    exec( action(MOVE, 5, 5) );
-    exec( action(TRAIL, true) );
-    for (double rglv_i = 0; rglv_i <= 9; rglv_i += 1) {
-        exec( action(MOVE, 1, rglv_i) );
-        exec( action(ROTATE, 270) );
-        exec( action(PICK_OBJECT) );
-        exec( action(MOVE, 8, 9 - rglv_i) );
-        exec( action(ROTATE, 90) );
-        exec( action(RELEASE_OBJECT) );
-    }
+    SIZE = 11;
+    R = robot(0, 0, 0);
+    exec( action(ROTATE, 0) );
+    rglf_buildMap();
     finish = true;
 }

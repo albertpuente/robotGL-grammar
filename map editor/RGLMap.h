@@ -6,25 +6,24 @@ class RGLMap: public QFrame {
 Q_OBJECT
 
 private:
-    pair<int, int> mapsize;
+    int mapsize;
     bool numbersOn;
     QWidget* parent;
     vector<vector<RGLCell*> > cells;
     
     void createCells();
-    void updateCells(pair<int,int> newsize);
-    void deleteCells(pair<int,int> newsize);
+    void updateCells(int);
+    void deleteCells(int);
     void recalcMinimumSize(QWidget*);
     void resizeCells();
     void reallocateCells();
-    void resizeEvent (QResizeEvent * event);
+    void resizeEvent (QResizeEvent*);
     
 public:
 	RGLMap(QWidget *parent);
 
 public slots:
-    void setRows(int n);
-	void setCols(int n);
+    void setMapSize(int);
 	void toggleNumbers();
     void printTemplate();
     void resetCells();
