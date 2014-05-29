@@ -1,0 +1,193 @@
+DEFINITIONS
+
+    action buildMap :
+        obstacle 1, 0
+        obstacle 2, 0
+        obstacle 3, 0
+        obstacle 5, 0
+        obstacle 7, 0
+        obstacle 9, 0
+        obstacle 10, 0
+        obstacle 11, 0
+        obstacle 2, 1
+        obstacle 5, 1
+        obstacle 7, 1
+        obstacle 9, 1
+        box 10, 1
+        obstacle 2, 2
+        obstacle 5, 2
+        obstacle 6, 2
+        obstacle 7, 2
+        obstacle 9, 2
+        obstacle 10, 2
+        obstacle 11, 2
+        obstacle 2, 3
+        obstacle 5, 3
+        obstacle 7, 3
+        obstacle 9, 3
+        box 10, 3
+        obstacle 2, 4
+        obstacle 5, 4
+        obstacle 7, 4
+        obstacle 9, 4
+        obstacle 10, 4
+        obstacle 11, 4
+        obstacle 1, 6
+        obstacle 2, 6
+        obstacle 3, 6
+        obstacle 4, 6
+        obstacle 6, 6
+        obstacle 7, 6
+        obstacle 8, 6
+        obstacle 10, 6
+        obstacle 11, 6
+        obstacle 13, 6
+        obstacle 14, 6
+        obstacle 16, 6
+        obstacle 17, 6
+        obstacle 18, 6
+        obstacle 1, 7
+        obstacle 6, 7
+        obstacle 8, 7
+        obstacle 10, 7
+        obstacle 12, 7
+        obstacle 14, 7
+        obstacle 16, 7
+        obstacle 1, 8
+        obstacle 3, 8
+        obstacle 4, 8
+        obstacle 6, 8
+        obstacle 7, 8
+        obstacle 8, 8
+        obstacle 10, 8
+        obstacle 14, 8
+        obstacle 16, 8
+        obstacle 17, 8
+        obstacle 18, 8
+        obstacle 1, 9
+        obstacle 4, 9
+        obstacle 6, 9
+        obstacle 8, 9
+        obstacle 10, 9
+        obstacle 14, 9
+        obstacle 16, 9
+        obstacle 1, 10
+        obstacle 2, 10
+        obstacle 3, 10
+        obstacle 4, 10
+        obstacle 6, 10
+        obstacle 8, 10
+        obstacle 10, 10
+        obstacle 14, 10
+        obstacle 16, 10
+        obstacle 17, 10
+        obstacle 18, 10
+        obstacle 1, 13
+        obstacle 2, 13
+        obstacle 3, 13
+        obstacle 4, 13
+        obstacle 5, 13
+        obstacle 6, 13
+        obstacle 7, 13
+        obstacle 8, 13
+        obstacle 9, 13
+        obstacle 10, 13
+        obstacle 11, 13
+        obstacle 12, 13
+        obstacle 13, 13
+        obstacle 14, 13
+        obstacle 15, 13
+        obstacle 16, 13
+        obstacle 17, 13
+        obstacle 17, 14
+        obstacle 0, 15
+        obstacle 1, 15
+        obstacle 2, 15
+        obstacle 3, 15
+        obstacle 4, 15
+        obstacle 5, 15
+        obstacle 6, 15
+        obstacle 7, 15
+        obstacle 8, 15
+        obstacle 9, 15
+        obstacle 10, 15
+        obstacle 11, 15
+        obstacle 12, 15
+        obstacle 13, 15
+        obstacle 14, 15
+        obstacle 15, 15
+        obstacle 16, 15
+        obstacle 17, 15
+        obstacle 1, 17
+        obstacle 2, 17
+        obstacle 3, 17
+        obstacle 4, 17
+        obstacle 5, 17
+        obstacle 6, 17
+        obstacle 7, 17
+        obstacle 8, 17
+        obstacle 9, 17
+        obstacle 10, 17
+        obstacle 11, 17
+        obstacle 12, 17
+        obstacle 13, 17
+        obstacle 14, 17
+        obstacle 15, 17
+        obstacle 16, 17
+        obstacle 17, 17
+        obstacle 18, 17
+    endaction
+
+    func one :
+        return 1
+    endfunc
+    
+    action getout x :
+        while detect left and detect right do
+            moveForward 1
+        wend
+        if not detect left then
+            rotate 90
+            moveForward 1
+            while detect left do moveForward 1 wend
+            rotate 90
+        else
+            rotate 270
+            moveForward 1
+            while detect right do moveForward 1 wend
+            rotate 270
+        endif
+        moveForward 1
+        if x > 0 then getout (x-1) endif
+    endaction
+
+ENDDEFINITIONS
+
+BEGIN
+
+    initMap 19
+    initRobot 18, 18, 0
+    buildMap ()
+    face west
+    getout (1)
+    while not detect front do moveForward one () wend
+    rotate -90
+    moveForward 7
+    mark 17, 3
+    trail on
+    if false or true then mark 7,7 endif
+    for i from 90 to 360 step 90 do rotate i fend
+    face east moveForward 12
+    moveTo 12, 3
+    rotate 90
+    moveForward 1
+    pickObject
+    rotate 180
+    moveForward 3
+    a45 = -23
+    stopRobot a45+25
+    rotate 360
+    moveForward 2
+    releaseObject    
+
+END
