@@ -74,7 +74,7 @@ funccall: ID '(' params? ')'
         -> ^(GET ID params?)
         ;
         
-params : numExpr (',' numExpr)* ;
+params : numExpr (','! numExpr)* ;
 
 argList : args? -> ^(ARGLIST args?) ;
 args    : arg (','! arg)* ;
