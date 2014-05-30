@@ -232,8 +232,8 @@ void refresh() {
 void changeCameraOrtho() {
     glMatrixMode(GL_PROJECTION);    
     glLoadIdentity();
-    if (ra >= 1) glOrtho(-ra*10*zoom, ra*10*zoom, -10*zoom, 10*zoom, -SIZE, SIZE*2);
-    else glOrtho(-10*zoom , 10*zoom, -(10/ra)*zoom, (10/ra)*zoom, -SIZE, SIZE*2);    
+    if (ra >= 1) glOrtho(-ra*10*zoom, ra*10*zoom, -10*zoom, 10*zoom, -SIZE*4, SIZE*4);
+    else glOrtho(-10*zoom , 10*zoom, -(10/ra)*zoom, (10/ra)*zoom, -SIZE*4, SIZE*4);    
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -753,24 +753,313 @@ int main(int argc, const char * argv[]) {
 }
 
 // Accions: traduccio de robotGL a c++
+void rglf_buildMap();
+double rglf_abs(double rglv_x);
+double rglf_distFrom(double rglv_x, double rglv_y);
+double rglf_distBetween(double rglv_x, double rglv_y, double rglv_a, double rglv_b);
+double rglf_goToStraight(double rglv_x, double rglv_y, double rglv_dir);
+double rglf_bringBox(double rglv_x, double rglv_y, double rglv_dir);
 
+void rglf_buildMap() {
+    exec( action(OBSTACLE, 0, 0) );
+    exec( action(OBSTACLE, 1, 0) );
+    exec( action(OBSTACLE, 2, 0) );
+    exec( action(OBSTACLE, 3, 0) );
+    exec( action(OBSTACLE, 4, 0) );
+    exec( action(OBSTACLE, 5, 0) );
+    exec( action(OBSTACLE, 6, 0) );
+    exec( action(OBSTACLE, 7, 0) );
+    exec( action(OBSTACLE, 8, 0) );
+    exec( action(OBSTACLE, 9, 0) );
+    exec( action(OBSTACLE, 10, 0) );
+    exec( action(OBSTACLE, 11, 0) );
+    exec( action(OBSTACLE, 12, 0) );
+    exec( action(OBSTACLE, 13, 0) );
+    exec( action(OBSTACLE, 14, 0) );
+    exec( action(OBSTACLE, 15, 0) );
+    exec( action(OBSTACLE, 16, 0) );
+    exec( action(OBSTACLE, 17, 0) );
+    exec( action(OBSTACLE, 18, 0) );
+    exec( action(OBSTACLE, 0, 1) );
+    exec( action(OBSTACLE, 18, 1) );
+    exec( action(OBSTACLE, 0, 2) );
+    exec( action(OBSTACLE, 2, 2) );
+    exec( action(OBSTACLE, 4, 2) );
+    exec( action(OBSTACLE, 6, 2) );
+    exec( action(OBSTACLE, 8, 2) );
+    exec( action(OBSTACLE, 10, 2) );
+    exec( action(OBSTACLE, 12, 2) );
+    exec( action(OBSTACLE, 14, 2) );
+    exec( action(OBSTACLE, 16, 2) );
+    exec( action(OBSTACLE, 18, 2) );
+    exec( action(OBSTACLE, 0, 3) );
+    exec( action(OBSTACLE, 18, 3) );
+    exec( action(OBSTACLE, 0, 4) );
+    exec( action(OBSTACLE, 2, 4) );
+    exec( action(OBSTACLE, 5, 4) );
+    exec( action(OBSTACLE, 7, 4) );
+    exec( action(OBSTACLE, 9, 4) );
+    exec( action(OBSTACLE, 11, 4) );
+    exec( action(OBSTACLE, 13, 4) );
+    exec( action(OBSTACLE, 16, 4) );
+    exec( action(OBSTACLE, 18, 4) );
+    exec( action(OBSTACLE, 0, 5) );
+    exec( action(OBSTACLE, 18, 5) );
+    exec( action(OBSTACLE, 0, 6) );
+    exec( action(OBSTACLE, 2, 6) );
+    exec( action(OBSTACLE, 4, 6) );
+    exec( action(OBSTACLE, 8, 6) );
+    exec( action(OBSTACLE, 10, 6) );
+    exec( action(OBSTACLE, 12, 6) );
+    exec( action(OBSTACLE, 16, 6) );
+    exec( action(OBSTACLE, 18, 6) );
+    exec( action(OBSTACLE, 0, 7) );
+    exec( action(OBSTACLE, 6, 7) );
+    exec( action(OBSTACLE, 14, 7) );
+    exec( action(OBSTACLE, 18, 7) );
+    exec( action(OBSTACLE, 0, 8) );
+    exec( action(OBSTACLE, 2, 8) );
+    exec( action(OBSTACLE, 4, 8) );
+    exec( action(OBSTACLE, 12, 8) );
+    exec( action(OBSTACLE, 16, 8) );
+    exec( action(OBSTACLE, 18, 8) );
+    exec( action(OBSTACLE, 0, 9) );
+    exec( action(OBSTACLE, 14, 9) );
+    exec( action(OBSTACLE, 18, 9) );
+    exec( action(OBSTACLE, 0, 10) );
+    exec( action(OBSTACLE, 2, 10) );
+    exec( action(OBSTACLE, 6, 10) );
+    exec( action(OBSTACLE, 12, 10) );
+    exec( action(OBSTACLE, 16, 10) );
+    exec( action(OBSTACLE, 18, 10) );
+    exec( action(OBSTACLE, 0, 11) );
+    exec( action(OBSTACLE, 4, 11) );
+    exec( action(OBSTACLE, 14, 11) );
+    exec( action(OBSTACLE, 18, 11) );
+    exec( action(OBSTACLE, 0, 12) );
+    exec( action(OBSTACLE, 2, 12) );
+    exec( action(OBSTACLE, 6, 12) );
+    exec( action(OBSTACLE, 8, 12) );
+    exec( action(OBSTACLE, 10, 12) );
+    exec( action(OBSTACLE, 12, 12) );
+    exec( action(OBSTACLE, 16, 12) );
+    exec( action(OBSTACLE, 18, 12) );
+    exec( action(OBSTACLE, 0, 13) );
+    exec( action(OBSTACLE, 14, 13) );
+    exec( action(OBSTACLE, 18, 13) );
+    exec( action(OBSTACLE, 0, 14) );
+    exec( action(OBSTACLE, 2, 14) );
+    exec( action(OBSTACLE, 5, 14) );
+    exec( action(OBSTACLE, 7, 14) );
+    exec( action(OBSTACLE, 9, 14) );
+    exec( action(OBSTACLE, 11, 14) );
+    exec( action(OBSTACLE, 16, 14) );
+    exec( action(OBSTACLE, 18, 14) );
+    exec( action(OBSTACLE, 0, 15) );
+    exec( action(OBSTACLE, 18, 15) );
+    exec( action(OBSTACLE, 0, 16) );
+    exec( action(OBSTACLE, 2, 16) );
+    exec( action(OBSTACLE, 4, 16) );
+    exec( action(OBSTACLE, 6, 16) );
+    exec( action(OBSTACLE, 8, 16) );
+    exec( action(OBSTACLE, 10, 16) );
+    exec( action(OBSTACLE, 12, 16) );
+    exec( action(OBSTACLE, 14, 16) );
+    exec( action(OBSTACLE, 16, 16) );
+    exec( action(OBSTACLE, 18, 16) );
+    exec( action(OBSTACLE, 0, 17) );
+    exec( action(OBSTACLE, 18, 17) );
+    exec( action(OBSTACLE, 0, 18) );
+    exec( action(OBSTACLE, 1, 18) );
+    exec( action(OBSTACLE, 2, 18) );
+    exec( action(OBSTACLE, 3, 18) );
+    exec( action(OBSTACLE, 4, 18) );
+    exec( action(OBSTACLE, 5, 18) );
+    exec( action(OBSTACLE, 6, 18) );
+    exec( action(OBSTACLE, 7, 18) );
+    exec( action(OBSTACLE, 8, 18) );
+    exec( action(OBSTACLE, 9, 18) );
+    exec( action(OBSTACLE, 10, 18) );
+    exec( action(OBSTACLE, 11, 18) );
+    exec( action(OBSTACLE, 12, 18) );
+    exec( action(OBSTACLE, 13, 18) );
+    exec( action(OBSTACLE, 14, 18) );
+    exec( action(OBSTACLE, 15, 18) );
+    exec( action(OBSTACLE, 16, 18) );
+    exec( action(OBSTACLE, 17, 18) );
+    exec( action(OBSTACLE, 18, 18) );
+}
+
+double rglf_abs(double rglv_x) {
+    if (rglv_x < 0) {
+        return - rglv_x;
+    }
+    else {
+        return rglv_x;
+    }
+}
+
+double rglf_distFrom(double rglv_x, double rglv_y) {
+    double rglv_dx = rglf_abs(rglv_x - R.getIntX());
+    double rglv_dy = rglf_abs(rglv_y - R.getIntZ());
+    return rglv_dx + rglv_dy;
+}
+
+double rglf_distBetween(double rglv_x, double rglv_y, double rglv_a, double rglv_b) {
+    double rglv_dx = rglf_abs(rglv_x - rglv_a);
+    double rglv_dy = rglf_abs(rglv_y - rglv_b);
+    return rglv_dx + rglv_dy;
+}
+
+double rglf_goToStraight(double rglv_x, double rglv_y, double rglv_dir) {
+    double rglv_d = rglf_distFrom(rglv_x, rglv_y);
+    if (rglv_dir == 0) {
+        if (not detectDirection(0) and rglf_distBetween(rglv_x, rglv_y, R.getIntX() + 1, R.getIntZ()) < rglv_d) {
+        }
+        else {
+            if (not detectDirection(-90) and rglf_distBetween(rglv_x, rglv_y, R.getIntX(), R.getIntZ() + 1) < rglv_d) {
+                exec( action(ROTATE, 0) );
+                rglv_dir = 1;
+            }
+            else {
+                if (not detectDirection(90) and rglf_distBetween(rglv_x, rglv_y, R.getIntX(), R.getIntZ() - 1) < rglv_d) {
+                    exec( action(ROTATE, 180) );
+                    rglv_dir = 3;
+                }
+                else {
+                    if (not detectDirection(-90) and rglf_distBetween(rglv_x, rglv_y, R.getIntX(), R.getIntZ() + 1) <= rglf_distBetween(rglv_x, rglv_y, R.getIntX(), R.getIntZ() - 1)) {
+                        exec( action(ROTATE, 0) );
+                        rglv_dir = 1;
+                    }
+                    else {
+                        if (not detectDirection(90)) {
+                            exec( action(ROTATE, 180) );
+                            rglv_dir = 3;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    else {
+        if (rglv_dir == 1) {
+            if (not detectDirection(0) and rglf_distBetween(rglv_x, rglv_y, R.getIntX(), R.getIntZ() + 1) < rglv_d) {
+            }
+            else {
+                if (not detectDirection(-90) and rglf_distBetween(rglv_x, rglv_y, R.getIntX() - 1, R.getIntZ()) < rglv_d) {
+                    exec( action(ROTATE, 270) );
+                    rglv_dir = 2;
+                }
+                else {
+                    if (not detectDirection(90) and rglf_distBetween(rglv_x, rglv_y, R.getIntX() + 1, R.getIntZ()) < rglv_d) {
+                        exec( action(ROTATE, 90) );
+                        rglv_dir = 0;
+                    }
+                    else {
+                        if (not detectDirection(-90) and rglf_distBetween(rglv_x, rglv_y, R.getIntX() - 1, R.getIntZ()) <= rglf_distBetween(rglv_x, rglv_y, R.getIntX() + 1, R.getIntZ())) {
+                            exec( action(ROTATE, 270) );
+                            rglv_dir = 2;
+                        }
+                        else {
+                            if (not detectDirection(90)) {
+                                exec( action(ROTATE, 90) );
+                                rglv_dir = 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            if (rglv_dir == 2) {
+                if (not detectDirection(0) and rglf_distBetween(rglv_x, rglv_y, R.getIntX() - 1, R.getIntZ()) < rglv_d) {
+                }
+                else {
+                    if (not detectDirection(-90) and rglf_distBetween(rglv_x, rglv_y, R.getIntX(), R.getIntZ() - 1) < rglv_d) {
+                        exec( action(ROTATE, 180) );
+                        rglv_dir = 3;
+                    }
+                    else {
+                        if (not detectDirection(90) and rglf_distBetween(rglv_x, rglv_y, R.getIntX(), R.getIntZ() + 1) < rglv_d) {
+                            exec( action(ROTATE, 0) );
+                            rglv_dir = 1;
+                        }
+                        else {
+                            if (not detectDirection(-90) and rglf_distBetween(rglv_x, rglv_y, R.getIntX(), R.getIntZ() - 1) <= rglf_distBetween(rglv_x, rglv_y, R.getIntX(), R.getIntZ() + 1)) {
+                                exec( action(ROTATE, 180) );
+                                rglv_dir = 3;
+                            }
+                            else {
+                                if (not detectDirection(90)) {
+                                    exec( action(ROTATE, 0) );
+                                    rglv_dir = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                if (rglv_dir == 3) {
+                    if (not detectDirection(0) and rglf_distBetween(rglv_x, rglv_y, R.getIntX(), R.getIntZ() - 1) < rglv_d) {
+                    }
+                    else {
+                        if (not detectDirection(-90) and rglf_distBetween(rglv_x, rglv_y, R.getIntX() + 1, R.getIntZ()) < rglv_d) {
+                            exec( action(ROTATE, 90) );
+                            rglv_dir = 0;
+                        }
+                        else {
+                            if (not detectDirection(90) and rglf_distBetween(rglv_x, rglv_y, R.getIntX() - 1, R.getIntZ()) < rglv_d) {
+                                exec( action(ROTATE, 270) );
+                                rglv_dir = 2;
+                            }
+                            else {
+                                if (not detectDirection(-90) and rglf_distBetween(rglv_x, rglv_y, R.getIntX() + 1, R.getIntZ()) <= rglf_distBetween(rglv_x, rglv_y, R.getIntX() - 1, R.getIntZ())) {
+                                    exec( action(ROTATE, 90) );
+                                    rglv_dir = 0;
+                                }
+                                else {
+                                    if (not detectDirection(90)) {
+                                        exec( action(ROTATE, 270) );
+                                        rglv_dir = 2;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    exec( action(MOVE_FORWARD, 1) );
+    return rglv_dir;
+}
+
+double rglf_bringBox(double rglv_x, double rglv_y, double rglv_dir) {
+    exec( action(MARK, rglv_x, rglv_y) );
+    while (rglf_distFrom(rglv_x, rglv_y) > 1) {
+        rglv_dir = rglf_goToStraight(rglv_x, rglv_y, rglv_dir);
+    }
+    exec( action(PICK_OBJECT) );
+    while (rglf_distFrom(9, 9) > 2) {
+        rglv_dir = rglf_goToStraight(9, 9, rglv_dir);
+    }
+    exec( action(RELEASE_OBJECT) );
+    return rglv_dir;
+}
 
 void actions() {
-    R = robot(0, 5, 90);
-    exec( action(MARK, R.getIntX(), R.getIntZ()) );
-    exec( action(BOX, R.getIntX(), R.getIntZ() - 1) );
-    exec( action(BOX, R.getIntX(), R.getIntZ() + 1) );
-    exec( action(MOVE_FORWARD, 8) );
-    exec( action(BOX, R.getIntX() + 1, R.getIntZ()) );
-    exec( action(PICK_OBJECT) );
-    exec( action(MARK, R.getIntX(), R.getIntZ()) );
-    exec( action(ROTATE, angleActual() + 90) );
-    exec( action(MOVE_FORWARD, 2) );
-    exec( action(RELEASE_OBJECT) );
-    exec( action(MOVE, 0, 5) );
-    exec( action(ROTATE, 90) );
-    exec( action(MOVE_FORWARD, 1) );
-    exec( action(TRAIL, true) );
-
+    SIZE = 19;
+    R = robot(10, 10, 90);
+    rglf_buildMap();
+    double rglv_dir = 0;
+    exec( action(BOX, 2, 1) );
+    exec( action(BOX, 17, 2) );
+    exec( action(BOX, 14, 15) );
+    exec( action(BOX, 4, 17) );
+    rglv_dir = rglf_bringBox(17, 2, rglv_dir);
+    rglv_dir = rglf_bringBox(14, 15, rglv_dir);
+    rglv_dir = rglf_bringBox(2, 1, rglv_dir);
+    rglv_dir = rglf_bringBox(4, 17, rglv_dir);
     finish = true;
 }

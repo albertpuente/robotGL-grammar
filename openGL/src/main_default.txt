@@ -232,8 +232,8 @@ void refresh() {
 void changeCameraOrtho() {
     glMatrixMode(GL_PROJECTION);    
     glLoadIdentity();
-    if (ra >= 1) glOrtho(-ra*10*zoom, ra*10*zoom, -10*zoom, 10*zoom, -SIZE, SIZE*2);
-    else glOrtho(-10*zoom , 10*zoom, -(10/ra)*zoom, (10/ra)*zoom, -SIZE, SIZE*2);    
+    if (ra >= 1) glOrtho(-ra*10*zoom, ra*10*zoom, -10*zoom, 10*zoom, -SIZE*4, SIZE*4);
+    else glOrtho(-10*zoom , 10*zoom, -(10/ra)*zoom, (10/ra)*zoom, -SIZE*4, SIZE*4);    
     glMatrixMode(GL_MODELVIEW);
 }
 
