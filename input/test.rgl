@@ -1,0 +1,33 @@
+DEFINITIONS
+
+    action buildMap :
+        obstacle 0, 5
+        obstacle 2, 5
+        obstacle 4, 5
+        obstacle 7, 5
+        obstacle 9, 5
+        obstacle 0, 6
+        obstacle 2, 6
+        obstacle 7, 6
+        obstacle 9, 6
+        obstacle 0, 7
+        obstacle 1, 7
+        obstacle 2, 7
+        obstacle 4, 7
+        obstacle 0, 8
+        obstacle 2, 8
+        obstacle 4, 8
+        obstacle 7, 8
+        obstacle 9, 8
+    endaction
+
+ENDDEFINITIONS
+
+BEGIN
+
+    initMap 11
+    initRobot 0, 0, 0
+    face south
+    buildMap ()
+
+END

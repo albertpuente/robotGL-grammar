@@ -1,27 +1,26 @@
-Els ordinadors de la FIB ja tenen totes les llibreries necessàries.
-
-En altres ordinadors calen les següents llibreries estàndard:
+The computers on our campus (FIB) are prepared for the execution of this project.
+Other computers may get dependency errors. The following standard libraries are needed:
 
     GLEW (OpenGL Extension Wrangler Library)
-
+    
         $ sudo apt-get install libglew-dev
     
     SOIL (Simple OpenGL Image Library)
-
+    
         $ sudo apt-get install libsoil-dev
         
-    Drivers i targeta gràfica compatibles amb OpenGL 2.0
+    Also, openGL2.0-compatible drivers and graphics cards are needed.
     
-Compilar:
-    
+Compiling:
+
     $ make
     
-Executar:
+Executing:
 
     $ ./robotGL
     
-Interaccions:
+Interactions:
 
-    c C                         : Canviar de càmera
-    ESC                         : Sortir
-    Arrosegar amb el ratolí     : Zoom
+    c, C                    : Change camera type
+    ESC                     : Exit
+    Drag the mouse          : Zoom (LMB) / Pan (RMB) [pan not funcional in some camera types]

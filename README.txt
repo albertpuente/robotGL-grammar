@@ -1,12 +1,9 @@
-./genAst.sh filename        generates the file filename.pdf with the ast
-./make+run filename         compiles the java src and translates filename.rgl (ONLY translation)
-./translate+execute         és el teu, ja veuràs si el vols canviar/generalitzar. de moment no va
+./generate-ast.sh input output    #takes the 'input' file and generates an 'output'.pdf file
+./translate input           #compiles the java src and translates (only) the 'input' file. A translation.txt file will be generated
+./translate+link input      #translates (by using the above script) and links it to the C++/openGL code, then runs it
 
-the translation will generate, in the same folder where the translator was executed from,
-a translation.txt file with the result
+java/        contains the translator code, binaries, etc.
+openGL/      contains the C++/openGL code which the translation will be linked to.
 
-
-####################################################################################
-per fer proves fes servir un codi propi o input/input2.rgl, input/input.rgl té coses
-que encara no es tradueixen
-####################################################################################
+## not strictly related to our project ##
+map editor/  contains a tiny Qt app that eases the process of map design (inside the folder, compile, then execute ./rglME)

@@ -75,8 +75,6 @@ public class RGL {
             I = new Interp(tree); // prepares the interpreter
             I.Run();                  // Executes the code
             
-            
-            System.out.println();
             ArrayList<String> warnings = I.getWarnings();
             for (String w : warnings) System.out.println(w);
             

@@ -753,7 +753,30 @@ int main(int argc, const char * argv[]) {
 }
 
 // Accions: traduccio de robotGL a c++
+void rglf_estrella();
+void rglf_poligons();
 
+void rglf_estrella() {
+    double rglv_i = 1;
+    while (rglv_i < 13) {
+        exec( action(MOVE_FORWARD, 4) );
+        exec( action(ROTATE, angleActual() + 150) );
+        rglv_i = rglv_i + 1;
+    }
+}
+
+void rglf_poligons() {
+    double rglv_b = 3;
+    while (rglv_b < 8) {
+        double rglv_a = 0;
+        while (rglv_a < rglv_b) {
+            exec( action(MOVE_FORWARD, 1) );
+            exec( action(ROTATE, angleActual() + 360 / rglv_b) );
+            rglv_a = rglv_a + 1;
+        }
+        rglv_b = rglv_b + 1;
+    }
+}
 
 void actions() {
     R = robot(0, 5, 90);
@@ -771,6 +794,7 @@ void actions() {
     exec( action(ROTATE, 90) );
     exec( action(MOVE_FORWARD, 1) );
     exec( action(TRAIL, true) );
-
+    rglf_estrella();
+    rglf_poligons();
     finish = true;
 }
