@@ -14,13 +14,6 @@ import java.util.LinkedList;
 import parser.*;
 import interp.*;
 
-/**
- * The class <code>RGL</code> implement the main function of the
- * interpreter. It accepts a set of options to generate the AST in
- * dot format and avoid the execution of the program. To know about
- * the accepted options, run the command RGL -help.
- */
-
 public class RGL {
 
     private static String filename = null;

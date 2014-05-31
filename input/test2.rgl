@@ -1,6 +1,7 @@
 BEGIN
     initMap 10
     initRobot 5,5, 0
+    face east
     for i from 0 to 9 step 1 do box 0,i fend
     
     moveTo 5, 5

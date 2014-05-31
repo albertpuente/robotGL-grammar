@@ -22,13 +22,14 @@ public class Interp {
     /** Maps of RGL actions and functions, used to check for potentially invalid calls */
     private HashMap<String, Integer> actionSet;
     private HashMap<String, Integer> functionSet;
+    
     /** Set of variables, used to check they have an assigned value at the current translation state */
     private HashSet<String> variableSet;
     
     /** Stores the line number of the current statement. */
     private RGLErrorStack errorStack;
     
-    /** used to check correct use of returns */
+    /** used to check correct use of returns: -1 not needed // 0 needed // 1 needed and already found */
     private int returnCount = -1;
     
     /** Constructor of the interpreter */
@@ -54,7 +55,7 @@ public class Interp {
     /** Runs the program by calling the main function without parameters. */
     public void Run() {
         translation.addLine();
-        translateActions(tree.getChild(0));
+        translateDefinitions(tree.getChild(0));
         translation.addLine("void actions() {");
         translate(tree.getChild(1));
         translation.tab();
@@ -71,8 +72,8 @@ public class Interp {
         return childNumber;
     }
 
-    /** Translates the actions and fills the 'actionSet' set with their ids */
-    private void translateActions (RGLTree tree) {
+    /** Translates the definitions and fills the 'actionSet' set with their ids */
+    private void translateDefinitions (RGLTree tree) {
         //translate declarations
         for (int i = 0; i < getChildrenNumber(tree); ++i) {
             RGLTree definition = tree.getChild(i);
@@ -90,6 +91,8 @@ public class Interp {
                 defSet = functionSet;
                 declaration += "double ";
             }
+            
+            //check for duplicate definitions
             if (defSet.containsKey(defId) && defSet.get(defId) == n_args) {
                 int linenumber = definition.getLine();
                 errorStack.addError(linenumber, "duplicate definition name ("+defId+")");
@@ -100,6 +103,7 @@ public class Interp {
             for (int j = 0; j < n_args; ++j) {
                 if (j > 0) declaration += ", ";
                 String arg = argList.getChild(j).getText();
+                //check for duplicate argument names
                 if (variableSet.contains(arg)) {
                     int linenumber = argList.getChild(j).getLine();
                     errorStack.addError(linenumber, "duplicate variable name ("+arg+")");
@@ -129,21 +133,19 @@ public class Interp {
                 if (j > 0) header += ", ";
                 String arg = argList.getChild(j).getText();
                 header += "double rglv_" + arg;
-                variableSet.add(arg); //used to check that all used vars in the body have a value
+                variableSet.add(arg);   //arguments are visible inside the body of the function
             }
             header += ") {";
             translation.addLine(header);
             
-            if (definition.getType() == RGLLexer.FUNC)
-                returnCount = 0;
-                //checkForReturn(definition);
+            if (definition.getType() == RGLLexer.FUNC) returnCount = 0; //0 marks the need for a return
             translate(definition.getChild(2));  //body
             translation.addLine("}");
-            if (definition.getType() == RGLLexer.FUNC && returnCount == 0)
+            if (definition.getType() == RGLLexer.FUNC && returnCount == 0)  //no return found
                 errorStack.addError(definition.getLine(), "Missing return instruction at " +
                     "some branch of function " + definition.getChild(0).getText());
             returnCount = -1;
-            variableSet.clear();    //no visibility between functions
+            variableSet.clear();        //variables declared inside a definition aren't visible outside of it
             
             translation.addLine(""); 
         }          
@@ -155,8 +157,7 @@ public class Interp {
         switch (tree.getType()) {
         
             //////// FLOW CONTROL EXPRESSIONS /////////
-            case RGLLexer.EQUAL:    //assignation
-                //guardarla per comprovar que usos posteriors son correctes
+            case RGLLexer.EQUAL:
                 String id = tree.getChild(0).getText();
                 String ini = "";
                 if (!variableSet.contains(id)) ini += "double ";
@@ -278,9 +279,9 @@ public class Interp {
             case RGLLexer.FACE:
                 int angle = 0;
                 switch (tree.getChild(0).getType()) {
-                    case RGLLexer.EAST:     angle += 90; break;
-                    case RGLLexer.NORTH:    angle += 180; break;
-                    case RGLLexer.WEST:     angle += 270; break;
+                    case RGLLexer.EAST:     angle = 90; break;
+                    case RGLLexer.NORTH:    angle = 180; break;
+                    case RGLLexer.WEST:     angle = 270; break;
                     default: break;
                 }
                 translation.addLine("exec( action(ROTATE, " + angle + ") );");
@@ -314,7 +315,7 @@ public class Interp {
                 else ++returnCount;
                 translation.addLine("return " + translateExpression( tree.getChild(0) ) + ";");
                 break;
-            default:    System.out.println("Something went wrong ("+tree.getLine() +"): "+tree.getText());
+            default: System.out.println("Something went wrong (" + tree.getLine() + "): " + tree.getText());
         }
     }
     
@@ -357,8 +358,8 @@ public class Interp {
         if (type == RGLLexer.DETECT) {
             int angle = 0;
             switch (tree.getChild(0).getType()) {
-                case RGLLexer.RIGHT: angle -= 90;   break;
-                case RGLLexer.LEFT:  angle += 90;   break;
+                case RGLLexer.RIGHT: angle = -90;   break;
+                case RGLLexer.LEFT:  angle = 90;   break;
                 default: break;
             }
             return "detectDirection(" + angle + ")";

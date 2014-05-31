@@ -1,0 +1,434 @@
+digraph {
+
+	ordering=out;
+	ranksep=.4;
+	bgcolor="lightgrey"; node [shape=box, fixedsize=false, fontsize=12, fontname="Helvetica-bold", fontcolor="blue"
+		width=.25, height=.25, color="black", fillcolor="white", style="filled, solid, bold"];
+	edge [arrowsize=.5, color="black", style="bold"]
+
+  n0 [label="RGL"];
+  n1 [label="DEFINELIST"];
+  n1 [label="DEFINELIST"];
+  n2 [label="func"];
+  n2 [label="func"];
+  n3 [label="abs"];
+  n4 [label="ARGLIST"];
+  n4 [label="ARGLIST"];
+  n5 [label="x"];
+  n6 [label="INSTRLIST"];
+  n6 [label="INSTRLIST"];
+  n7 [label="if"];
+  n7 [label="if"];
+  n8 [label="<"];
+  n8 [label="<"];
+  n9 [label="x"];
+  n10 [label="0"];
+  n11 [label="INSTRLIST"];
+  n11 [label="INSTRLIST"];
+  n12 [label="return"];
+  n12 [label="return"];
+  n13 [label="-"];
+  n13 [label="-"];
+  n14 [label="x"];
+  n15 [label="INSTRLIST"];
+  n15 [label="INSTRLIST"];
+  n16 [label="return"];
+  n16 [label="return"];
+  n17 [label="x"];
+  n18 [label="func"];
+  n18 [label="func"];
+  n19 [label="distFrom"];
+  n20 [label="ARGLIST"];
+  n20 [label="ARGLIST"];
+  n21 [label="x"];
+  n22 [label="y"];
+  n23 [label="INSTRLIST"];
+  n23 [label="INSTRLIST"];
+  n24 [label="="];
+  n24 [label="="];
+  n25 [label="dx"];
+  n26 [label="GET"];
+  n26 [label="GET"];
+  n27 [label="abs"];
+  n28 [label="-"];
+  n28 [label="-"];
+  n29 [label="x"];
+  n30 [label="getPosX"];
+  n31 [label="="];
+  n31 [label="="];
+  n32 [label="dy"];
+  n33 [label="GET"];
+  n33 [label="GET"];
+  n34 [label="abs"];
+  n35 [label="-"];
+  n35 [label="-"];
+  n36 [label="y"];
+  n37 [label="getPosY"];
+  n38 [label="if"];
+  n38 [label="if"];
+  n39 [label=">"];
+  n39 [label=">"];
+  n40 [label="dx"];
+  n41 [label="dy"];
+  n42 [label="INSTRLIST"];
+  n42 [label="INSTRLIST"];
+  n43 [label="return"];
+  n43 [label="return"];
+  n44 [label="dx"];
+  n45 [label="INSTRLIST"];
+  n45 [label="INSTRLIST"];
+  n46 [label="return"];
+  n46 [label="return"];
+  n47 [label="dy"];
+  n48 [label="func"];
+  n48 [label="func"];
+  n49 [label="distBetween"];
+  n50 [label="ARGLIST"];
+  n50 [label="ARGLIST"];
+  n51 [label="x"];
+  n52 [label="y"];
+  n53 [label="a"];
+  n54 [label="b"];
+  n55 [label="INSTRLIST"];
+  n55 [label="INSTRLIST"];
+  n56 [label="="];
+  n56 [label="="];
+  n57 [label="dx"];
+  n58 [label="GET"];
+  n58 [label="GET"];
+  n59 [label="abs"];
+  n60 [label="-"];
+  n60 [label="-"];
+  n61 [label="x"];
+  n62 [label="a"];
+  n63 [label="="];
+  n63 [label="="];
+  n64 [label="dy"];
+  n65 [label="GET"];
+  n65 [label="GET"];
+  n66 [label="abs"];
+  n67 [label="-"];
+  n67 [label="-"];
+  n68 [label="y"];
+  n69 [label="b"];
+  n70 [label="if"];
+  n70 [label="if"];
+  n71 [label=">"];
+  n71 [label=">"];
+  n72 [label="dx"];
+  n73 [label="dy"];
+  n74 [label="INSTRLIST"];
+  n74 [label="INSTRLIST"];
+  n75 [label="return"];
+  n75 [label="return"];
+  n76 [label="dx"];
+  n77 [label="INSTRLIST"];
+  n77 [label="INSTRLIST"];
+  n78 [label="return"];
+  n78 [label="return"];
+  n79 [label="dy"];
+  n80 [label="action"];
+  n80 [label="action"];
+  n81 [label="goToStraight"];
+  n82 [label="ARGLIST"];
+  n82 [label="ARGLIST"];
+  n83 [label="x"];
+  n84 [label="y"];
+  n85 [label="INSTRLIST"];
+  n85 [label="INSTRLIST"];
+  n86 [label="="];
+  n86 [label="="];
+  n87 [label="d"];
+  n88 [label="GET"];
+  n88 [label="GET"];
+  n89 [label="distFrom"];
+  n90 [label="x"];
+  n91 [label=","];
+  n92 [label="y"];
+  n93 [label="face"];
+  n93 [label="face"];
+  n94 [label="east"];
+  n95 [label="if"];
+  n95 [label="if"];
+  n96 [label="and"];
+  n96 [label="and"];
+  n97 [label="not"];
+  n97 [label="not"];
+  n98 [label="detect"];
+  n98 [label="detect"];
+  n99 [label="front"];
+  n100 [label="<"];
+  n100 [label="<"];
+  n101 [label="GET"];
+  n101 [label="GET"];
+  n102 [label="distBetween"];
+  n103 [label="x"];
+  n104 [label=","];
+  n105 [label="y"];
+  n106 [label=","];
+  n107 [label="+"];
+  n107 [label="+"];
+  n108 [label="getPosX"];
+  n109 [label="1"];
+  n110 [label=","];
+  n111 [label="getPosY"];
+  n112 [label="d"];
+  n113 [label="INSTRLIST"];
+  n113 [label="INSTRLIST"];
+  n114 [label="face"];
+  n114 [label="face"];
+  n115 [label="east"];
+  n116 [label="moveForward"];
+  n116 [label="moveForward"];
+  n117 [label="1"];
+  n118 [label="action"];
+  n118 [label="action"];
+  n119 [label="bringBox"];
+  n120 [label="ARGLIST"];
+  n120 [label="ARGLIST"];
+  n121 [label="x"];
+  n122 [label="y"];
+  n123 [label="INSTRLIST"];
+  n123 [label="INSTRLIST"];
+  n124 [label="mark"];
+  n124 [label="mark"];
+  n125 [label="x"];
+  n126 [label="y"];
+  n127 [label="while"];
+  n127 [label="while"];
+  n128 [label=">"];
+  n128 [label=">"];
+  n129 [label="GET"];
+  n129 [label="GET"];
+  n130 [label="distFrom"];
+  n131 [label="x"];
+  n132 [label=","];
+  n133 [label="y"];
+  n134 [label="1"];
+  n135 [label="INSTRLIST"];
+  n135 [label="INSTRLIST"];
+  n136 [label="CALL"];
+  n136 [label="CALL"];
+  n137 [label="goToStraight"];
+  n138 [label="x"];
+  n139 [label=","];
+  n140 [label="y"];
+  n141 [label="CALL"];
+  n141 [label="CALL"];
+  n142 [label="faceToTheBox"];
+  n143 [label="getPosX"];
+  n144 [label=","];
+  n145 [label="getPosY"];
+  n146 [label="pickObject"];
+  n147 [label="while"];
+  n147 [label="while"];
+  n148 [label=">"];
+  n148 [label=">"];
+  n149 [label="GET"];
+  n149 [label="GET"];
+  n150 [label="distFrom"];
+  n151 [label="10"];
+  n152 [label=","];
+  n153 [label="10"];
+  n154 [label="2"];
+  n155 [label="INSTRLIST"];
+  n155 [label="INSTRLIST"];
+  n156 [label="CALL"];
+  n156 [label="CALL"];
+  n157 [label="goToStraight"];
+  n158 [label="x"];
+  n159 [label=","];
+  n160 [label="y"];
+  n161 [label="releaseObject"];
+  n162 [label="INSTRLIST"];
+  n162 [label="INSTRLIST"];
+  n163 [label="initMap"];
+  n163 [label="initMap"];
+  n164 [label="20"];
+  n165 [label="initRobot"];
+  n165 [label="initRobot"];
+  n166 [label="10"];
+  n167 [label="10"];
+  n168 [label="0"];
+  n169 [label="CALL"];
+  n169 [label="CALL"];
+  n170 [label="bringBox"];
+  n171 [label="18"];
+  n172 [label=","];
+  n173 [label="2"];
+
+  n0 -> n1 // "RGL" -> "DEFINELIST"
+  n1 -> n2 // "DEFINELIST" -> "func"
+  n2 -> n3 // "func" -> "abs"
+  n2 -> n4 // "func" -> "ARGLIST"
+  n4 -> n5 // "ARGLIST" -> "x"
+  n2 -> n6 // "func" -> "INSTRLIST"
+  n6 -> n7 // "INSTRLIST" -> "if"
+  n7 -> n8 // "if" -> "<"
+  n8 -> n9 // "<" -> "x"
+  n8 -> n10 // "<" -> "0"
+  n7 -> n11 // "if" -> "INSTRLIST"
+  n11 -> n12 // "INSTRLIST" -> "return"
+  n12 -> n13 // "return" -> "-"
+  n13 -> n14 // "-" -> "x"
+  n7 -> n15 // "if" -> "INSTRLIST"
+  n15 -> n16 // "INSTRLIST" -> "return"
+  n16 -> n17 // "return" -> "x"
+  n1 -> n18 // "DEFINELIST" -> "func"
+  n18 -> n19 // "func" -> "distFrom"
+  n18 -> n20 // "func" -> "ARGLIST"
+  n20 -> n21 // "ARGLIST" -> "x"
+  n20 -> n22 // "ARGLIST" -> "y"
+  n18 -> n23 // "func" -> "INSTRLIST"
+  n23 -> n24 // "INSTRLIST" -> "="
+  n24 -> n25 // "=" -> "dx"
+  n24 -> n26 // "=" -> "GET"
+  n26 -> n27 // "GET" -> "abs"
+  n26 -> n28 // "GET" -> "-"
+  n28 -> n29 // "-" -> "x"
+  n28 -> n30 // "-" -> "getPosX"
+  n23 -> n31 // "INSTRLIST" -> "="
+  n31 -> n32 // "=" -> "dy"
+  n31 -> n33 // "=" -> "GET"
+  n33 -> n34 // "GET" -> "abs"
+  n33 -> n35 // "GET" -> "-"
+  n35 -> n36 // "-" -> "y"
+  n35 -> n37 // "-" -> "getPosY"
+  n23 -> n38 // "INSTRLIST" -> "if"
+  n38 -> n39 // "if" -> ">"
+  n39 -> n40 // ">" -> "dx"
+  n39 -> n41 // ">" -> "dy"
+  n38 -> n42 // "if" -> "INSTRLIST"
+  n42 -> n43 // "INSTRLIST" -> "return"
+  n43 -> n44 // "return" -> "dx"
+  n38 -> n45 // "if" -> "INSTRLIST"
+  n45 -> n46 // "INSTRLIST" -> "return"
+  n46 -> n47 // "return" -> "dy"
+  n1 -> n48 // "DEFINELIST" -> "func"
+  n48 -> n49 // "func" -> "distBetween"
+  n48 -> n50 // "func" -> "ARGLIST"
+  n50 -> n51 // "ARGLIST" -> "x"
+  n50 -> n52 // "ARGLIST" -> "y"
+  n50 -> n53 // "ARGLIST" -> "a"
+  n50 -> n54 // "ARGLIST" -> "b"
+  n48 -> n55 // "func" -> "INSTRLIST"
+  n55 -> n56 // "INSTRLIST" -> "="
+  n56 -> n57 // "=" -> "dx"
+  n56 -> n58 // "=" -> "GET"
+  n58 -> n59 // "GET" -> "abs"
+  n58 -> n60 // "GET" -> "-"
+  n60 -> n61 // "-" -> "x"
+  n60 -> n62 // "-" -> "a"
+  n55 -> n63 // "INSTRLIST" -> "="
+  n63 -> n64 // "=" -> "dy"
+  n63 -> n65 // "=" -> "GET"
+  n65 -> n66 // "GET" -> "abs"
+  n65 -> n67 // "GET" -> "-"
+  n67 -> n68 // "-" -> "y"
+  n67 -> n69 // "-" -> "b"
+  n55 -> n70 // "INSTRLIST" -> "if"
+  n70 -> n71 // "if" -> ">"
+  n71 -> n72 // ">" -> "dx"
+  n71 -> n73 // ">" -> "dy"
+  n70 -> n74 // "if" -> "INSTRLIST"
+  n74 -> n75 // "INSTRLIST" -> "return"
+  n75 -> n76 // "return" -> "dx"
+  n70 -> n77 // "if" -> "INSTRLIST"
+  n77 -> n78 // "INSTRLIST" -> "return"
+  n78 -> n79 // "return" -> "dy"
+  n1 -> n80 // "DEFINELIST" -> "action"
+  n80 -> n81 // "action" -> "goToStraight"
+  n80 -> n82 // "action" -> "ARGLIST"
+  n82 -> n83 // "ARGLIST" -> "x"
+  n82 -> n84 // "ARGLIST" -> "y"
+  n80 -> n85 // "action" -> "INSTRLIST"
+  n85 -> n86 // "INSTRLIST" -> "="
+  n86 -> n87 // "=" -> "d"
+  n86 -> n88 // "=" -> "GET"
+  n88 -> n89 // "GET" -> "distFrom"
+  n88 -> n90 // "GET" -> "x"
+  n88 -> n91 // "GET" -> ","
+  n88 -> n92 // "GET" -> "y"
+  n85 -> n93 // "INSTRLIST" -> "face"
+  n93 -> n94 // "face" -> "east"
+  n85 -> n95 // "INSTRLIST" -> "if"
+  n95 -> n96 // "if" -> "and"
+  n96 -> n97 // "and" -> "not"
+  n97 -> n98 // "not" -> "detect"
+  n98 -> n99 // "detect" -> "front"
+  n96 -> n100 // "and" -> "<"
+  n100 -> n101 // "<" -> "GET"
+  n101 -> n102 // "GET" -> "distBetween"
+  n101 -> n103 // "GET" -> "x"
+  n101 -> n104 // "GET" -> ","
+  n101 -> n105 // "GET" -> "y"
+  n101 -> n106 // "GET" -> ","
+  n101 -> n107 // "GET" -> "+"
+  n107 -> n108 // "+" -> "getPosX"
+  n107 -> n109 // "+" -> "1"
+  n101 -> n110 // "GET" -> ","
+  n101 -> n111 // "GET" -> "getPosY"
+  n100 -> n112 // "<" -> "d"
+  n95 -> n113 // "if" -> "INSTRLIST"
+  n113 -> n114 // "INSTRLIST" -> "face"
+  n114 -> n115 // "face" -> "east"
+  n113 -> n116 // "INSTRLIST" -> "moveForward"
+  n116 -> n117 // "moveForward" -> "1"
+  n1 -> n118 // "DEFINELIST" -> "action"
+  n118 -> n119 // "action" -> "bringBox"
+  n118 -> n120 // "action" -> "ARGLIST"
+  n120 -> n121 // "ARGLIST" -> "x"
+  n120 -> n122 // "ARGLIST" -> "y"
+  n118 -> n123 // "action" -> "INSTRLIST"
+  n123 -> n124 // "INSTRLIST" -> "mark"
+  n124 -> n125 // "mark" -> "x"
+  n124 -> n126 // "mark" -> "y"
+  n123 -> n127 // "INSTRLIST" -> "while"
+  n127 -> n128 // "while" -> ">"
+  n128 -> n129 // ">" -> "GET"
+  n129 -> n130 // "GET" -> "distFrom"
+  n129 -> n131 // "GET" -> "x"
+  n129 -> n132 // "GET" -> ","
+  n129 -> n133 // "GET" -> "y"
+  n128 -> n134 // ">" -> "1"
+  n127 -> n135 // "while" -> "INSTRLIST"
+  n135 -> n136 // "INSTRLIST" -> "CALL"
+  n136 -> n137 // "CALL" -> "goToStraight"
+  n136 -> n138 // "CALL" -> "x"
+  n136 -> n139 // "CALL" -> ","
+  n136 -> n140 // "CALL" -> "y"
+  n123 -> n141 // "INSTRLIST" -> "CALL"
+  n141 -> n142 // "CALL" -> "faceToTheBox"
+  n141 -> n143 // "CALL" -> "getPosX"
+  n141 -> n144 // "CALL" -> ","
+  n141 -> n145 // "CALL" -> "getPosY"
+  n123 -> n146 // "INSTRLIST" -> "pickObject"
+  n123 -> n147 // "INSTRLIST" -> "while"
+  n147 -> n148 // "while" -> ">"
+  n148 -> n149 // ">" -> "GET"
+  n149 -> n150 // "GET" -> "distFrom"
+  n149 -> n151 // "GET" -> "10"
+  n149 -> n152 // "GET" -> ","
+  n149 -> n153 // "GET" -> "10"
+  n148 -> n154 // ">" -> "2"
+  n147 -> n155 // "while" -> "INSTRLIST"
+  n155 -> n156 // "INSTRLIST" -> "CALL"
+  n156 -> n157 // "CALL" -> "goToStraight"
+  n156 -> n158 // "CALL" -> "x"
+  n156 -> n159 // "CALL" -> ","
+  n156 -> n160 // "CALL" -> "y"
+  n123 -> n161 // "INSTRLIST" -> "releaseObject"
+  n0 -> n162 // "RGL" -> "INSTRLIST"
+  n162 -> n163 // "INSTRLIST" -> "initMap"
+  n163 -> n164 // "initMap" -> "20"
+  n162 -> n165 // "INSTRLIST" -> "initRobot"
+  n165 -> n166 // "initRobot" -> "10"
+  n165 -> n167 // "initRobot" -> "10"
+  n165 -> n168 // "initRobot" -> "0"
+  n162 -> n169 // "INSTRLIST" -> "CALL"
+  n169 -> n170 // "CALL" -> "bringBox"
+  n169 -> n171 // "CALL" -> "18"
+  n169 -> n172 // "CALL" -> ","
+  n169 -> n173 // "CALL" -> "2"
+
+}
