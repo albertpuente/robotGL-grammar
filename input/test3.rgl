@@ -1,0 +1,283 @@
+DEFINITIONS
+
+     action buildMap :
+        obstacle 0, 0
+        obstacle 1, 0
+        obstacle 2, 0
+        obstacle 3, 0
+        obstacle 4, 0
+        obstacle 5, 0
+        obstacle 6, 0
+        obstacle 7, 0
+        obstacle 8, 0
+        obstacle 9, 0
+        obstacle 10, 0
+        obstacle 11, 0
+        obstacle 12, 0
+        obstacle 13, 0
+        obstacle 14, 0
+        obstacle 15, 0
+        obstacle 16, 0
+        obstacle 17, 0
+        obstacle 18, 0
+        obstacle 0, 1        
+        obstacle 18, 1
+        obstacle 0, 2
+        obstacle 2, 2
+        obstacle 4, 2
+        obstacle 6, 2
+        obstacle 8, 2
+        obstacle 10, 2
+        obstacle 12, 2
+        obstacle 14, 2
+        obstacle 16, 2        
+        obstacle 18, 2
+        obstacle 0, 3
+        obstacle 18, 3
+        obstacle 0, 4
+        obstacle 2, 4
+        obstacle 5, 4
+        obstacle 7, 4
+        obstacle 9, 4
+        obstacle 11, 4
+        obstacle 13, 4
+        obstacle 16, 4
+        obstacle 18, 4
+        obstacle 0, 5
+        obstacle 18, 5
+        obstacle 0, 6
+        obstacle 2, 6
+        obstacle 4, 6
+        obstacle 8, 6
+        obstacle 10, 6
+        obstacle 12, 6
+        obstacle 16, 6
+        obstacle 18, 6
+        obstacle 0, 7
+        obstacle 6, 7
+        obstacle 14, 7
+        obstacle 18, 7
+        obstacle 0, 8
+        obstacle 2, 8
+        obstacle 4, 8
+        obstacle 12, 8
+        obstacle 16, 8
+        obstacle 18, 8
+        obstacle 0, 9
+        obstacle 14, 9
+        obstacle 18, 9
+        obstacle 0, 10
+        obstacle 2, 10
+        obstacle 6, 10
+        obstacle 12, 10
+        obstacle 16, 10
+        obstacle 18, 10
+        obstacle 0, 11
+        obstacle 4, 11
+        obstacle 14, 11
+        obstacle 18, 11
+        obstacle 0, 12
+        obstacle 2, 12
+        obstacle 6, 12
+        obstacle 8, 12
+        obstacle 10, 12
+        obstacle 12, 12
+        obstacle 16, 12
+        obstacle 18, 12
+        obstacle 0, 13
+        obstacle 14, 13
+        obstacle 18, 13
+        obstacle 0, 14
+        obstacle 2, 14
+        obstacle 5, 14
+        obstacle 7, 14
+        obstacle 9, 14
+        obstacle 11, 14
+        obstacle 16, 14
+        obstacle 18, 14
+        obstacle 0, 15       
+        obstacle 18, 15
+        obstacle 0, 16
+        obstacle 2, 16
+        obstacle 4, 16
+        obstacle 6, 16
+        obstacle 8, 16
+        obstacle 10, 16
+        obstacle 12, 16
+        obstacle 14, 16
+        obstacle 16, 16
+        obstacle 18, 16
+        obstacle 0, 17        
+        obstacle 18, 17
+        obstacle 0, 18
+        obstacle 1, 18
+        obstacle 2, 18
+        obstacle 3, 18
+        obstacle 4, 18
+        obstacle 5, 18
+        obstacle 6, 18
+        obstacle 7, 18
+        obstacle 8, 18
+        obstacle 9, 18
+        obstacle 10, 18
+        obstacle 11, 18
+        obstacle 12, 18
+        obstacle 13, 18
+        obstacle 14, 18
+        obstacle 15, 18
+        obstacle 16, 18
+        obstacle 17, 18
+        obstacle 18, 18
+    endaction
+    
+    func abs x :
+        if x < 0 then return -x else return x endif
+    endfunc
+    
+    func distFrom x, y :
+        dx = abs (x - getPosX)
+        dy = abs (y - getPosY)
+        return dx + dy
+    endfunc
+    
+    func distBetween x, y, a, b :
+        dx = abs (x - a)
+        dy = abs (y - b)
+        return dx + dy
+    endfunc
+    
+    func goToStraight x, y, dir :
+        d = distFrom (x, y)
+        if dir == 0 then // east        
+            if not detect front and distBetween (x, y, getPosX+1, getPosY) < d then
+                // nothing
+            else
+                if not detect right and distBetween (x, y, getPosX, getPosY+1) < d then
+                    face south 
+                    dir = 1
+                else 
+                    if not detect left and distBetween (x, y, getPosX, getPosY-1) < d then
+                        face north 
+                        dir = 3
+                    else
+                        if not detect right and distBetween (x, y, getPosX, getPosY+1) <= distBetween (x, y, getPosX, getPosY-1) then 
+                            face south 
+                            dir = 1
+                        else 
+                            if not detect left then 
+                                face north 
+                                dir = 3 
+                            endif
+                        endif
+                    endif
+                endif
+            endif            
+        else if dir == 1 then // south
+            if not detect front and distBetween (x, y, getPosX, getPosY+1) < d then
+                // nothing
+            else
+                if not detect right and distBetween (x, y, getPosX-1, getPosY) < d then
+                    face west 
+                    dir = 2
+                else 
+                    if not detect left and distBetween (x, y, getPosX+1, getPosY) < d then
+                        face east 
+                        dir = 0
+                    else 
+                        if not detect right and distBetween (x, y, getPosX-1, getPosY) <= distBetween (x, y, getPosX+1, getPosY) then 
+                            face west 
+                            dir = 2
+                        else 
+                            if not detect left then 
+                                face east 
+                                dir = 0 
+                            endif
+                        endif
+                    endif
+                endif
+            endif        
+        else if dir == 2 then // west
+            if not detect front and distBetween (x, y, getPosX-1, getPosY) < d then
+                // nothing
+            else
+                if not detect right and distBetween (x, y, getPosX, getPosY-1) < d then
+                    face north 
+                    dir = 3
+                else 
+                    if not detect left and distBetween (x, y, getPosX, getPosY+1) < d then
+                        face south 
+                        dir = 1
+                    else 
+                        if not detect right and distBetween (x, y, getPosX, getPosY-1) <= distBetween (x, y, getPosX, getPosY+1) then 
+                            face north 
+                            dir = 3
+                        else 
+                            if not detect left then 
+                                face south 
+                                dir = 1 
+                            endif
+                        endif
+                    endif
+                endif
+            endif        
+        else if dir == 3 then // north
+            if not detect front and distBetween (x, y, getPosX, getPosY-1) < d then
+                // nothing
+            else
+                if not detect right and distBetween (x, y, getPosX+1, getPosY) < d then
+                    face east 
+                    dir = 0
+                else 
+                    if not detect left and distBetween (x, y, getPosX-1, getPosY) < d then
+                        face west 
+                        dir = 2
+                    else 
+                        if not detect right and distBetween (x, y, getPosX+1, getPosY) <= distBetween (x, y, getPosX-1, getPosY) then 
+                            face east 
+                            dir = 0
+                        else 
+                            if not detect left then 
+                                face west 
+                                dir = 2 
+                            endif
+                        endif
+                    endif
+                endif
+            endif        
+        endif
+        endif
+        endif
+        endif
+        moveForward 1
+        return dir
+    endfunc
+    
+    func bringBox x, y, dir:
+        mark x, y        
+        while distFrom (x, y) > 1 do 
+            dir = goToStraight (x, y, dir) 
+        wend       
+        pickObject        
+        while distFrom (9, 9) > 2 do 
+            dir = goToStraight (9, 9, dir) 
+        wend        
+        releaseObject
+        return dir
+    endfunc 
+    
+ENDDEFINITIONS
+
+BEGIN
+    initMap 19
+    initRobot 10, 10, 90
+    buildMap ()      
+    dir = 0 // east, south, west, north    
+    box 2, 1 
+    box 17, 2 
+    box 14, 15 
+    box 4, 17
+    dir = bringBox (17, 2, dir)    
+    dir = bringBox (14, 15, dir)    
+    dir = bringBox (2, 1, dir)
+    dir = bringBox (4, 17, dir)
+END

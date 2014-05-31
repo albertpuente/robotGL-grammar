@@ -1,0 +1,35 @@
+DEFINITIONS
+    action arbre x :
+        if x < 0.5 then
+            moveForward x
+            rotate 180
+            moveForward x
+            rotate 180 
+        else 
+            moveForward x/3
+            rotate 30 
+            arbre (x*2/3)
+            rotate -30
+            moveForward x/6
+            rotate -25 
+            arbre (x/2)
+            rotate 25
+            moveForward x/3
+            rotate -25
+            arbre (x/2)
+            rotate 25
+            moveForward x/6
+            rotate 180
+            moveForward x
+            rotate 180
+        endif
+    endaction
+
+ENDDEFINITIONS
+
+BEGIN
+    initMap 11
+    initRobot 5, 10, 180
+    trail on
+    arbre (7)  
+END

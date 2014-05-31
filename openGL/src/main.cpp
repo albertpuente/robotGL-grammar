@@ -703,6 +703,13 @@ void updateTimer(int v) {
 
 void actions(); // Permèt afegir la funció al final de l'arxiu
 
+// Algorismes 
+
+void goTo(double destX, double destZ) {
+    
+}
+
+//
     
 int main(int argc, const char * argv[]) {
     glutInit(&argc, (char **) argv);
@@ -746,3 +753,39 @@ int main(int argc, const char * argv[]) {
 }
 
 // Accions: traduccio de robotGL a c++
+void rglf_arbre(double rglv_x);
+
+void rglf_arbre(double rglv_x) {
+    if (rglv_x < 0.5) {
+        exec( action(MOVE_FORWARD, rglv_x) );
+        exec( action(ROTATE, angleActual() + 180) );
+        exec( action(MOVE_FORWARD, rglv_x) );
+        exec( action(ROTATE, angleActual() + 180) );
+    }
+    else {
+        exec( action(MOVE_FORWARD, rglv_x / 3) );
+        exec( action(ROTATE, angleActual() + 30) );
+        rglf_arbre(rglv_x * 2 / 3);
+        exec( action(ROTATE, angleActual() + - 30) );
+        exec( action(MOVE_FORWARD, rglv_x / 6) );
+        exec( action(ROTATE, angleActual() + - 25) );
+        rglf_arbre(rglv_x / 2);
+        exec( action(ROTATE, angleActual() + 25) );
+        exec( action(MOVE_FORWARD, rglv_x / 3) );
+        exec( action(ROTATE, angleActual() + - 25) );
+        rglf_arbre(rglv_x / 2);
+        exec( action(ROTATE, angleActual() + 25) );
+        exec( action(MOVE_FORWARD, rglv_x / 6) );
+        exec( action(ROTATE, angleActual() + 180) );
+        exec( action(MOVE_FORWARD, rglv_x) );
+        exec( action(ROTATE, angleActual() + 180) );
+    }
+}
+
+void actions() {
+    SIZE = 11;
+    R = robot(5, 10, 180);
+    exec( action(TRAIL, true) );
+    rglf_arbre(7);
+    finish = true;
+}
