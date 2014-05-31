@@ -6,6 +6,7 @@ BEGIN
     moveTo 5, 5
     trail on
     for i from 0 to 9 step 1 do 
+        mark 9, (9-i)
         moveTo 1,i
         face west
         pickObject

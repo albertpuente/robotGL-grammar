@@ -1,0 +1,4 @@
+BEGIN
+    initMap 5
+    initRobot 2, 2, 0
+END
