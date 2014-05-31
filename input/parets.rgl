@@ -1,0 +1,43 @@
+DEFINITIONS
+
+    action buildMap :
+        obstacle 0, 0
+        obstacle 1, 0
+        obstacle 2, 0
+        obstacle 3, 0
+        obstacle 4, 0
+        obstacle 5, 0
+        obstacle 6, 0
+        obstacle 0, 1
+        obstacle 6, 1
+        obstacle 0, 2
+        obstacle 6, 2
+        obstacle 0, 3
+        obstacle 3, 3
+        obstacle 6, 3
+        obstacle 0, 4
+        obstacle 6, 4
+        obstacle 0, 5
+        obstacle 6, 5
+        obstacle 0, 6
+        obstacle 1, 6
+        obstacle 2, 6
+        obstacle 3, 6
+        obstacle 4, 6
+        obstacle 5, 6
+        obstacle 6, 6
+    endaction
+
+ENDDEFINITIONS
+
+BEGIN
+
+    initMap 7
+    initRobot 1, 1, 0
+    buildMap ()
+    trail on
+    while true do
+        moveForward 2
+        rotate 30
+    wend
+END
