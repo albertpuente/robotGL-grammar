@@ -1,37 +1,122 @@
 
-void rglf_arbre(double rglv_x);
+void rglf_buildMap();
+void rglf_colocarCaixes();
+void rglf_transport(double rglv_n);
+void rglf_canviCarril();
 
-void rglf_arbre(double rglv_x) {
-    if (rglv_x < 0.5) {
-        exec( action(MOVE_FORWARD, rglv_x) );
-        exec( action(ROTATE, angleActual() + 180) );
-        exec( action(MOVE_FORWARD, rglv_x) );
-        exec( action(ROTATE, angleActual() + 180) );
-    }
-    else {
-        exec( action(MOVE_FORWARD, rglv_x / 3) );
-        exec( action(ROTATE, angleActual() + 30) );
-        rglf_arbre(rglv_x * 2 / 3);
-        exec( action(ROTATE, angleActual() + - 30) );
-        exec( action(MOVE_FORWARD, rglv_x / 6) );
-        exec( action(ROTATE, angleActual() + - 25) );
-        rglf_arbre(rglv_x / 2);
-        exec( action(ROTATE, angleActual() + 25) );
-        exec( action(MOVE_FORWARD, rglv_x / 3) );
-        exec( action(ROTATE, angleActual() + - 25) );
-        rglf_arbre(rglv_x / 2);
-        exec( action(ROTATE, angleActual() + 25) );
-        exec( action(MOVE_FORWARD, rglv_x / 6) );
-        exec( action(ROTATE, angleActual() + 180) );
-        exec( action(MOVE_FORWARD, rglv_x) );
-        exec( action(ROTATE, angleActual() + 180) );
+void rglf_buildMap() {
+    exec( action(OBSTACLE, 0, 0) );
+    exec( action(OBSTACLE, 1, 0) );
+    exec( action(OBSTACLE, 2, 0) );
+    exec( action(OBSTACLE, 3, 0) );
+    exec( action(OBSTACLE, 4, 0) );
+    exec( action(OBSTACLE, 5, 0) );
+    exec( action(OBSTACLE, 6, 0) );
+    exec( action(OBSTACLE, 7, 0) );
+    exec( action(OBSTACLE, 8, 0) );
+    exec( action(OBSTACLE, 0, 1) );
+    exec( action(OBSTACLE, 2, 1) );
+    exec( action(OBSTACLE, 4, 1) );
+    exec( action(OBSTACLE, 6, 1) );
+    exec( action(OBSTACLE, 7, 1) );
+    exec( action(OBSTACLE, 8, 1) );
+    exec( action(OBSTACLE, 0, 2) );
+    exec( action(OBSTACLE, 8, 2) );
+    exec( action(OBSTACLE, 0, 3) );
+    exec( action(OBSTACLE, 2, 3) );
+    exec( action(OBSTACLE, 4, 3) );
+    exec( action(OBSTACLE, 6, 3) );
+    exec( action(OBSTACLE, 8, 3) );
+    exec( action(OBSTACLE, 0, 4) );
+    exec( action(OBSTACLE, 1, 4) );
+    exec( action(OBSTACLE, 2, 4) );
+    exec( action(OBSTACLE, 3, 4) );
+    exec( action(OBSTACLE, 4, 4) );
+    exec( action(OBSTACLE, 5, 4) );
+    exec( action(OBSTACLE, 6, 4) );
+    exec( action(OBSTACLE, 8, 4) );
+    exec( action(OBSTACLE, 0, 5) );
+    exec( action(OBSTACLE, 2, 5) );
+    exec( action(OBSTACLE, 4, 5) );
+    exec( action(OBSTACLE, 6, 5) );
+    exec( action(OBSTACLE, 8, 5) );
+    exec( action(OBSTACLE, 0, 6) );
+    exec( action(OBSTACLE, 8, 6) );
+    exec( action(OBSTACLE, 0, 7) );
+    exec( action(OBSTACLE, 2, 7) );
+    exec( action(OBSTACLE, 4, 7) );
+    exec( action(OBSTACLE, 6, 7) );
+    exec( action(OBSTACLE, 7, 7) );
+    exec( action(OBSTACLE, 8, 7) );
+    exec( action(OBSTACLE, 0, 8) );
+    exec( action(OBSTACLE, 1, 8) );
+    exec( action(OBSTACLE, 2, 8) );
+    exec( action(OBSTACLE, 3, 8) );
+    exec( action(OBSTACLE, 4, 8) );
+    exec( action(OBSTACLE, 5, 8) );
+    exec( action(OBSTACLE, 6, 8) );
+    exec( action(OBSTACLE, 7, 8) );
+    exec( action(OBSTACLE, 8, 8) );
+}
+
+void rglf_colocarCaixes() {
+    exec( action(BOX, 1, 3) );
+    exec( action(BOX, 3, 3) );
+    exec( action(BOX, 5, 3) );
+    exec( action(BOX, 1, 5) );
+    exec( action(BOX, 3, 5) );
+    exec( action(BOX, 5, 5) );
+}
+
+void rglf_transport(double rglv_n) {
+    for (double rglv_i = 0; rglv_i <= rglv_n - 1; rglv_i += 1.0) {
+        if (detectDirection(90)) {
+            exec( action(ROTATE, angleActual() + 90) );
+            exec( action(PICK_OBJECT) );
+            exec( action(ROTATE, angleActual() + - 180) );
+            exec( action(RELEASE_OBJECT) );
+            exec( action(ROTATE, angleActual() + 90) );
+        }
+        else {
+            exec( action(ROTATE, angleActual() + - 90) );
+            exec( action(PICK_OBJECT) );
+            exec( action(ROTATE, angleActual() + 180) );
+            exec( action(RELEASE_OBJECT) );
+            exec( action(ROTATE, angleActual() + - 90) );
+        }
+        if (not detectDirection(0)) {
+            exec( action(MOVE_FORWARD, 2) );
+        }
     }
 }
 
+void rglf_canviCarril() {
+    if (detectDirection(90)) {
+        exec( action(ROTATE, angleActual() + - 90) );
+    }
+    else {
+        exec( action(ROTATE, angleActual() + 90) );
+    }
+    exec( action(MOVE_FORWARD, 4) );
+    if (detectDirection(90)) {
+        exec( action(ROTATE, angleActual() + - 90) );
+    }
+    else {
+        exec( action(ROTATE, angleActual() + 90) );
+    }
+    exec( action(MOVE_FORWARD, 2) );
+}
+
 void actions() {
-    SIZE = 11;
-    R = robot(5, 10, 180);
-    exec( action(TRAIL, true) );
-    rglf_arbre(7);
+    SIZE = 9;
+    R = robot(1, 2, 90);
+    rglf_buildMap();
+    rglf_colocarCaixes();
+    while (true) {
+        rglf_transport(3);
+        rglf_canviCarril();
+        rglf_transport(3);
+        exec( action(ROTATE, angleActual() + 180) );
+    }
     finish = true;
 }

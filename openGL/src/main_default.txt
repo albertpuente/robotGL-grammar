@@ -429,7 +429,7 @@ void loadBox() {
         double x2 = caixes[i].x;
         double z2 = caixes[i].z;
         double distancia = sqrt(pow(diff(x1,x2),2)+pow(diff(z1,z2),2));
-        if (distancia <= 1) {
+        if (distancia <= 1.1) {
             found = true;
             caixes[i].p += LOAD_SPEED;
         }
